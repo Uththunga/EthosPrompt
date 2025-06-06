@@ -35,7 +35,7 @@ const Header: React.FC = () => {
             <Link to="/" className="flex items-center group relative">
               <div className="absolute inset-0 bg-purple-500/20 blur-xl rounded-full animate-pulse"></div>
               <img 
-                src="/WhatsApp Image 2025-06-03 at 13.03.32_eb705350.png" 
+                src="/EthosPrompt/WhatsApp Image 2025-06-03 at 13.03.32_eb705350.png" 
                 alt="EthosPrompt Logo" 
                 className="h-5 md:h-7 transition-all duration-300 hover:scale-105 hover:brightness-125 hover:drop-shadow-[0_0_25px_rgba(168,85,247,0.5)] filter drop-shadow-[0_0_15px_rgba(168,85,247,0.4)] relative z-10"
               />
@@ -47,6 +47,7 @@ const Header: React.FC = () => {
             {[
               { path: '/', label: 'Home' },
               { path: '/prompt-engineering-guide', label: 'Engineering Guide' },
+              { path: '/resources', label: 'Resources' },
             ].map((item) => (
               <Link
                 key={item.path}
@@ -108,6 +109,7 @@ const Header: React.FC = () => {
               {[
                 { path: '/', label: 'Home' },
                 { path: '/prompt-engineering-guide', label: 'Engineering Guide' },
+                { path: '/resources', label: 'Resources' },
               ].map((item) => (
                 <Link
                   key={item.path}

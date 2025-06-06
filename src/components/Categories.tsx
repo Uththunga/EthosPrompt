@@ -89,7 +89,10 @@ const CategoriesSection: React.FC = () => {
             return (
               <button
                 key={category.id}
-                onClick={() => navigate(`/categories/${category.id}`)}
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  navigate(`/categories/${category.id}`);
+                }}
                 className="relative w-full p-6 rounded-lg text-left transition-all duration-300 overflow-hidden border border-gray-700/50 hover:border-purple-500/50 bg-gray-800/30 backdrop-blur-sm hover:bg-gray-800/50 group"
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${category.bgGradient} opacity-20 group-hover:opacity-30 transition-opacity`} />

@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-PromptCraft is a specialized marketplace platform that provides industry-specific AI prompts for professionals and businesses. With a collection of 284+ curated prompts across 8 major industries, we aim to streamline and optimize the use of AI technology in professional workflows.
+EthosPrompt is a specialized marketplace platformthat provides industry-specific AI prompts for professionals and businesses. With a collection of 284+ curated prompts across 8 major industries, we aim to streamline and optimize the use of AI technology in professional workflows.
 
 ## Market Opportunity
 

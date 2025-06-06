@@ -1,9 +1,19 @@
 {
   "name": "ethosprompt",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Professional AI Prompt Marketplace for Businesses",
   "type": "module",
-  "homepage": "https://uththunga.github.io/EthosPrompt/",
+  "homepage": "https://ethosprompt.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EthosPrompt/ethosprompt.git"
+  },
+  "author": "EthosPrompt Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EthosPrompt/ethosprompt/issues"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",

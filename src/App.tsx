@@ -1,4 +1,4 @@
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './components/ThemeProvider';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -40,7 +40,7 @@ const HomePage = () => (
       <StatsCounter />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-900/30 to-transparent pointer-events-none" />
     </div>
-    <div className="relative pt-16">
+    <div className="relative">
       <ResourcesSection />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-900/30 to-transparent pointer-events-none" />
     </div>
@@ -51,7 +51,7 @@ const HomePage = () => (
 function App() {
   return (
     <ThemeProvider>
-      <Router>
+      <Router basename="/EthosPrompt">
         <div className="min-h-screen bg-gray-900 text-white">
           <Header />
           <Routes>

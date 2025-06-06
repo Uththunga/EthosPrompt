@@ -2,8 +2,7 @@ import React from 'react';
 import { Card } from './ui/Card';
 
 const ExplanationSection: React.FC = () => {
-  const explanations = [
-    {
+  const explanations = [    {
       title: "What is AI Prompting?",
       icon: "💬",
       description: "Think of prompting as having a conversation with AI. The better you ask, the better answers you get. We provide you with pre-written, tested instructions that work every time.",

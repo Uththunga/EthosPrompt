@@ -3,11 +3,11 @@ import { Card } from '../components/ui/Card';
 
 const PromptEngineeringGuide: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-900 pt-24 pb-16">
+    <div className="relative min-h-screen pt-24 pb-16">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="max-w-4xl mx-auto mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+        <div className="max-w-4xl mx-auto mb-16 relative z-10">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent">
             The Art of{' '}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-indigo-400">
               Prompt Engineering
@@ -19,7 +19,7 @@ const PromptEngineeringGuide: React.FC = () => {
         </div>
 
         {/* Main Content */}
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto relative z-10">
           {/* Introduction */}
           <div className="prose prose-invert max-w-none mb-16">
             <p className="text-lg text-gray-300">
@@ -31,18 +31,18 @@ const PromptEngineeringGuide: React.FC = () => {
 
           {/* Purpose & Audience Section */}
           <section className="mb-16">
-            <h2 className="text-2xl font-bold text-white mb-8 flex items-center">
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-8 flex items-center">
               <span className="text-2xl mr-3">🔧</span> Purpose & Audience
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
-              <Card className="bg-gray-800/50 border-gray-700">
+              <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 hover:border-purple-500/50 transition-colors">
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold text-white mb-4">Engineered Prompting</h3>
+                  <h3 className="text-xl font-semibold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-4">Engineered Prompting</h3>
                   <ul className="space-y-3 text-gray-300">
                     <li>• Purpose: To instruct an AI to generate specific, optimized output</li>
                     <li>• Audience: An AI language model (machine)</li>
                   </ul>
-                  <div className="mt-4 p-4 bg-gray-900/50 rounded-lg">
+                  <div className="mt-4 p-4 bg-gray-900/50 rounded-lg border border-gray-800/50">
                     <p className="text-sm text-purple-400 mb-2">Example:</p>
                     <p className="text-gray-400">
                       "You are a resume expert. Rewrite this resume to be ATS-friendly and focused on marketing roles."
@@ -50,14 +50,14 @@ const PromptEngineeringGuide: React.FC = () => {
                   </div>
                 </div>
               </Card>
-              <Card className="bg-gray-800/50 border-gray-700">
+              <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 hover:border-purple-500/50 transition-colors">
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold text-white mb-4">Normal Writing</h3>
+                  <h3 className="text-xl font-semibold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-4">Normal Writing</h3>
                   <ul className="space-y-3 text-gray-300">
                     <li>• Purpose: To communicate an idea to a human</li>
                     <li>• Audience: A human reader</li>
                   </ul>
-                  <div className="mt-4 p-4 bg-gray-900/50 rounded-lg">
+                  <div className="mt-4 p-4 bg-gray-900/50 rounded-lg border border-gray-800/50">
                     <p className="text-sm text-purple-400 mb-2">Example:</p>
                     <p className="text-gray-400">
                       "Hey Jane, here's the new version of my resume. Let me know what you think."
@@ -70,14 +70,14 @@ const PromptEngineeringGuide: React.FC = () => {
 
           {/* Structure & Components Section */}
           <section className="mb-16">
-            <h2 className="text-2xl font-bold text-white mb-8 flex items-center">
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-8 flex items-center">
               <span className="text-2xl mr-3">⚙️</span> Structure & Components
             </h2>
-            <Card className="bg-gray-800/50 border-gray-700">
+            <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 hover:border-purple-500/50 transition-colors">
               <div className="p-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-4">Components of Engineered Prompts</h3>
+                    <h3 className="text-xl font-semibold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-4">Components of Engineered Prompts</h3>
                     <ul className="space-y-3 text-gray-300">
                       <li>• Uses explicit roles and instructions</li>
                       <li>• Clearly defined inputs and variables</li>
@@ -85,7 +85,7 @@ const PromptEngineeringGuide: React.FC = () => {
                       <li>• Detailed constraints</li>
                     </ul>
                   </div>
-                  <div className="bg-gray-900/50 p-4 rounded-lg">
+                  <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-800/50">
                     <p className="text-sm text-purple-400 mb-2">Example Structure:</p>
                     <pre className="text-gray-400 whitespace-pre-wrap text-sm">
 {`[ROLE]: You are a professional LinkedIn strategist.
@@ -256,6 +256,8 @@ const PromptEngineeringGuide: React.FC = () => {
           </section>
         </div>
       </div>
+      {/* Background gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-gray-900/95 to-gray-900 pointer-events-none" />
     </div>
   );
 };

@@ -53,9 +53,9 @@ const SubcategoryCard: React.FC<SubcategoryCardProps> = ({
         <div className="flex justify-between items-center">
           <Button
             variant="outline"
-            className="group"
-            onClick={() => {
-              // Navigate to subcategory
+            className="group"            onClick={() => {
+              // Navigate to subcategory and scroll to top
+              window.scrollTo(0, 0);
               window.location.href = `/categories/${categoryId}/${id}`;
             }}
           >

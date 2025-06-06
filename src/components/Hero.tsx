@@ -11,9 +11,9 @@ const Hero: React.FC = () => {
       {/* Background Image */}
       <div className="absolute inset-0">
         <img 
-          src="/bg.jpg" 
+          src="/EthosPrompt/bg.jpg" 
           alt="" 
-          className="w-full h-full object-cover opacity-50" 
+          className="w-full h-full object-cover opacity-60" 
         />
       </div>
       

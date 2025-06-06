@@ -107,9 +107,11 @@ const CategoriesOverview: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="flex justify-between items-center">
-                  <Button
-                    onClick={() => navigate(`/categories/${category.id}`)}
+                <div className="flex justify-between items-center">                  <Button
+                    onClick={() => {
+                      window.scrollTo(0, 0);
+                      navigate(`/categories/${category.id}`);
+                    }}
                     className="group hover:bg-purple-500"
                   >
                     Explore Prompts
