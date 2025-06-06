@@ -1,7 +1,7 @@
 # EthosPrompt - Professional AI Prompt Marketplace
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Uththunga/EthosPrompt/main/public/WhatsApp%20Image%202025-06-03%20at%2013.03.32_eb705350.png" alt="EthosPrompt Logo" width="200"/>
+  <img src="public/icon.png" alt="EthosPrompt Logo" width="200"/>
   <br/>
   
   [![Website](https://img.shields.io/badge/Website-EthosPrompt-purple.svg)](https://ethosprompt.com)
@@ -14,7 +14,7 @@
 ## 📸 Screenshots
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Uththunga/EthosPrompt/main/public/bg.jpg" alt="EthosPrompt Platform" width="600"/>
+  <img src="public/bg.jpg" alt="EthosPrompt Platform" width="600"/>
   <p><em>EthosPrompt - Professional AI Prompt Marketplace Interface</em></p>
 </div>
 

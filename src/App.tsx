@@ -12,6 +12,8 @@ import CategoryLayout from './components/layouts/CategoryLayout';
 
 // Pages
 import PromptEngineeringGuide from './pages/PromptEngineeringGuide';
+import PromptEngineeringBasics from './pages/prompt-engineering/Basics';
+import PromptEngineeringTechniques from './pages/prompt-engineering/Techniques';
 import Resources from './pages/Resources';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
@@ -27,6 +29,7 @@ import LegalServices from './pages/categories/LegalServices';
 import HRRecruitment from './pages/categories/HRRecruitment';
 import Healthcare from './pages/categories/Healthcare';
 import DataScience from './pages/categories/DataScience';
+import PromptExamples from './pages/prompt-examples';
 
 const HomePage = () => (
   <main className="space-y-16 md:space-y-24">
@@ -57,6 +60,9 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/prompt-engineering-guide" element={<PromptEngineeringGuide />} />
+            <Route path="/prompt-engineering-guide/basics" element={<PromptEngineeringBasics />} />
+            <Route path="/prompt-engineering-guide/techniques" element={<PromptEngineeringTechniques />} />
+            <Route path="/prompt-engineering-guide/examples" element={<PromptExamples />} />
             <Route path="/resources" element={<Resources />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
@@ -73,6 +79,7 @@ function App() {
               <Route path="hr" element={<HRRecruitment />} />
               <Route path="healthcare" element={<Healthcare />} />
               <Route path="data-science" element={<DataScience />} />
+              <Route path="prompt-examples" element={<PromptExamples />} />
             </Route>
           </Routes>
           <Footer />

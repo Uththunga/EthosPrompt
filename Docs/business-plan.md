@@ -1,8 +1,12 @@
 # AI Prompt Marketplace - Business Plan
 
 ## Executive Summary
-
-EthosPrompt is a specialized marketplace platformthat provides industry-specific AI prompts for professionals and businesses. With a collection of 284+ curated prompts across 8 major industries, we aim to streamline and optimize the use of AI technology in professional workflows.
+Purpose of the Project:
+EthosPrompt is a marketplace that provides industry-specific AI prompts for professionals and businesses
+It aims to help professionals effectively leverage AI in their work by providing curated, engineered prompts
+The platform contains 284+ professionally crafted prompts across 8 major industry categories
+Target audience includes business professionals, content creators, educational institutions, healthcare providers, legal professionals, HR departments, software development teams, and data science teams
+EthosPrompt is a specialized marketplace platform that provides industry-specific AI prompts for professionals and businesses. With a collection of 284+ curated prompts across 8 major industries, we aim to streamline and optimize the use of AI technology in professional workflows.
 
 ## Market Opportunity
 
@@ -23,9 +27,10 @@ EthosPrompt is a specialized marketplace platformthat provides industry-specific
 - Data science teams
 
 ### Market Size
-- Global AI software market: $150B+ (2025)
-- Target serviceable market: $5B
-- Initial target market share: 2%
+- Global AI software market: $200B+ (2025, current)
+- Target serviceable market: $8B
+- Initial target market share: 3%
+- Current market penetration: 1.2%
 
 ## Product Overview
 

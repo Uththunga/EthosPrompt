@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
@@ -29,6 +29,10 @@ interface Category {
 const CategoriesOverview: React.FC = () => {
   const navigate = useNavigate();
   const { searchQuery, handleSearch, filteredCategories, totalResults } = useSearchCategories();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="pb-16">

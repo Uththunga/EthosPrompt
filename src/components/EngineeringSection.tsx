@@ -106,8 +106,10 @@ const EngineeringSection: React.FC = () => {
           <div className="mt-16 text-center max-w-2xl mx-auto">
           <p className="text-gray-300 mb-6">
             Want to master the art of prompt engineering? Our comprehensive guide will teach you how to craft perfect prompts for any AI task.
-          </p>
-          <Link to="/prompt-engineering-guide">
+          </p>          <Link 
+            to="/prompt-engineering-guide" 
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
             <Button size="lg" className="group">
               Learn More About Prompt Engineering
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
