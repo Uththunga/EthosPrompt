@@ -32,6 +32,13 @@ import DataScience from './pages/categories/DataScience';
 import SubcategoryDetail from './pages/categories/SubcategoryDetail';
 import PromptExamples from './pages/prompt-engineering/prompt-examples';
 
+// Resource Pages
+import GettingStarted from './pages/resources/GettingStarted';
+import Documentation from './pages/resources/Documentation';
+import FAQ from './pages/resources/FAQ.new';
+import Tutorials from './pages/resources/Tutorials';
+import Blog from './pages/resources/Blog';
+
 const HomePage = () => (
   <main className="space-y-16 md:space-y-24">
     <Hero />
@@ -65,6 +72,11 @@ function App() {
             <Route path="/prompt-engineering-guide/techniques" element={<PromptEngineeringTechniques />} />
             <Route path="/prompt-engineering-guide/examples" element={<PromptExamples />} />
             <Route path="/resources" element={<Resources />} />
+            <Route path="/resources/getting-started" element={<GettingStarted />} />
+            <Route path="/resources/documentation" element={<Documentation />} />
+            <Route path="/resources/faq" element={<FAQ />} />
+            <Route path="/resources/tutorials" element={<Tutorials />} />
+            <Route path="/resources/blog" element={<Blog />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="/cookie-policy" element={<CookiePolicy />} />

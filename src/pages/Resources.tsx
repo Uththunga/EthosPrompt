@@ -1,88 +1,93 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card } from '../components/ui/Card';
-import { ArrowRight, BookOpen, FileText, Code } from 'lucide-react';
+import { BookOpen, Code, HelpCircle, MessageSquare, Rocket } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 interface ResourceItem {
   name: string;
   path: string;
   description: string;
   icon: React.ReactNode;
-  category: string;
 }
 
 const resources: ResourceItem[] = [
   {
-    name: 'Documentation & Guides',
+    name: 'Getting Started',
+    path: '/resources/getting-started',
+    description: 'Learn the basics and get started with EthosPrompt',
+    icon: <Rocket className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+  },
+  {
+    name: 'Documentation',
     path: '/resources/documentation',
-    description: 'Comprehensive documentation, user guides, and technical references for all features and capabilities.',
-    icon: <BookOpen className="w-6 h-6" />,
-    category: 'Technical'
+    description: 'Complete technical documentation and guides',
+    icon: <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
   },
   {
     name: 'API Reference',
     path: '/resources/api',
-    description: 'Detailed API documentation with examples, endpoints, and integration guides.',
-    icon: <Code className="w-6 h-6" />,
-    category: 'Technical'
+    description: 'Detailed API documentation and examples',
+    icon: <Code className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
   },
   {
-    name: 'Best Practices',
-    path: '/resources/best-practices',
-    description: 'Learn the best practices for prompt engineering and AI interaction.',
-    icon: <FileText className="w-6 h-6" />,
-    category: 'Guides'
+    name: 'FAQ',
+    path: '/resources/faq',
+    description: 'Answers to common questions',
+    icon: <HelpCircle className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+  },
+  {
+    name: 'Community',
+    path: '/resources/community',
+    description: 'Connect with other users and developers',
+    icon: <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
   }
 ];
 
 const Resources: React.FC = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    // Scroll to top when the component mounts or when the pathname changes
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return (
-    <div className="relative min-h-screen pt-24 pb-16">
-      <div className="container mx-auto px-4">
-        {/* Header */}
-        <div className="max-w-4xl mx-auto mb-16 relative z-10">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent">
-            Resources &amp; Documentation
-          </h1>
-          <p className="text-xl text-gray-300">
-            Everything you need to master prompt engineering and AI interaction.
+    <div className="min-h-screen bg-gray-900 text-white py-12 sm:py-16 px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-10 sm:mb-12 px-2">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-3 sm:mb-4">Resources</h1>
+          <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+            Everything you need to get started and succeed with EthosPrompt
           </p>
         </div>
 
-        {/* Main Content */}
-        <div className="max-w-4xl mx-auto relative z-10">
-          <div className="grid gap-8">
-            {resources.map((resource, index) => (
-              <Card key={index} className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 hover:border-purple-500/50 transition-colors">
-                <div className="p-6">
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 text-purple-400">
-                      {resource.icon}
-                    </div>
-                    <div className="ml-4">
-                      <h3 className="text-xl font-semibold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent">
-                        {resource.name}
-                      </h3>
-                      <p className="mt-2 text-gray-300">
-                        {resource.description}
-                      </p>
-                      <div className="mt-4">
-                        <a 
-                          href={resource.path}
-                          className="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors"
-                        >
-                          Learn more <ArrowRight className="ml-2 w-4 h-4" />
-                        </a>
-                      </div>
-                    </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          {resources.map((resource, index) => (
+            <Link 
+              to={resource.path} 
+              key={index} 
+              className="block group transition-transform hover:-translate-y-0.5 active:translate-y-0"
+              aria-label={`Go to ${resource.name}`}
+            >
+              <Card className="h-full p-4 sm:p-6 hover:bg-gray-800/50 transition-colors border border-gray-800 hover:border-purple-500/30">
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <div className="p-1.5 sm:p-2 rounded-lg bg-purple-500/10 text-purple-400 mt-0.5">
+                    {resource.icon}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-base sm:text-lg font-semibold mb-1 text-gray-100 group-hover:text-white truncate">
+                      {resource.name}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray-400 line-clamp-2">
+                      {resource.description}
+                    </p>
                   </div>
                 </div>
               </Card>
-            ))}
-          </div>
+            </Link>
+          ))}
         </div>
       </div>
-      {/* Background gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-gray-900/95 to-gray-900 pointer-events-none" />
     </div>
   );
 };

@@ -10,95 +10,102 @@ const PromptEngineeringGuide: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen pt-24 pb-16">
-      <div className="container mx-auto px-4">
+    <div className="relative min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16">
+      <div className="container mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="max-w-4xl mx-auto mb-16 relative z-10">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent">
-            The Art of{' '}            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-indigo-400">
+        <div className="max-w-4xl mx-auto mb-12 sm:mb-16 relative z-10">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent">
+            The Art of{' '}
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-indigo-400">
               Prompting
             </span>
           </h1>
-          <p className="text-xl text-gray-300">
+          <p className="text-lg sm:text-xl text-gray-300 leading-relaxed">
             Want to get better results from AI? Learn how to talk to AI in a way it understands best - it's easier than you think!
           </p>
         </div>
 
         {/* Step-by-Step Value & Concept Section */}
         <div className="max-w-4xl mx-auto relative z-10">
-          <div className="prose prose-invert max-w-none mb-16">
-            <h2 className="text-2xl font-bold text-purple-300 mb-4 flex items-center">              <Settings className="text-purple-400 mr-2" size={24} />
+          <div className="prose prose-invert max-w-none mb-12 sm:mb-16">
+            <h2 className="text-xl sm:text-2xl font-bold text-purple-300 mb-4 flex items-center">
+              <Settings className="text-purple-400 mr-2 w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
               What is Prompting?
-            </h2>            <div className="bg-gray-800/30 p-6 rounded-lg border border-gray-700/50 mb-8">
-              <p className="text-lg text-gray-300 mb-4">
+            </h2>
+            <div className="bg-gray-800/30 p-4 sm:p-6 rounded-lg border border-gray-700/50 mb-6 sm:mb-8">
+              <p className="text-base sm:text-lg text-gray-300 mb-3 sm:mb-4 leading-relaxed">
                 Think of prompt engineering as having a conversation with your AI assistant. This assistant:
               </p>
-              <ul className="list-none pl-0 text-lg text-gray-300 space-y-4">
-                <li className="flex items-center">
-                  <CheckCircle2 size={20} className="text-green-400 mr-3" />
+              <ul className="list-none pl-0 text-base sm:text-lg text-gray-300 space-y-3 sm:space-y-4">
+                <li className="flex items-start">
+                  <CheckCircle2 size={18} className="text-green-400 mr-3 mt-0.5 flex-shrink-0" />
                   <span>Wants to help you, but needs clear directions</span>
                 </li>
-                <li className="flex items-center">
-                  <CheckCircle2 size={20} className="text-green-400 mr-3" />
+                <li className="flex items-start">
+                  <CheckCircle2 size={18} className="text-green-400 mr-3 mt-0.5 flex-shrink-0" />
                   <span>Takes your words exactly as you say them</span>
                 </li>
-                <li className="flex items-center">
-                  <CheckCircle2 size={20} className="text-green-400 mr-3" />
+                <li className="flex items-start">
+                  <CheckCircle2 size={18} className="text-green-400 mr-3 mt-0.5 flex-shrink-0" />
                   <span>Gets better results when you're specific</span>
                 </li>
               </ul>
             </div>
             
-            <h3 className="text-xl font-bold text-purple-200 mb-4 flex items-center">
-              <Star className="text-purple-400 mr-2" size={20} />
+            <h3 className="text-lg sm:text-xl font-bold text-purple-200 mb-3 sm:mb-4 flex items-center">
+              <Star className="text-purple-400 mr-2 w-5 h-5 flex-shrink-0" />
               Quick Start Guide
             </h3>
-            <ol className="list-decimal pl-6 text-lg text-gray-300 space-y-4">
-              <li>
-                <strong>Be specific</strong>
-                <p className="mt-2">Instead of saying: "Write me an email"</p>
-                <p className="mt-1 text-green-400">Say: "Write me a friendly email to schedule a team meeting for next Tuesday at 2 PM"</p>
+            <ol className="list-decimal pl-5 sm:pl-6 text-base sm:text-lg text-gray-300 space-y-4 sm:space-y-5">
+              <li className="pl-2">
+                <strong className="text-white">Be specific</strong>
+                <p className="mt-1 sm:mt-2 text-sm sm:text-base">Instead of saying: "Write me an email"</p>
+                <p className="mt-1 text-green-400 text-sm sm:text-base">Say: "Write me a friendly email to schedule a team meeting for next Tuesday at 2 PM"</p>
               </li>
-              <li>
-                <strong>Give context</strong>
-                <p className="mt-2">Instead of saying: "Help me fix this code"</p>
-                <p className="mt-1 text-green-400">Say: "I'm building a website contact form and getting an error. Here's my code..."</p>
+              <li className="pl-2">
+                <strong className="text-white">Give context</strong>
+                <p className="mt-1 sm:mt-2 text-sm sm:text-base">Instead of saying: "Help me fix this code"</p>
+                <p className="mt-1 text-green-400 text-sm sm:text-base">Say: "I'm building a website contact form and getting an error. Here's my code..."</p>
               </li>
-              <li>
-                <strong>Specify what you want</strong>
-                <p className="mt-2">Instead of saying: "Give me ideas for my presentation"</p>
-                <p className="mt-1 text-green-400">Say: "Give me 3 creative ideas for a 5-minute presentation about healthy eating for teenagers"</p>
+              <li className="pl-2">
+                <strong className="text-white">Specify what you want</strong>
+                <p className="mt-1 sm:mt-2 text-sm sm:text-base">Instead of saying: "Give me ideas for my presentation"</p>
+                <p className="mt-1 text-green-400 text-sm sm:text-base">Say: "Give me 3 creative ideas for a 5-minute presentation about healthy eating for teenagers"</p>
               </li>
             </ol>
-            <div className="mt-6 p-4 bg-purple-500/10 rounded-lg border border-purple-500/20">
-              <p className="text-lg text-purple-200">
-                <Lightbulb className="inline-block mr-2" size={20} />
-                <strong>Remember:</strong> You don't need to be perfect! Start simple and get better as you go. The more you practice, the better results you'll get.
+            <div className="mt-6 p-3 sm:p-4 bg-purple-500/10 rounded-lg border border-purple-500/20">
+              <p className="text-sm sm:text-base text-purple-200 flex items-start">
+                <Lightbulb className="inline-block mr-2 mt-0.5 flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5" />
+                <span><strong>Remember:</strong> You don't need to be perfect! Start simple and get better as you go. The more you practice, the better results you'll get.</span>
               </p>
             </div>
           </div>
 
           {/* Structure & Components Section */}
-          <section className="mb-16">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-8 flex items-center">
-              <Settings size={24} className="text-purple-400 mr-3" /> Recipe for Great Prompts
+          <section className="mb-12 sm:mb-16">
+            <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-6 sm:mb-8 flex items-center">
+              <Settings size={20} className="text-purple-400 mr-2 sm:mr-3 w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+              Recipe for Great Prompts
             </h2>
             <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 hover:border-purple-500/50 transition-colors">
-              <div className="p-6">
-                <div className="grid md:grid-cols-2 gap-6">
+              <div className="p-4 sm:p-6">
+                <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                   <div>
-                    <h3 className="text-xl font-semibold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-4">The Magic Formula ✨</h3>
-                    <ul className="space-y-3 text-gray-300">
-                      <li className="flex items-center">
-                        <Star size={16} className="text-purple-400 mr-2 flex-shrink-0" /> Tell AI its role (like "teacher" or "writer")
+                    <h3 className="text-lg sm:text-xl font-semibold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-3 sm:mb-4">The Magic Formula ✨</h3>
+                    <ul className="space-y-2 sm:space-y-3 text-sm sm:text-base text-gray-300">
+                      <li className="flex items-start">
+                        <Star size={14} className="text-purple-400 mr-2 mt-1 flex-shrink-0" />
+                        <span>Tell AI its role (like "teacher" or "writer")</span>
                       </li>
-                      <li className="flex items-center">
-                        <Star size={16} className="text-purple-400 mr-2 flex-shrink-0" /> Explain what you want to achieve
+                      <li className="flex items-start">
+                        <Star size={14} className="text-purple-400 mr-2 mt-1 flex-shrink-0" />
+                        <span>Explain what you want to achieve</span>
                       </li>
-                      <li className="flex items-center">
-                        <Star size={16} className="text-purple-400 mr-2 flex-shrink-0" /> Describe how you want the answer
+                      <li className="flex items-start">
+                        <Star size={14} className="text-purple-400 mr-2 mt-1 flex-shrink-0" />
+                        <span>Describe how you want the answer</span>
                       </li>
-                      <li className="flex items-center">
+                      <li className="flex items-start">
                         <Star size={16} className="text-purple-400 mr-2 flex-shrink-0" /> Add any special requirements
                       </li>
                     </ul>

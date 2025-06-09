@@ -60,25 +60,33 @@ const ResourceCard: React.FC<{ resource: ResourceItem }> = ({ resource }) => {
   );
 };
 
-const ResourcesSection: React.FC = () => {
+const ResourcesSection = () => {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-indigo-400">
-            Resources & Documentation
-          </span>
-        </h2>
-        <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-          Everything you need to get started and make the most of our platform
-        </p>
+    <section className="py-16 md:py-24 relative">
+      <div className="container mx-auto px-4">
+        <div className="max-w-3xl mx-auto text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Resources & Documentation</h2>
+          <p className="text-xl text-gray-300 mb-6">Access our comprehensive resources to get the most out of EthosPrompt</p>
+          <p className="text-gray-400 mb-8">
+            Explore our curated collection of guides, examples, and best practices to enhance your experience.
+            Perfect for both beginners and advanced users looking to maximize their productivity.
+          </p>
+          <Link 
+            to="/resources" 
+            className="inline-flex items-center text-purple-400 hover:text-purple-300 font-medium group transition-colors"
+          >
+            View all resources
+            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
+        
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          {resources.slice(0, 3).map((resource, index) => (
+            <ResourceCard key={index} resource={resource} />
+          ))}
+        </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {resources.map((resource, index) => (
-          <ResourceCard key={index} resource={resource} />
-        ))}
-      </div>
-    </div>
+    </section>
   );
 };
 
