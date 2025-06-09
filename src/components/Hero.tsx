@@ -42,13 +42,15 @@ const Hero: React.FC = () => {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
+              variant="default"
               size="lg" 
               className="group"
               onClick={() => navigate('/categories')}
             >
-              Browse Categories
+              Prompt Categories
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
             </Button>
+           
           </div>
         </div>
       </div>

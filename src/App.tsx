@@ -29,7 +29,8 @@ import LegalServices from './pages/categories/LegalServices';
 import HRRecruitment from './pages/categories/HRRecruitment';
 import Healthcare from './pages/categories/Healthcare';
 import DataScience from './pages/categories/DataScience';
-import PromptExamples from './pages/prompt-examples';
+import SubcategoryDetail from './pages/categories/SubcategoryDetail';
+import PromptExamples from './pages/prompt-engineering/prompt-examples';
 
 const HomePage = () => (
   <main className="space-y-16 md:space-y-24">
@@ -72,14 +73,21 @@ function App() {
             <Route path="/categories/*" element={<CategoryLayout />}>
               <Route index element={<CategoriesOverview />} />
               <Route path="marketing" element={<MarketingContent />} />
+              <Route path="marketing/:subcategoryId" element={<SubcategoryDetail categoryId="marketing" />} />
               <Route path="education" element={<EducationTeaching />} />
+              <Route path="education/:subcategoryId" element={<SubcategoryDetail categoryId="education" />} />
               <Route path="development" element={<SoftwareDevelopment />} />
+              <Route path="development/:subcategoryId" element={<SubcategoryDetail categoryId="development" />} />
               <Route path="support" element={<CustomerSupport />} />
+              <Route path="support/:subcategoryId" element={<SubcategoryDetail categoryId="support" />} />
               <Route path="legal" element={<LegalServices />} />
+              <Route path="legal/:subcategoryId" element={<SubcategoryDetail categoryId="legal" />} />
               <Route path="hr" element={<HRRecruitment />} />
+              <Route path="hr/:subcategoryId" element={<SubcategoryDetail categoryId="hr" />} />
               <Route path="healthcare" element={<Healthcare />} />
+              <Route path="healthcare/:subcategoryId" element={<SubcategoryDetail categoryId="healthcare" />} />
               <Route path="data-science" element={<DataScience />} />
-              <Route path="prompt-examples" element={<PromptExamples />} />
+              <Route path="data-science/:subcategoryId" element={<SubcategoryDetail categoryId="data-science" />} />
             </Route>
           </Routes>
           <Footer />

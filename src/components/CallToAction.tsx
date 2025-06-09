@@ -28,7 +28,11 @@ const CallToAction: React.FC = () => {
           </p>
           
           <div className="flex justify-center">
-            <Button size="lg" className="bg-white text-purple-900 hover:bg-purple-100 group">
+            <Button 
+              variant="default"
+              size="lg"
+              className="group tracking-wide"
+            >
               Get Started Today
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
             </Button>

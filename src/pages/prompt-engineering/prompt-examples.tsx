@@ -1,7 +1,7 @@
 import React from 'react';
-import { Card } from '../components/ui/Card';
+import { Card } from '../../components/ui/Card';
 import { MessageSquare, Copy, CheckCircle2, Circle, Sparkles, MessagesSquare, BrainCircuit, Code, ArrowRight } from 'lucide-react';
-import { Button } from '../components/ui/Button';
+import { Button } from '../../components/ui/Button';
 import { Link } from 'react-router-dom';
 
 const PromptExamples: React.FC = () => {

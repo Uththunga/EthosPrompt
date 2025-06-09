@@ -58,23 +58,23 @@ const CategoriesSection: React.FC = () => {
 
               <div className="flex gap-2">
                 <Button
-                  variant={viewMode === 'all' ? 'primary' : 'outline'}
+                  variant={viewMode === 'all' ? 'default' : 'outline'}
                   onClick={() => setViewMode('all')}
-                  className="text-sm px-3 py-1"
+                  className="text-sm px-3 py-1 tracking-wide"
                 >
                   All
                 </Button>
                 <Button
-                  variant={viewMode === 'trending' ? 'primary' : 'outline'}
+                  variant={viewMode === 'trending' ? 'default' : 'outline'}
                   onClick={() => setViewMode('trending')}
-                  className="text-sm px-3 py-1"
+                  className="text-sm px-3 py-1 tracking-wide"
                 >
                   Trending
                 </Button>
                 <Button
-                  variant={viewMode === 'featured' ? 'primary' : 'outline'}
+                  variant={viewMode === 'featured' ? 'default' : 'outline'}
                   onClick={() => setViewMode('featured')}
-                  className="text-sm px-3 py-1"
+                  className="text-sm px-3 py-1 tracking-wide"
                 >
                   Featured
                 </Button>

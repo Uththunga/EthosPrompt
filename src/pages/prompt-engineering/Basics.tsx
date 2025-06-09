@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Card } from '../../components/ui/Card';
 import { BookOpen, MessageCircle, Brain, Circle, ArrowRight, Target } from 'lucide-react';
-import { Button } from '../../components/ui/Button';
 import { Link } from 'react-router-dom';
 
 const PromptEngineeringBasics: React.FC = () => {
@@ -33,11 +32,11 @@ const PromptEngineeringBasics: React.FC = () => {
             <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50">
               <div className="p-6">
                 <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                  You might know these as "AI" tools, but we'll call them "LLMs" (Large Language Models). Why? Because that's exactly what they are - large models that understand and generate human language.
+                  You might know these as "AI" tools, but we'll call them "LLMs" (Large Language Models). Why? Because that's exactly what they are - large models that understand and generate human language. Understanding LLMs is crucial because prompt engineering is all about effectively communicating with these models - the better you understand how they work, the more effectively you can craft your prompts.
                 </p>
                 <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-4 mb-6">
                   <p className="text-purple-200">
-                    💡 Think of it this way: "AI" is like saying "vehicle", while "LLM" is specifically saying "car" - it's more precise about what we're actually using!
+                    💡 Think of it this way: "AI" is like saying "vehicle", while "LLM" is specifically saying "car" - it's more precise about what we're actually using! And just like knowing how a car works helps you drive better, understanding LLMs will help you write better prompts.
                   </p>
                 </div>
                 <div className="grid md:grid-cols-2 gap-6">
@@ -60,6 +59,7 @@ const PromptEngineeringBasics: React.FC = () => {
                   </div>
                   <div className="bg-gray-900/30 p-4 rounded-lg">
                     <h3 className="text-lg font-semibold text-white mb-3">"LLM" (Our Text Expert)</h3>
+                    <p className="text-gray-300 mb-4">These are the specific AI models we'll be working with in prompt engineering:</p>
                     <ul className="space-y-2 text-gray-300">
                       <li className="flex items-start">
                         <Circle size={6} className="text-purple-400 mr-2 mt-2 flex-shrink-0" />
@@ -74,6 +74,11 @@ const PromptEngineeringBasics: React.FC = () => {
                         <div>Gemini</div>
                       </li>
                     </ul>
+                    <div className="mt-4 bg-purple-500/10 p-3 rounded border border-purple-500/20">
+                      <p className="text-purple-200 text-sm">
+                        👉 Throughout this guide, you'll learn how to effectively communicate with these LLMs through well-crafted prompts.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -576,7 +581,91 @@ const PromptEngineeringBasics: React.FC = () => {
                 </div>
               </div>
             </Card>
-          </section>          {/* Next Lesson Navigation */}
+          </section>          {/* Popular LLM Models Section */}
+          <section className="mb-16">
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-8 flex items-center">
+              <Target size={24} className="text-purple-400 mr-3" /> Popular LLMs
+            </h2>
+            <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50">
+              <div className="p-6">
+                <div className="grid md:grid-cols-3 gap-6">
+                  {/* ChatGPT */}
+                  <div className="group relative">
+                    <div className="bg-gray-900/50 p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 transform hover:-translate-y-1">
+                      <div className="flex justify-center mb-6">
+                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-400/20 to-indigo-400/20 p-3 border border-purple-500/30 shadow-lg">
+                          <img 
+                            src="/images/ai-logos/chatgpt-logo.svg" 
+                            alt="ChatGPT Logo" 
+                            className="w-full h-full object-contain filter brightness-150"
+                          />
+                        </div>
+                      </div>
+                      <h3 className="text-xl font-semibold text-white text-center mb-3 bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">ChatGPT</h3>
+                      <p className="text-gray-300 text-center text-sm leading-relaxed">
+                        OpenAI's versatile language model, excelling in natural conversations and creative content generation.
+                      </p>
+                      <div className="mt-4 bg-purple-500/10 p-3 rounded border border-purple-500/20">
+                        <p className="text-purple-200 text-xs text-center">
+                          💡 Best for: Creative writing, coding assistance, and general knowledge tasks
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Claude */}
+                  <div className="group relative">
+                    <div className="bg-gray-900/50 p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 transform hover:-translate-y-1">
+                      <div className="flex justify-center mb-6">
+                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-400/20 to-indigo-400/20 p-3 border border-purple-500/30 shadow-lg">
+                          <img 
+                            src="/images/ai-logos/claude-logo.svg" 
+                            alt="Claude Logo" 
+                            className="w-full h-full object-contain filter brightness-150"
+                          />
+                        </div>
+                      </div>
+                      <h3 className="text-xl font-semibold text-white text-center mb-3 bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">Claude</h3>
+                      <p className="text-gray-300 text-center text-sm leading-relaxed">
+                        Anthropic's analytical powerhouse, delivering precise and well-reasoned responses with high accuracy.
+                      </p>
+                      <div className="mt-4 bg-purple-500/10 p-3 rounded border border-purple-500/20">
+                        <p className="text-purple-200 text-xs text-center">
+                          💡 Best for: Complex analysis, technical writing, and detailed explanations
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Gemini */}
+                  <div className="group relative">
+                    <div className="bg-gray-900/50 p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 transform hover:-translate-y-1">
+                      <div className="flex justify-center mb-6">
+                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-400/20 to-indigo-400/20 p-3 border border-purple-500/30 shadow-lg">
+                          <img 
+                            src="/images/ai-logos/gemini-logo.svg" 
+                            alt="Gemini Logo" 
+                            className="w-full h-full object-contain filter brightness-150"
+                          />
+                        </div>
+                      </div>
+                      <h3 className="text-xl font-semibold text-white text-center mb-3 bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">Gemini</h3>
+                      <p className="text-gray-300 text-center text-sm leading-relaxed">
+                        Google's multimodal marvel, seamlessly handling text, code, and visual information.
+                      </p>
+                      <div className="mt-4 bg-purple-500/10 p-3 rounded border border-purple-500/20">
+                        <p className="text-purple-200 text-xs text-center">
+                          💡 Best for: Multimodal tasks, visual analysis, and integrated problem-solving
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </section>
+
+          {/* Next Lesson Navigation */}
           <div className="mt-16 border-t border-gray-800 pt-8">
             <Link 
               to="/prompt-engineering-guide/techniques" 
