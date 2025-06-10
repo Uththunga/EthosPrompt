@@ -23,6 +23,11 @@ export const buttonVariants = cva(
           'rounded-full shadow-sm',
           'focus:ring-purple-500 focus:ring-offset-0',
         ],
+        ghost: [
+          'bg-transparent',
+          'hover:bg-purple-500/10',
+          'focus:ring-purple-500 focus:ring-offset-0',
+        ],
       },      size: {
         default: 'px-6 py-2 md:px-8 md:py-3',
         sm: 'px-4 py-1.5 md:px-6 md:py-2',
