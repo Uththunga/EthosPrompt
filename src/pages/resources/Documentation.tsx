@@ -45,7 +45,7 @@ const Documentation: React.FC = () => {
       title: 'Best Practices',
       icon: <Lightbulb className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 flex-shrink-0" />,
       items: [
-        { title: 'Prompt Engineering', path: '/resources/documentation/prompt-engineering' },
+        { title: 'Prompting', path: '/resources/documentation/prompting' },
         { title: 'Error Handling', path: '/resources/documentation/error-handling' },
         { title: 'Performance Tips', path: '/resources/documentation/performance' },
       ]
@@ -60,7 +60,7 @@ const Documentation: React.FC = () => {
           <div className="flex items-start sm:items-center mb-4">
             <BookOpen className="w-7 h-7 sm:w-8 sm:h-8 text-purple-400 mr-3 mt-0.5 sm:mt-0 flex-shrink-0" />
             <div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent leading-tight">
+              <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent leading-tight">
                 Documentation & Guides
               </h1>
               <p className="text-base sm:text-lg text-gray-300 mt-2 sm:mt-3 leading-relaxed">
@@ -78,7 +78,7 @@ const Documentation: React.FC = () => {
                 key={sectionIndex} 
                 className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 hover:border-purple-500/50 transition-colors duration-200 hover:shadow-lg hover:shadow-purple-500/5"
               >
-                <div className="p-4 sm:p-5 md:p-6">
+                <div className="p-4 sm:p-5">
                   <div className="flex items-center mb-3 sm:mb-4">
                     <div className="mr-2 sm:mr-3 flex-shrink-0">
                       {section.icon}
@@ -107,13 +107,13 @@ const Documentation: React.FC = () => {
           </div>
 
           {/* Popular Articles */}
-          <div className="mt-16">
-            <h2 className="text-2xl font-bold text-gray-200 mb-6">Popular Articles</h2>
+          <div className="mt-12 sm:mt-16">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-200 mb-4 sm:mb-6">Popular Articles</h2>
             <div className="grid md:grid-cols-2 gap-6">
               <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 hover:border-purple-500/50 transition-colors">
-                <div className="p-6">
-                  <h3 className="text-lg font-semibold text-gray-100 mb-2">Getting Started with Prompt Engineering</h3>
-                  <p className="text-gray-400 mb-4">Learn the basics of prompt engineering and how to create effective prompts.</p>
+                <div className="p-5 sm:p-6">
+                  <h3 className="text-lg font-semibold text-gray-100 mb-2">Getting Started with Prompting</h3>
+                  <p className="text-gray-400 mb-4">Learn the basics of prompting and how to create effective prompts.</p>
                   <Link 
                     to="/resources/documentation/prompt-engineering-basics"
                     className="inline-flex items-center text-purple-400 hover:text-purple-300 text-sm font-medium"
@@ -127,7 +127,7 @@ const Documentation: React.FC = () => {
               </Card>
               
               <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 hover:border-purple-500/50 transition-colors">
-                <div className="p-6">
+                <div className="p-5 sm:p-6">
                   <h3 className="text-lg font-semibold text-gray-100 mb-2">API Rate Limits and Best Practices</h3>
                   <p className="text-gray-400 mb-4">Understand our rate limits and how to optimize your API usage.</p>
                   <Link 

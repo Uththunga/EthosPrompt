@@ -12,26 +12,26 @@ const GettingStarted: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-start sm:items-center mb-3 sm:mb-4">
             <div className="flex items-center mb-3 sm:mb-0">
               <Rocket className="w-7 h-7 sm:w-8 sm:h-8 text-purple-400 mr-3" />
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent">
+              <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent">
                 Getting Started
               </h1>
             </div>
           </div>
-          <p className="text-lg sm:text-xl text-gray-300">
+          <p className="text-base sm:text-lg text-gray-300">
             Welcome to EthosPrompt! Follow these steps to get started with our platform.
           </p>
         </div>
 
         {/* Main Content */}
         <div className="max-w-4xl mx-auto relative z-10 space-y-6 md:space-y-8">
-          <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 p-5 sm:p-6 md:p-8">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-100 mb-4 sm:mb-6">Quick Start Guide</h2>
+          <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 p-5 sm:p-6">
+            <h2 className="text-lg sm:text-xl font-bold text-gray-100 mb-4">Quick Start Guide</h2>
             
             <div className="space-y-5 sm:space-y-6">
               <div className="flex items-start">
                 <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 font-bold mr-3 sm:mr-4 mt-0.5">1</div>
                 <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-100">Create an Account</h3>
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-100">Create an Account</h3>
                   <p className="mt-1.5 sm:mt-2 text-sm sm:text-base text-gray-300">
                     Sign up for a free account to get started. No credit card required.
                   </p>
@@ -41,7 +41,7 @@ const GettingStarted: React.FC = () => {
               <div className="flex items-start">
                 <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 font-bold mr-3 sm:mr-4 mt-0.5">2</div>
                 <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-100">Explore the Dashboard</h3>
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-100">Explore the Dashboard</h3>
                   <p className="mt-1.5 sm:mt-2 text-sm sm:text-base text-gray-300">
                     Familiarize yourself with the interface and available tools.
                   </p>
@@ -51,7 +51,7 @@ const GettingStarted: React.FC = () => {
               <div className="flex items-start">
                 <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 font-bold mr-3 sm:mr-4 mt-0.5">3</div>
                 <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-100">Create Your First Prompt</h3>
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-100">Create Your First Prompt</h3>
                   <p className="mt-1.5 sm:mt-2 text-sm sm:text-base text-gray-300">
                     Start by creating a simple prompt and see the AI in action.
                   </p>
@@ -61,7 +61,7 @@ const GettingStarted: React.FC = () => {
               <div className="flex items-start">
                 <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 font-bold mr-3 sm:mr-4 mt-0.5">4</div>
                 <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-100">Explore Advanced Features</h3>
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-100">Explore Advanced Features</h3>
                   <p className="mt-1.5 sm:mt-2 text-sm sm:text-base text-gray-300">
                     Dive deeper into advanced features and customization options.
                   </p>
@@ -70,7 +70,7 @@ const GettingStarted: React.FC = () => {
             </div>
 
             <div className="mt-8 sm:mt-10 pt-5 sm:pt-6 border-t border-gray-700/50">
-              <h3 className="text-lg font-semibold text-gray-100 mb-3 sm:mb-4">Next Steps</h3>
+              <h3 className="text-base sm:text-lg font-semibold text-gray-100 mb-3 sm:mb-4">Next Steps</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <Link 
                   to="/resources/documentation" 

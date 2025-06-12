@@ -42,29 +42,29 @@ const FAQ: React.FC = () => {
     : faqItems;
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white pt-24 pb-16 px-4">
+    <div className="min-h-screen bg-gray-900 text-white pt-20 sm:pt-24 pb-16 px-4">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 sm:mb-12">
           <div className="inline-flex items-center justify-center bg-purple-500/10 rounded-full px-6 py-2 mb-4">
             <HelpCircle className="w-5 h-5 text-purple-400 mr-2" />
             <span className="text-sm font-medium text-purple-300">HOW CAN WE HELP?</span>
           </div>
-          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
             Frequently Asked Questions
           </h1>
-          <p className="text-xl text-gray-300">
+          <p className="text-lg sm:text-xl text-gray-300">
             Find answers to common questions about EthosPrompt.
           </p>
         </div>
 
         {/* Search */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <div className="relative">
             <input
               type="text"
               placeholder="Search questions..."
-              className="w-full bg-gray-800/50 border border-gray-700 rounded-lg py-3 px-5 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="w-full bg-gray-800/50 border border-gray-700 rounded-lg py-2.5 px-4 sm:py-3 sm:px-5 text-base text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -79,10 +79,10 @@ const FAQ: React.FC = () => {
               className="overflow-hidden bg-gray-800/30 border border-gray-700/50 hover:border-purple-500/50 transition-colors"
             >
               <button
-                className="w-full px-6 py-5 text-left flex items-center justify-between focus:outline-none"
+                className="w-full px-4 sm:px-6 py-4 sm:py-5 text-left flex items-center justify-between focus:outline-none"
                 onClick={() => toggleFAQ(index)}
               >
-                <h3 className="text-lg font-medium text-gray-100">
+                <h3 className="text-base sm:text-lg font-medium text-gray-100">
                   {item.question}
                 </h3>
                 <div className="ml-4 flex-shrink-0">
@@ -94,7 +94,7 @@ const FAQ: React.FC = () => {
                 </div>
               </button>
               {activeIndex === index && (
-                <div className="px-6 pb-6 pt-2 text-gray-300">
+                <div className="px-4 sm:px-6 pb-4 sm:pb-6 pt-0 sm:pt-2 text-gray-400 text-sm sm:text-base">
                   <p>{item.answer}</p>
                 </div>
               )}
@@ -103,12 +103,12 @@ const FAQ: React.FC = () => {
         </div>
 
         {/* Contact Support */}
-        <div className="mt-16 text-center">
+        <div className="mt-12 sm:mt-16 text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-purple-500/10 mb-6">
             <MessageSquare className="w-8 h-8 text-purple-400" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-200 mb-4">Still need help?</h2>
-          <p className="text-gray-400 mb-6">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-200 mb-3 sm:mb-4">Still need help?</h2>
+          <p className="text-gray-400 mb-5 sm:mb-6">
             Our support team is here to help you with any questions.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">

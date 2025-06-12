@@ -172,12 +172,12 @@ const SubcategoryDetail: React.FC<SubcategoryDetailProps> = ({ categoryId }) => 
       {/* Header */}
       <div className="mb-8">
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-white">{subcategory.name}</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white">{subcategory.name}</h1>
           <p className="text-gray-400 mt-2">{subcategory.description}</p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
         {/* Main Content */}
         <div className="lg:col-span-2 space-y-6">
           {/* Skill Level Tabs */}
@@ -187,7 +187,7 @@ const SubcategoryDetail: React.FC<SubcategoryDetailProps> = ({ categoryId }) => 
                 <button
                   key={level}
                   onClick={() => setActiveTab(level)}
-                  className={`flex-1 py-2 px-4 text-sm font-medium rounded-md transition-colors ${
+                  className={`flex-1 py-2 px-2 sm:px-4 text-sm font-medium rounded-md transition-colors ${
                     activeTab === level
                       ? 'bg-gray-700 text-white shadow'
                       : 'text-gray-300 hover:bg-gray-700/50 hover:text-white'
@@ -206,14 +206,15 @@ const SubcategoryDetail: React.FC<SubcategoryDetailProps> = ({ categoryId }) => 
           <div className="space-y-8">
             {Object.entries(promptsByUseCase).map(([useCase, prompts]) => (
               <div key={useCase} className="space-y-4">
-                <h3 className="text-lg font-semibold text-white border-b border-gray-700 pb-2">
+                <h3 className="text-base sm:text-lg font-semibold text-white border-b border-gray-700 pb-2">
                   {useCase}
                 </h3>
                 
                 <div className="grid gap-4 md:grid-cols-2">
                   {prompts.map((prompt) => (
                     <Card key={prompt.id} className="bg-gray-800/50 border-gray-700 hover:border-purple-500/30 transition-colors">
-                      <div className="p-5">
+                      <div className="p-4 sm:p-5">
+
                         <div className="flex justify-between items-start mb-3">
                           <div className="flex items-center">
                             {getSkillLevelIcon(prompt.skillLevel)}
@@ -279,7 +280,7 @@ const SubcategoryDetail: React.FC<SubcategoryDetailProps> = ({ categoryId }) => 
 
           {/* Tips Section */}
           <Card className="bg-gray-800/50 border-gray-700">
-            <div className="p-6">
+            <div className="p-4 sm:p-6">
               <h3 className="font-semibold text-white mb-3">Tips for {subcategory.name}</h3>
               <ul className="space-y-3 text-gray-300">
                 <li className="flex">
@@ -303,7 +304,7 @@ const SubcategoryDetail: React.FC<SubcategoryDetailProps> = ({ categoryId }) => 
         <div className="space-y-6">
           {/* About This Subcategory */}
           <Card className="bg-gray-800/50 border-gray-700">
-            <div className="p-6">
+            <div className="p-4 sm:p-6">
               <h3 className="font-semibold text-white mb-3">About {subcategory.name}</h3>
               <p className="text-gray-300 text-sm mb-4">
                 {subcategory.description}
@@ -330,7 +331,7 @@ const SubcategoryDetail: React.FC<SubcategoryDetailProps> = ({ categoryId }) => 
           {/* Related Subcategories */}
           {category.subcategories.length > 1 && (
             <Card className="bg-gray-800/50 border-gray-700">
-              <div className="p-6">
+              <div className="p-4 sm:p-6">
                 <h3 className="font-semibold text-white mb-3">More in {category.name}</h3>
                 <ul className="space-y-2">
                   {category.subcategories

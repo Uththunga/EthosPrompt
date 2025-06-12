@@ -52,9 +52,9 @@ const Tutorials: React.FC = () => {
       icon: <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 flex-shrink-0" />,
       items: [
         { 
-          title: 'Advanced Prompt Engineering', 
+          title: 'Advanced Prompting', 
           duration: '20 min',
-          path: '/tutorials/advanced-prompt-engineering',
+          path: '/tutorials/advanced-prompting',
           icon: <Zap className="w-4 h-4 text-yellow-400" />
         },
         { 
@@ -75,7 +75,7 @@ const Tutorials: React.FC = () => {
           <div className="flex items-start sm:items-center mb-4">
             <PlayCircle className="w-7 h-7 sm:w-8 sm:h-8 text-purple-400 mr-3 mt-0.5 sm:mt-0 flex-shrink-0" />
             <div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent leading-tight">
+              <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent leading-tight">
                 Tutorials & Guides
               </h1>
               <p className="text-base sm:text-lg text-gray-300 mt-2 sm:mt-3 leading-relaxed">
@@ -93,7 +93,7 @@ const Tutorials: React.FC = () => {
                 <div className="mr-2 sm:mr-3">
                   {category.icon}
                 </div>
-                <h2 className="text-xl sm:text-2xl font-semibold text-gray-100">
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-100">
                   {category.title}
                 </h2>
               </div>
@@ -106,7 +106,7 @@ const Tutorials: React.FC = () => {
                   >
                     <Link 
                       to={item.path}
-                      className="block h-full p-4 sm:p-5 md:p-6 group"
+                      className="block h-full p-4 sm:p-5 group"
                       aria-label={`View tutorial: ${item.title}`}
                     >
                       <div className="flex items-start">
@@ -114,7 +114,7 @@ const Tutorials: React.FC = () => {
                           {item.icon}
                         </div>
                         <div className="flex-1">
-                          <h3 className="text-base sm:text-lg font-medium text-gray-100 group-hover:text-purple-400 transition-colors mb-1.5 sm:mb-2">
+                          <h3 className="text-base font-medium text-gray-100 group-hover:text-purple-400 transition-colors mb-1.5 sm:mb-2">
                             {item.title}
                           </h3>
                           <div className="flex items-center text-xs sm:text-sm text-gray-400">
@@ -132,13 +132,13 @@ const Tutorials: React.FC = () => {
         </div>
 
         {/* Call to Action */}
-        <div className="max-w-3xl mx-auto mt-16 sm:mt-20 text-center">
-          <div className="bg-gray-800/30 border border-gray-700/50 rounded-xl p-6 sm:p-8">
+        <div className="max-w-3xl mx-auto mt-12 sm:mt-20 text-center">
+          <div className="bg-gray-800/30 border border-gray-700/50 rounded-xl p-6">
             <div className="bg-purple-500/10 w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center mx-auto mb-4">
               <Lightbulb className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />
             </div>
-            <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 sm:mb-3">Looking for something specific?</h3>
-            <p className="text-sm sm:text-base text-gray-300 mb-4 sm:mb-6 max-w-md mx-auto leading-relaxed">
+            <h3 className="text-lg font-semibold text-white mb-2 sm:mb-3">Looking for something specific?</h3>
+            <p className="text-sm sm:text-base text-gray-300 mb-5 sm:mb-6 max-w-md mx-auto leading-relaxed">
               Check out our documentation for detailed API references and guides.
             </p>
             <Link 

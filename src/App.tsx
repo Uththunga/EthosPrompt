@@ -40,21 +40,12 @@ import Tutorials from './pages/resources/Tutorials';
 import Blog from './pages/resources/Blog';
 
 const HomePage = () => (
-  <main className="space-y-16 md:space-y-24">
+  <main className="space-y-12 md:space-y-20">
     <Hero />
-    <div className="relative">
-      <EngineeringSection />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-900/50 to-transparent pointer-events-none" />
-    </div>
+    <EngineeringSection />
     <CategoriesSection />
-    <div className="relative overflow-hidden">
-      <StatsCounter />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-900/30 to-transparent pointer-events-none" />
-    </div>
-    <div className="relative">
-      <ResourcesSection />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-900/30 to-transparent pointer-events-none" />
-    </div>
+    <StatsCounter />
+    <ResourcesSection />
     <CallToAction />
   </main>
 );

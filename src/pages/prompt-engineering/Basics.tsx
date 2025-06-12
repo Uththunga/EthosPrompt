@@ -13,12 +13,12 @@ const PromptEngineeringBasics: React.FC = () => {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="max-w-4xl mx-auto mb-16 relative z-10">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent">            The Story of{' '}
+          <h1 className="text-3xl sm:text-4xl font-bold mb-6 bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent">            The Story of{' '}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-indigo-400">
-              Prompt Engineering
+              Prompting
             </span>
           </h1>
-          <p className="text-xl text-gray-300">
+          <p className="text-base sm:text-lg text-gray-300">
             How AI Learns to Talk Like a Human – An Interactive Journey
           </p>
         </div>
@@ -30,8 +30,8 @@ const PromptEngineeringBasics: React.FC = () => {
               <MessageCircle size={24} className="text-purple-400 mr-3" /> From "AI" to "LLM"
             </h2>
             <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50">
-              <div className="p-6">
-                <p className="text-gray-300 text-lg leading-relaxed mb-6">
+              <div className="p-4 sm:p-6">
+                <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-6">
                   You might know these as "AI" tools, but we'll call them "LLMs" (Large Language Models). Why? Because that's exactly what they are - large models that understand and generate human language. Understanding LLMs is crucial because prompt engineering is all about effectively communicating with these models - the better you understand how they work, the more effectively you can craft your prompts.
                 </p>
                 <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-4 mb-6">
@@ -41,7 +41,7 @@ const PromptEngineeringBasics: React.FC = () => {
                 </div>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="bg-gray-900/30 p-4 rounded-lg">
-                    <h3 className="text-lg font-semibold text-white mb-3">"AI" (The Big Family)</h3>
+                    <h3 className="text-base sm:text-lg font-semibold text-white mb-3">"AI" (The Big Family)</h3>
                     <ul className="space-y-2 text-gray-300">
                       <li className="flex items-start">
                         <Circle size={6} className="text-purple-400 mr-2 mt-2 flex-shrink-0" />
@@ -58,7 +58,7 @@ const PromptEngineeringBasics: React.FC = () => {
                     </ul>
                   </div>
                   <div className="bg-gray-900/30 p-4 rounded-lg">
-                    <h3 className="text-lg font-semibold text-white mb-3">"LLM" (Our Text Expert)</h3>
+                    <h3 className="text-base sm:text-lg font-semibold text-white mb-3">"LLM" (Our Text Expert)</h3>
                     <p className="text-gray-300 mb-4">These are the specific AI models we'll be working with in prompt engineering:</p>
                     <ul className="space-y-2 text-gray-300">
                       <li className="flex items-start">
@@ -90,42 +90,44 @@ const PromptEngineeringBasics: React.FC = () => {
             <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-8 flex items-center">
               <BookOpen size={24} className="text-purple-400 mr-3" /> What Is an LLM Really?
             </h2>
-            <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50">              <div className="p-6">
+            <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50">              <div className="p-4 sm:p-6">
                 <div className="prose prose-invert max-w-none">                  <div className="mb-6">
                     <div className="bg-gray-900/30 p-6 rounded-lg border border-purple-500/20">
-                      <div className="grid grid-cols-3 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div className="text-center group">
-                          <div className="bg-purple-500/10 rounded-lg p-4 border border-purple-500/20 transition-all duration-300 hover:border-purple-500/50 hover:bg-purple-500/20">                            <span className="text-4xl font-bold bg-gradient-to-br from-purple-400 to-indigo-400 bg-clip-text text-transparent mb-2 block">L</span>
+                          <div className="bg-purple-500/10 rounded-lg p-3 sm:p-4 border border-purple-500/20 transition-all duration-300 hover:border-purple-500/50 hover:bg-purple-500/20">                            <span className="text-3xl sm:text-4xl font-bold bg-gradient-to-br from-purple-400 to-indigo-400 bg-clip-text text-transparent mb-2 block">L</span>
                             <h4 className="text-white font-semibold mb-2">Large</h4>
-                            <p className="text-sm text-gray-300">Vast knowledge bank - like having read millions of books!</p>
+                            <p className="text-base sm:text-lg text-gray-400">Vast knowledge bank - like having read millions of books!</p>
                           </div>
                         </div>
                         <div className="text-center group">
-                          <div className="bg-purple-500/10 rounded-lg p-4 border border-purple-500/20 transition-all duration-300 hover:border-purple-500/50 hover:bg-purple-500/20">
-                            <span className="text-4xl font-bold bg-gradient-to-br from-purple-400 to-indigo-400 bg-clip-text text-transparent mb-2 block">L</span>
+                          <div className="bg-purple-500/10 rounded-lg p-3 sm:p-4 border border-purple-500/20 transition-all duration-300 hover:border-purple-500/50 hover:bg-purple-500/20">
+                            <span className="text-3xl sm:text-4xl font-bold bg-gradient-to-br from-purple-400 to-indigo-400 bg-clip-text text-transparent mb-2 block">L</span>
                             <h4 className="text-white font-semibold mb-2">Language</h4>
-                            <p className="text-sm text-gray-300">Speaks and understands human languages!</p>
+                            <p className="text-base sm:text-lg text-gray-400">Speaks and understands human languages!</p>
                           </div>
                         </div>
                         <div className="text-center group">
-                          <div className="bg-purple-500/10 rounded-lg p-4 border border-purple-500/20 transition-all duration-300 hover:border-purple-500/50 hover:bg-purple-500/20">
-                            <span className="text-4xl font-bold bg-gradient-to-br from-purple-400 to-indigo-400 bg-clip-text text-transparent mb-2 block">M</span>
+                          <div className="bg-purple-500/10 rounded-lg p-3 sm:p-4 border border-purple-500/20 transition-all duration-300 hover:border-purple-500/50 hover:bg-purple-500/20">
+                            <span className="text-3xl sm:text-4xl font-bold bg-gradient-to-br from-purple-400 to-indigo-400 bg-clip-text text-transparent mb-2 block">M</span>
                             <h4 className="text-white font-semibold mb-2">Model</h4>
-                            <p className="text-sm text-gray-300">The intelligent part that processes patterns and thinks!</p>
+                            <p className="text-base sm:text-lg text-gray-400">The intelligent part that processes patterns and thinks!</p>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                  <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-6">
                     Think of a Large Language Model (LLM) like a super-smart student who has read every book in the world's biggest library. Just like how a student learns by reading books, an LLM learns by processing vast amounts of text from the internet.
                   </p>
                   <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-4 mb-6">
-                    <p className="text-purple-200">🎓 Real-Life Example: Imagine teaching someone a new language by having them read millions of books in that language. That's similar to how GPT-4, Claude, or Gemini learn language patterns!</p>
+                    <p className="text-purple-200">
+                      🎓 Real-Life Example: Imagine teaching someone a new language by having them read millions of books in that language. That's similar to how GPT-4, Claude, or Gemini learn language patterns!
+                    </p>
                   </div>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <h3 className="text-xl font-semibold text-white mb-4">Like a Student Who:</h3>
+                      <h3 className="text-lg sm:text-xl font-semibold text-white mb-4">Like a Student Who:</h3>
                       <ul className="space-y-3 text-gray-300">
                         <li className="flex items-center">
                           <Circle size={6} className="text-purple-400 mr-2 flex-shrink-0" /> Has an incredible memory bank
@@ -139,7 +141,7 @@ const PromptEngineeringBasics: React.FC = () => {
                       </ul>
                     </div>
                     <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-800/50">
-                      <h3 className="text-lg font-semibold text-white mb-3">But Remember:</h3>
+                      <h3 className="text-base sm:text-lg font-semibold text-white mb-3">But Remember:</h3>
                       <p className="text-gray-300">
                         It's like having a very knowledgeable parrot - it can respond intelligently based on patterns, but doesn't truly understand concepts like humans do. It's pattern recognition, not true comprehension.
                       </p>
@@ -154,8 +156,8 @@ const PromptEngineeringBasics: React.FC = () => {
               <Brain size={24} className="text-purple-400 mr-3" /> What Is Pre-Training?
             </h2>
             <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50">              
-              <div className="p-6">
-                <p className="text-gray-300 text-lg leading-relaxed mb-6">
+              <div className="p-4 sm:p-6">
+                <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-6">
                   This is where the "L" (Large) in LLM comes to life! Pre-training is the foundational phase where an AI model acquires its vast knowledge by processing enormous amounts of text data - like a student speed-reading through millions of books, articles, and documents simultaneously.
                 </p>
                 <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-4 mb-6">
@@ -164,7 +166,7 @@ const PromptEngineeringBasics: React.FC = () => {
                   </p>
                 </div>
                 <div className="bg-gray-900/30 p-4 rounded-lg mb-6">
-                  <h4 className="text-lg font-semibold text-white mb-2">The Knowledge Foundation:</h4>
+                  <h4 className="text-base sm:text-lg font-semibold text-white mb-2">The Knowledge Foundation:</h4>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <p className="text-gray-300 mb-2">Before Pre-training (Raw Neural Network):</p>
@@ -186,10 +188,10 @@ const PromptEngineeringBasics: React.FC = () => {
                 </div>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-4">Two Types of Knowledge Building:</h3>
+                    <h3 className="text-lg sm:text-xl font-semibold text-white mb-4">Two Types of Knowledge Building:</h3>
                     <div className="space-y-6">
                       <div>
-                        <h4 className="text-lg font-semibold text-purple-200 mb-2">1. Pattern Recognition</h4>
+                        <h4 className="text-base sm:text-lg font-semibold text-purple-200 mb-2">1. Pattern Recognition</h4>
                         <div className="bg-gray-900/30 p-4 rounded-lg">
                           <p className="text-gray-300 mb-2">Like learning to read and understand:</p>
                           <ul className="space-y-2 text-gray-300">
@@ -214,7 +216,7 @@ const PromptEngineeringBasics: React.FC = () => {
                         </div>
                       </div>
                       <div>
-                        <h4 className="text-lg font-semibold text-purple-200 mb-2">2. Knowledge Absorption</h4>
+                        <h4 className="text-base sm:text-lg font-semibold text-purple-200 mb-2">2. Knowledge Absorption</h4>
                         <div className="bg-gray-900/30 p-4 rounded-lg">
                           <p className="text-gray-300 mb-2">Like building a vast knowledge base:</p>
                           <ul className="space-y-2 text-gray-300">
@@ -241,7 +243,7 @@ const PromptEngineeringBasics: React.FC = () => {
                     </div>
                   </div>
                   <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-800/50">
-                    <h3 className="text-lg font-semibold text-white mb-3">🧠 The Learning Journey:</h3>
+                    <h3 className="text-base sm:text-lg font-semibold text-white mb-3">🧠 The Learning Journey:</h3>
                     <p className="text-gray-300 mb-3">
                       Think of a student's journey through all of human knowledge:
                     </p>
@@ -271,7 +273,7 @@ const PromptEngineeringBasics: React.FC = () => {
             <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-8 flex items-center">
               <MessageCircle size={24} className="text-purple-400 mr-3" /> What Is Fine-Tuning?
             </h2>
-            <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50">              <div className="p-6">                <p className="text-gray-300 text-lg leading-relaxed mb-6">
+            <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50">              <div className="p-4 sm:p-6">                <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-6">
                   This is where the "M" (Model) in LLM truly comes to life! While pre-training provides vast knowledge, fine-tuning transforms this raw knowledge into sophisticated thinking and decision-making abilities - it's like transforming a medical student who has memorized textbooks into a skilled doctor who can diagnose and treat patients effectively.
                 </p>
                 <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-4 mb-6">
@@ -280,7 +282,7 @@ const PromptEngineeringBasics: React.FC = () => {
                   </p>
                 </div>
                 <div className="bg-gray-900/30 p-4 rounded-lg mb-6">
-                  <h4 className="text-lg font-semibold text-white mb-2">The Model's Evolution:</h4>
+                  <h4 className="text-base sm:text-lg font-semibold text-white mb-2">The Model's Evolution:</h4>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <p className="text-gray-300 mb-2">Before Fine-tuning (Raw Knowledge):</p>
@@ -302,10 +304,10 @@ const PromptEngineeringBasics: React.FC = () => {
                 </div>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-4">Two Types of Intelligence Training:</h3>
+                    <h3 className="text-lg sm:text-xl font-semibold text-white mb-4">Two Types of Intelligence Training:</h3>
                     <div className="space-y-6">
                       <div>
-                        <h4 className="text-lg font-semibold text-purple-200 mb-2">1. Pattern Recognition (SFT)</h4>
+                        <h4 className="text-base sm:text-lg font-semibold text-purple-200 mb-2">1. Pattern Recognition (SFT)</h4>
                         <div className="bg-gray-900/30 p-4 rounded-lg">
                           <p className="text-gray-300 mb-2">Like teaching critical thinking:</p>
                           <ul className="space-y-2 text-gray-300">
@@ -330,7 +332,7 @@ const PromptEngineeringBasics: React.FC = () => {
                         </div>
                       </div>
                       <div>
-                        <h4 className="text-lg font-semibold text-purple-200 mb-2">2. Intelligent Decision Making (RLHF)</h4>
+                        <h4 className="text-base sm:text-lg font-semibold text-purple-200 mb-2">2. Intelligent Decision Making (RLHF)</h4>
                         <div className="bg-gray-900/30 p-4 rounded-lg">
                           <p className="text-gray-300 mb-2">Like developing wisdom and judgment:</p>
                           <ul className="space-y-2 text-gray-300">
@@ -356,7 +358,7 @@ const PromptEngineeringBasics: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-800/50">                    <h3 className="text-lg font-semibold text-white mb-3">🧠 From Knowledge to Intelligence:</h3>
+                  <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-800/50">                    <h3 className="text-base sm:text-lg font-semibold text-white mb-3">🧠 From Knowledge to Intelligence:</h3>
                     <p className="text-gray-300 mb-3">
                       Think of an aspiring chef's journey:
                     </p>
@@ -377,14 +379,14 @@ const PromptEngineeringBasics: React.FC = () => {
                 </div>
               </div>
             </Card>
-          </section>          {/* Chapter 4: Prompting & Prompt Engineering */}
+          </section>          {/* Chapter 4: Prompting */}
           <section className="mb-16">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-8 flex items-center">
+            <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-8 flex items-center">
               <Target size={24} className="text-purple-400 mr-3" /> What Is Prompting
             </h2>
             <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50">
               <div className="p-6">
-                <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-6">
                   This is where the second "L" (Language) in LLM comes to life! Prompting is like having a conversation with a highly knowledgeable assistant - you communicate your needs in plain language, and the AI understands and responds accordingly.
                 </p>
                 <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-4 mb-6">
@@ -393,7 +395,7 @@ const PromptEngineeringBasics: React.FC = () => {
                   </p>
                 </div>
                 <div className="bg-gray-900/30 p-4 rounded-lg mb-6">
-                  <h4 className="text-lg font-semibold text-white mb-2">From Instructions to Results:</h4>
+                  <h4 className="text-base sm:text-lg font-semibold text-white mb-2">From Instructions to Results:</h4>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <p className="text-gray-300 mb-2">Traditional Programming:</p>
@@ -415,10 +417,10 @@ const PromptEngineeringBasics: React.FC = () => {
                 </div>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-4">Two Types of Prompt Elements:</h3>
+                    <h3 className="text-lg sm:text-xl font-semibold text-white mb-4">Two Types of Prompt Elements:</h3>
                     <div className="space-y-6">
                       <div>
-                        <h4 className="text-lg font-semibold text-purple-200 mb-2">1. Context Setting</h4>
+                        <h4 className="text-base sm:text-lg font-semibold text-purple-200 mb-2">1. Context Setting</h4>
                         <div className="bg-gray-900/30 p-4 rounded-lg">
                           <p className="text-gray-300 mb-2">Like setting up a conversation:</p>
                           <ul className="space-y-2 text-gray-300">
@@ -438,7 +440,7 @@ const PromptEngineeringBasics: React.FC = () => {
                         </div>
                       </div>
                       <div>
-                        <h4 className="text-lg font-semibold text-purple-200 mb-2">2. Instructions</h4>
+                        <h4 className="text-base sm:text-lg font-semibold text-purple-200 mb-2">2. Instructions</h4>
                         <div className="bg-gray-900/30 p-4 rounded-lg">
                           <p className="text-gray-300 mb-2">Like giving specific directions:</p>
                           <ul className="space-y-2 text-gray-300">
@@ -460,7 +462,7 @@ const PromptEngineeringBasics: React.FC = () => {
                     </div>
                   </div>
                   <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-800/50">
-                    <h3 className="text-lg font-semibold text-white mb-3">🌟 Real-World Example:</h3>
+                    <h3 className="text-base sm:text-lg font-semibold text-white mb-3">🌟 Real-World Example:</h3>
                     <p className="text-gray-300 mb-4">
                       Like asking a chef to prepare a special dish:
                     </p>
@@ -492,20 +494,17 @@ const PromptEngineeringBasics: React.FC = () => {
             </h2>
             <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50">
               <div className="p-6">
-                <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-6">
                   Let's understand the difference between pre-training, fine-tuning, and prompting using a real-world example of becoming a professional chef:
                 </p>
 
                 <div className="grid gap-6">
                   <div className="bg-gray-900/30 p-6 rounded-lg border border-purple-500/20">
-                    <h3 className="text-xl font-semibold text-white mb-4 flex items-center">
-                      <Circle size={8} className="text-purple-400 mr-3" /> Programming Models Through Different Stages
-                    </h3>
-                    
+                    <h2 className="text-2xl sm:text-3xl font-bold text-center mb-12">Next Steps</h2>
                     <div className="space-y-6">
                       {/* Pre-training */}
                       <div className="bg-gray-900/50 p-4 rounded-lg">
-                        <h4 className="text-lg font-semibold text-purple-200 mb-2">1. Pre-training Stage (Building Knowledge)</h4>
+                        <h4 className="text-base sm:text-lg font-semibold text-purple-200 mb-2">1. Pre-training Stage (Building Knowledge)</h4>
                         <p className="text-gray-300 mb-2">Like a new AI reading millions of cookbooks:</p>
                         <ul className="space-y-2 text-gray-300 ml-4">
                           <li>• Learns every possible recipe and technique</li>
@@ -518,7 +517,7 @@ const PromptEngineeringBasics: React.FC = () => {
 
                       {/* Fine-tuning */}
                       <div className="bg-gray-900/50 p-4 rounded-lg">
-                        <h4 className="text-lg font-semibold text-purple-200 mb-2">2. Fine-tuning Stage (Developing Intelligence)</h4>
+                        <h4 className="text-base sm:text-lg font-semibold text-purple-200 mb-2">2. Fine-tuning Stage (Developing Intelligence)</h4>
                         <p className="text-gray-300 mb-2">Like an AI practicing in a virtual restaurant:</p>
                         <ul className="space-y-2 text-gray-300 ml-4">
                           <li>• Learning to adapt recipes based on feedback</li>
@@ -531,7 +530,7 @@ const PromptEngineeringBasics: React.FC = () => {
 
                       {/* Prompting */}
                       <div className="bg-gray-900/50 p-4 rounded-lg">
-                        <h4 className="text-lg font-semibold text-purple-200 mb-2">3. Prompting Stage (Real-world Application)</h4>
+                        <h4 className="text-base sm:text-lg font-semibold text-purple-200 mb-2">3. Prompting Stage (Real-world Application)</h4>
                         <p className="text-gray-300 mb-2">Like giving specific instructions to the AI chef:</p>
                         <ul className="space-y-2 text-gray-300 ml-4">
                           <li>• Following specific customer requests</li>
@@ -546,7 +545,7 @@ const PromptEngineeringBasics: React.FC = () => {
 
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-800/50">
-                      <h3 className="text-lg font-semibold text-white mb-3">🔄 Key Differences:</h3>
+                      <h3 className="text-base sm:text-lg font-semibold text-white mb-3">🔄 Key Differences:</h3>
                       <div className="space-y-4">
                         <div className="bg-gray-900/30 p-3 rounded">
                           <p className="text-purple-200 mb-2"><strong>Pre-training vs Fine-tuning:</strong></p>
@@ -564,7 +563,7 @@ const PromptEngineeringBasics: React.FC = () => {
                     </div>
 
                     <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-4">
-                      <h3 className="text-lg font-semibold text-white mb-3">💡 Working Together:</h3>
+                      <h3 className="text-base sm:text-lg font-semibold text-white mb-3">💡 Working Together:</h3>
                       <p className="text-gray-300 mb-4">How the three stages complement each other:</p>
                       <ul className="space-y-3 text-gray-300">
                         <li>• <strong>Pre-training</strong> creates the knowledge foundation (L)</li>
@@ -674,7 +673,7 @@ const PromptEngineeringBasics: React.FC = () => {
               <div>
                 <p className="text-sm text-purple-400">Next Chapter</p>
                 <h3 className="text-xl font-semibold text-white mt-1 group-hover:text-purple-200 transition-colors">
-                  Practical Prompt Engineering Techniques
+                  Practical Prompting Techniques
                 </h3>
                 <p className="text-gray-400 mt-1">
                   Learn how to write effective prompts using what you've learned about LLMs

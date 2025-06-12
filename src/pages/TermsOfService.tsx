@@ -9,10 +9,10 @@ const TermsOfService: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-200">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-24 pb-16">
         <Link 
           to="/" 
-          className="inline-flex items-center text-sm text-purple-400 hover:text-purple-300 mb-6 transition-colors"
+          className="inline-flex items-center text-sm text-purple-400 hover:text-purple-300 mb-8 transition-colors"
           aria-label="Back to home"
         >
           <ChevronLeft className="w-4 h-4 mr-1" />
@@ -26,7 +26,7 @@ const TermsOfService: React.FC = () => {
           </div>
           
           <div className="prose prose-invert max-w-none">
-            <p className="text-lg text-gray-300 mb-8 leading-relaxed">
+            <p className="text-base sm:text-lg text-gray-300 mb-8 leading-relaxed">
               Welcome to EthosPrompt! These Terms of Service ("Terms") govern your access to and use of our website, 
               products, and services (collectively, "Services"). By accessing or using our Services, you agree to be 
               bound by these Terms and our Privacy Policy.
@@ -35,7 +35,7 @@ const TermsOfService: React.FC = () => {
             <section className="mb-10">
               <div className="flex items-center mb-4">
                 <AlertTriangle className="w-5 h-5 text-purple-400 mr-2" />
-                <h2 className="text-xl sm:text-2xl font-semibold text-white">
+                <h2 className="text-lg sm:text-xl font-semibold text-white">
                   Acceptance of Terms
                 </h2>
               </div>
@@ -51,7 +51,7 @@ const TermsOfService: React.FC = () => {
             <section className="mb-10">
               <div className="flex items-center mb-4">
                 <Shield className="w-5 h-5 text-purple-400 mr-2" />
-                <h2 className="text-xl sm:text-2xl font-semibold text-white">
+                <h2 className="text-lg sm:text-xl font-semibold text-white">
                   Use of Services
                 </h2>
               </div>
@@ -72,7 +72,7 @@ const TermsOfService: React.FC = () => {
             <section className="mb-10">
               <div className="flex items-center mb-4">
                 <AlertCircle className="w-5 h-5 text-purple-400 mr-2" />
-                <h2 className="text-xl sm:text-2xl font-semibold text-white">
+                <h2 className="text-lg sm:text-xl font-semibold text-white">
                   Account Security
                 </h2>
               </div>
@@ -88,7 +88,7 @@ const TermsOfService: React.FC = () => {
             <section className="mb-10">
               <div className="flex items-center mb-4">
                 <AlertTriangle className="w-5 h-5 text-purple-400 mr-2" />
-                <h2 className="text-xl sm:text-2xl font-semibold text-white">
+                <h2 className="text-lg sm:text-xl font-semibold text-white">
                   Termination
                 </h2>
               </div>
@@ -108,7 +108,7 @@ const TermsOfService: React.FC = () => {
             <section className="mb-10">
               <div className="flex items-center mb-4">
                 <Shield className="w-5 h-5 text-purple-400 mr-2" />
-                <h2 className="text-xl sm:text-2xl font-semibold text-white">
+                <h2 className="text-lg sm:text-xl font-semibold text-white">
                   Limitation of Liability
                 </h2>
               </div>
@@ -128,7 +128,7 @@ const TermsOfService: React.FC = () => {
             </section>
             
             <section className="mt-12 pt-6 border-t border-gray-700">
-              <h3 className="text-lg font-semibold text-white mb-3">Contact Us</h3>
+              <h3 className="text-base sm:text-lg font-semibold text-white mb-3">Contact Us</h3>
               <p className="text-gray-300 mb-2">
                 If you have any questions about these Terms of Service, please contact us:
               </p>

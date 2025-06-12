@@ -9,10 +9,10 @@ const CookiePolicy: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-200">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-24 pb-16">
         <Link 
           to="/" 
-          className="inline-flex items-center text-sm text-purple-400 hover:text-purple-300 mb-6 transition-colors"
+          className="inline-flex items-center text-sm text-purple-400 hover:text-purple-300 mb-8 transition-colors"
           aria-label="Back to home"
         >
           <ChevronLeft className="w-4 h-4 mr-1" />
@@ -28,7 +28,7 @@ const CookiePolicy: React.FC = () => {
             </p>
             
             <section className="mb-8">
-              <h2 className="text-xl sm:text-2xl font-semibold text-white mb-4 pb-2 border-b border-gray-700">
+              <h2 className="text-lg sm:text-xl font-semibold text-white mb-4 pb-2 border-b border-gray-700">
                 What Are Cookies?
               </h2>
               <p className="text-gray-300 leading-relaxed">
@@ -37,7 +37,7 @@ const CookiePolicy: React.FC = () => {
             </section>
             
             <section className="mb-8">
-              <h2 className="text-xl sm:text-2xl font-semibold text-white mb-4 pb-2 border-b border-gray-700">
+              <h2 className="text-lg sm:text-xl font-semibold text-white mb-4 pb-2 border-b border-gray-700">
                 How We Use Cookies
               </h2>
               <p className="text-gray-300 leading-relaxed mb-4">
@@ -52,7 +52,7 @@ const CookiePolicy: React.FC = () => {
             </section>
             
             <section className="mb-8">
-              <h2 className="text-xl sm:text-2xl font-semibold text-white mb-4 pb-2 border-b border-gray-700">
+              <h2 className="text-lg sm:text-xl font-semibold text-white mb-4 pb-2 border-b border-gray-700">
                 Your Choices
               </h2>
               <p className="text-gray-300 leading-relaxed mb-4">

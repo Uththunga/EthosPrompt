@@ -4,10 +4,10 @@
   "private": false,
   "description": "Professional AI Prompt Marketplace for Businesses",
   "type": "module",
-  "homepage": "https://uththunga.github.io/EthosPrompt/",
+  "homepage": "https://uththunga.github.io/EthosPrompt",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EthosPrompt/ethosprompt.git"
+    "url": "git+https://github.com/Uththunga/EthosPrompt.git"
   },
   "author": "EthosPrompt Team",
   "license": "MIT",

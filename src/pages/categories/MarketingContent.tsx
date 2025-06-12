@@ -43,7 +43,7 @@ const MarketingContentPage: React.FC = () => {
             <Megaphone className="w-8 h-8 text-purple-400" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-white mb-2">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
               Marketing & Content
             </h1>
             <p className="text-gray-400">
@@ -65,8 +65,8 @@ const MarketingContentPage: React.FC = () => {
       </div>
 
       {/* Resources Section */}
-      <div className="mt-16 p-6 bg-gray-800/50 rounded-xl border border-gray-700">
-        <h2 className="text-xl font-semibold text-white mb-4">
+      <div className="mt-16 p-4 sm:p-6 bg-gray-800/50 rounded-xl border border-gray-700">
+        <h2 className="text-lg sm:text-xl font-semibold text-white mb-4">
           Marketing Resources
         </h2>
         <div className="grid md:grid-cols-2 gap-6">

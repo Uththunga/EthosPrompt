@@ -110,7 +110,7 @@ const EngineeringSection: React.FC = () => {
             to="/prompt-engineering-guide" 
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
-            <Button size="lg" className="group">
+            <Button size="lg" className="group w-full sm:w-auto">
               Learn More About Prompting
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
             </Button>

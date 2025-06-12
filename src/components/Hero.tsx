@@ -32,14 +32,14 @@ const Hero: React.FC = () => {
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-white">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 text-white">
             <span className="block leading-tight sm:leading-normal">Engineered Prompts for</span>
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-violet-400 to-indigo-400">
               Professionals & Creators
             </span>
           </h1>
           
-          <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-6 sm:mb-8 max-w-3xl mx-auto px-2 sm:px-0 leading-relaxed">
+          <p className="text-lg sm:text-xl text-gray-300 mb-6 sm:mb-8 max-w-3xl mx-auto px-2 sm:px-0 leading-relaxed">
             Supercharge your AI workflows with premium, engineered prompts designed for content creators, marketers, recruiters, and more.
           </p>
           

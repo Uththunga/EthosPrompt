@@ -9,10 +9,10 @@ const PrivacyPolicy: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-200">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-24 pb-16">
         <Link 
           to="/" 
-          className="inline-flex items-center text-sm text-purple-400 hover:text-purple-300 mb-6 transition-colors"
+          className="inline-flex items-center text-sm text-purple-400 hover:text-purple-300 mb-8 transition-colors"
           aria-label="Back to home"
         >
           <ChevronLeft className="w-4 h-4 mr-1" />
@@ -26,7 +26,7 @@ const PrivacyPolicy: React.FC = () => {
           </div>
           
           <div className="prose prose-invert max-w-none">
-            <p className="text-lg text-gray-300 mb-8 leading-relaxed">
+            <p className="text-base sm:text-lg text-gray-300 mb-8 leading-relaxed">
               Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information when you use our services.
               By using our services, you agree to the collection and use of information in accordance with this policy.
             </p>
@@ -34,7 +34,7 @@ const PrivacyPolicy: React.FC = () => {
             <section className="mb-10">
               <div className="flex items-center mb-4">
                 <Database className="w-5 h-5 text-purple-400 mr-2" />
-                <h2 className="text-xl sm:text-2xl font-semibold text-white">
+                <h2 className="text-lg sm:text-xl font-semibold text-white">
                   Information We Collect
                 </h2>
               </div>
@@ -42,7 +42,7 @@ const PrivacyPolicy: React.FC = () => {
                 <p className="text-gray-300 mb-4 leading-relaxed">
                   We collect several different types of information for various purposes to provide and improve our service to you.
                 </p>
-                <h3 className="text-lg font-medium text-white mt-6 mb-3">Personal Data</h3>
+                <h3 className="text-base sm:text-lg font-medium text-white mt-6 mb-3">Personal Data</h3>
                 <p className="text-gray-300 mb-4 leading-relaxed">
                   While using our service, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you ("Personal Data").
                 </p>
@@ -58,7 +58,7 @@ const PrivacyPolicy: React.FC = () => {
             <section className="mb-10">
               <div className="flex items-center mb-4">
                 <Lock className="w-5 h-5 text-purple-400 mr-2" />
-                <h2 className="text-xl sm:text-2xl font-semibold text-white">
+                <h2 className="text-lg sm:text-xl font-semibold text-white">
                   How We Use Your Information
                 </h2>
               </div>
@@ -81,7 +81,7 @@ const PrivacyPolicy: React.FC = () => {
             <section className="mb-10">
               <div className="flex items-center mb-4">
                 <User className="w-5 h-5 text-purple-400 mr-2" />
-                <h2 className="text-xl sm:text-2xl font-semibold text-white">
+                <h2 className="text-lg sm:text-xl font-semibold text-white">
                   Your Data Protection Rights
                 </h2>
               </div>
@@ -107,7 +107,7 @@ const PrivacyPolicy: React.FC = () => {
             </section>
             
             <section className="mt-12 pt-6 border-t border-gray-700">
-              <h3 className="text-lg font-semibold text-white mb-3">Contact Us</h3>
+              <h3 className="text-base sm:text-lg font-semibold text-white mb-3">Contact Us</h3>
               <p className="text-gray-300 mb-2">
                 If you have any questions about this Privacy Policy, please contact us:
               </p>

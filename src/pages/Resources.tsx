@@ -52,11 +52,11 @@ const Resources: React.FC = () => {
   }, [pathname]);
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white py-12 sm:py-16 px-4 sm:px-6">
+    <div className="min-h-screen bg-gray-900 text-white pt-24 pb-16 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-10 sm:mb-12 px-2">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-3 sm:mb-4">Resources</h1>
-          <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+        <div className="text-center mb-12 sm:mb-16 px-2">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6">Resources</h1>
+          <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Everything you need to get started and succeed with EthosPrompt
           </p>
         </div>
@@ -69,13 +69,13 @@ const Resources: React.FC = () => {
               className="block group transition-transform hover:-translate-y-0.5 active:translate-y-0"
               aria-label={`Go to ${resource.name}`}
             >
-              <Card className="h-full p-4 sm:p-6 hover:bg-gray-800/50 transition-colors border border-gray-800 hover:border-purple-500/30">
+              <Card className="h-full p-5 sm:p-6 hover:bg-gray-800/50 transition-colors border border-gray-800 hover:border-purple-500/30">
                 <div className="flex items-start gap-3 sm:gap-4">
                   <div className="p-1.5 sm:p-2 rounded-lg bg-purple-500/10 text-purple-400 mt-0.5">
                     {resource.icon}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-base sm:text-lg font-semibold mb-1 text-gray-100 group-hover:text-white truncate">
+                    <h3 className="text-base font-semibold mb-1 text-gray-100 group-hover:text-white truncate">
                       {resource.name}
                     </h3>
                     <p className="text-xs sm:text-sm text-gray-400 line-clamp-2">

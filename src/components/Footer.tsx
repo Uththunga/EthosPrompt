@@ -6,9 +6,9 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-gray-950 text-gray-400 text-sm sm:text-base">
       <div className="container mx-auto px-4 sm:px-6 py-10 sm:py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           {/* Company Info */}
-          <div className="sm:col-span-2 lg:col-span-1">
+          <div className="sm:col-span-2 md:col-span-1">
             <div className="font-bold text-2xl sm:text-3xl mb-3 sm:mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-violet-600">
               EthosPrompt
             </div>
@@ -17,16 +17,16 @@ const Footer: React.FC = () => {
             </p>
             <div className="flex space-x-4">
               <a href="https://facebook.com" className="text-gray-400 hover:text-purple-400 transition-colors p-1 -m-1" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                <Facebook size={18} className="w-5 h-5" />
+                <Facebook size={20} />
               </a>
               <a href="https://twitter.com" className="text-gray-400 hover:text-purple-400 transition-colors p-1 -m-1" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                <Twitter size={18} className="w-5 h-5" />
+                <Twitter size={20} />
               </a>
               <a href="https://instagram.com" className="text-gray-400 hover:text-purple-400 transition-colors p-1 -m-1" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                <Instagram size={18} className="w-5 h-5" />
+                <Instagram size={20} />
               </a>
               <a href="https://linkedin.com" className="text-gray-400 hover:text-purple-400 transition-colors p-1 -m-1" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                <Linkedin size={18} className="w-5 h-5" />
+                <Linkedin size={20} />
               </a>
             </div>
           </div>
@@ -36,22 +36,22 @@ const Footer: React.FC = () => {
             <h3 className="text-white font-semibold text-base sm:text-lg mb-3 sm:mb-4">Quick Links</h3>
             <ul className="space-y-2 sm:space-y-2.5">
               <li>
-                <Link to="/" className="hover:text-purple-400 transition-colors inline-block py-1 sm:py-1.5">
+                <Link to="/" className="hover:text-purple-400 transition-colors inline-block py-1.5">
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/categories" className="hover:text-purple-400 transition-colors inline-block py-1 sm:py-1.5">
+                <Link to="/categories" className="hover:text-purple-400 transition-colors inline-block py-1.5">
                   Categories
                 </Link>
               </li>
               <li>
-                <Link to="/prompt-engineering-guide" className="hover:text-purple-400 transition-colors inline-block py-1 sm:py-1.5">
-                  Engineering Guide
+                <Link to="/prompt-engineering-guide" className="hover:text-purple-400 transition-colors inline-block py-1.5">
+                  Prompting Guide
                 </Link>
               </li>
               <li>
-                <Link to="/resources" className="hover:text-purple-400 transition-colors inline-block py-1 sm:py-1.5">
+                <Link to="/resources" className="hover:text-purple-400 transition-colors inline-block py-1.5">
                   Resources
                 </Link>
               </li>
@@ -63,27 +63,27 @@ const Footer: React.FC = () => {
             <h3 className="text-white font-semibold text-base sm:text-lg mb-3 sm:mb-4">Resources</h3>
             <ul className="space-y-2 sm:space-y-2.5">
               <li>
-                <Link to="/blog" className="hover:text-purple-400 transition-colors inline-block py-1 sm:py-1.5">
+                <Link to="/blog" className="hover:text-purple-400 transition-colors inline-block py-1.5">
                   Blog
                 </Link>
               </li>
               <li>
-                <Link to="/tutorials" className="hover:text-purple-400 transition-colors inline-block py-1 sm:py-1.5">
+                <Link to="/tutorials" className="hover:text-purple-400 transition-colors inline-block py-1.5">
                   Tutorials
                 </Link>
               </li>
               <li>
-                <Link to="/faq" className="hover:text-purple-400 transition-colors inline-block py-1 sm:py-1.5">
+                <Link to="/faq" className="hover:text-purple-400 transition-colors inline-block py-1.5">
                   FAQ
                 </Link>
               </li>
               <li>
-                <Link to="/support" className="hover:text-purple-400 transition-colors inline-block py-1 sm:py-1.5">
+                <Link to="/support" className="hover:text-purple-400 transition-colors inline-block py-1.5">
                   Support
                 </Link>
               </li>
               <li>
-                <Link to="/affiliate-program" className="hover:text-purple-400 transition-colors inline-block py-1 sm:py-1.5">
+                <Link to="/affiliate-program" className="hover:text-purple-400 transition-colors inline-block py-1.5">
                   Affiliate Program
                 </Link>
               </li>
@@ -91,7 +91,7 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Contact */}
-          <div className="sm:col-span-2 lg:col-span-1">
+          <div className="sm:col-span-2 md:col-span-1">
             <h3 className="text-white font-semibold text-base sm:text-lg mb-3 sm:mb-4">Contact Us</h3>
             <ul className="space-y-2 sm:space-y-3">
               <li className="flex items-start">

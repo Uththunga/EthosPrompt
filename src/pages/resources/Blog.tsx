@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, Clock, Tag, ArrowRight } from 'lucide-react';
+import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import { Card } from '../../components/ui/Card';
 
 const Blog: React.FC = () => {
   const featuredPost = {
-    title: 'The Future of Prompt Engineering',
-    excerpt: 'Exploring the latest trends and future directions in prompt engineering and AI interaction design.',
+    title: 'The Future of Prompting',
+    excerpt: 'Exploring the latest trends and future directions in prompting and AI interaction design.',
     date: 'June 5, 2024',
     readTime: '8 min read',
     category: 'AI',
-    path: '/blog/future-of-prompt-engineering',
-    image: '/images/blog/future-prompt-engineering.jpg',
+    path: '/blog/future-of-prompting',
+    image: '/images/blog/future-prompting.jpg',
     author: {
       name: 'Alex Johnson',
       avatar: '/images/authors/alex-johnson.jpg'
@@ -70,9 +70,9 @@ const Blog: React.FC = () => {
     <div className="relative min-h-screen pt-20 sm:pt-24 pb-16 bg-gray-900">
       <div className="container mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="max-w-4xl mx-auto mb-10 sm:mb-12 relative z-10
+        <div className="max-w-4xl mx-auto mb-8 sm:mb-12 relative z-10
 ">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent leading-tight">
+          <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent leading-tight">
             Blog & Insights
           </h1>
           <p className="text-base sm:text-lg text-gray-300 mt-2 sm:mt-3 leading-relaxed">
@@ -81,7 +81,7 @@ const Blog: React.FC = () => {
         </div>
 
         {/* Featured Post */}
-        <div className="max-w-6xl mx-auto mb-12 sm:mb-16">
+        <div className="max-w-6xl mx-auto mb-10 sm:mb-16">
           <h2 className="text-xl sm:text-2xl font-semibold text-gray-100 mb-4 sm:mb-6">Featured Post</h2>
           <Card className="overflow-hidden bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 hover:border-purple-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/5">
             <Link to={featuredPost.path} className="block group">
@@ -90,7 +90,7 @@ const Blog: React.FC = () => {
                   <span className="text-gray-500">Featured Image</span>
                 </div>
               </div>
-              <div className="p-5 sm:p-6 md:p-8">
+              <div className="p-4 sm:p-6 md:p-8">
                 <div className="flex items-center space-x-4 mb-3 sm:mb-4">
                   <span className="inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm font-medium bg-purple-500/10 text-purple-300">
                     {featuredPost.category}
@@ -103,7 +103,7 @@ const Blog: React.FC = () => {
                     {featuredPost.readTime}
                   </div>
                 </div>
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-100 mb-2 sm:mb-3 group-hover:text-purple-400 transition-colors">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-100 mb-2 sm:mb-3 group-hover:text-purple-400 transition-colors">
                   {featuredPost.title}
                 </h2>
                 <p className="text-sm sm:text-base text-gray-300 mb-4 sm:mb-5">
@@ -130,7 +130,7 @@ const Blog: React.FC = () => {
                       <span className="text-gray-500 text-sm">Post Image</span>
                     </div>
                   </div>
-                  <div className="p-5 sm:p-6 flex-1 flex flex-col">
+                  <div className="p-4 sm:p-6 flex-1 flex flex-col">
                     <div className="flex items-center space-x-3 mb-2 sm:mb-3">
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-700 text-gray-300">
                         {post.category}
@@ -158,8 +158,8 @@ const Blog: React.FC = () => {
         </div>
 
         {/* Newsletter Signup */}
-        <div className="max-w-3xl mx-auto mt-16 sm:mt-20">
-          <Card className="bg-gradient-to-br from-gray-800/50 to-gray-900/70 border border-gray-700/50 p-6 sm:p-8">
+        <div className="max-w-3xl mx-auto mt-12 sm:mt-20">
+          <Card className="bg-gradient-to-br from-gray-800/50 to-gray-900/70 border border-gray-700/50 p-5 sm:p-8">
             <div className="text-center">
               <h3 className="text-xl sm:text-2xl font-semibold text-white mb-2">Stay Updated</h3>
               <p className="text-sm sm:text-base text-gray-300 mb-6 max-w-md mx-auto">

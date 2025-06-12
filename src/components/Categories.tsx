@@ -34,7 +34,7 @@ const CategoriesSection: React.FC = () => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(124,58,237,0.1),transparent_50%)]"></div>
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4 text-white">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-white">
             Unlock Your Industry's Potential
           </h2>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto">
@@ -44,37 +44,37 @@ const CategoriesSection: React.FC = () => {
 
         <div className="max-w-3xl mx-auto mb-10">
           <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-4 border border-gray-700/50">
-            <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex flex-col md:flex-row gap-4 md:items-center">
               <div className="flex-1 relative">
                 <input
                   type="text"
                   placeholder="Search categories..."
-                  className="w-full pl-10 pr-4 py-2 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent transition-all"
+                  className="w-full pl-10 pr-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent transition-all"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
               </div>
 
-              <div className="flex gap-2">
+              <div className="flex flex-wrap justify-center gap-2">
                 <Button
                   variant={viewMode === 'all' ? 'default' : 'outline'}
                   onClick={() => setViewMode('all')}
-                  className="text-sm px-3 py-1 tracking-wide"
+                  className="text-sm px-4 py-2 tracking-wide"
                 >
                   All
                 </Button>
                 <Button
                   variant={viewMode === 'trending' ? 'default' : 'outline'}
                   onClick={() => setViewMode('trending')}
-                  className="text-sm px-3 py-1 tracking-wide"
+                  className="text-sm px-4 py-2 tracking-wide"
                 >
                   Trending
                 </Button>
                 <Button
                   variant={viewMode === 'featured' ? 'default' : 'outline'}
                   onClick={() => setViewMode('featured')}
-                  className="text-sm px-3 py-1 tracking-wide"
+                  className="text-sm px-4 py-2 tracking-wide"
                 >
                   Featured
                 </Button>

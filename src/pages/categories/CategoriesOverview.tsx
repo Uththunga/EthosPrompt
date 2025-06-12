@@ -38,10 +38,10 @@ const CategoriesOverview: React.FC = () => {
     <div className="pb-16">
       {/* Header */}
       <div className="mb-12">
-        <h1 className="text-4xl font-bold text-white mb-4">
+        <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4">
           All Categories
         </h1>
-        <p className="text-xl text-gray-400">
+        <p className="text-lg sm:text-xl text-gray-400">
           Browse our complete collection of AI prompt categories
         </p>
       </div>
@@ -68,7 +68,7 @@ const CategoriesOverview: React.FC = () => {
       </div>
 
       {/* Categories Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredCategories.map((category: Category) => {
           const Icon = category.icon;
           return (
@@ -78,13 +78,13 @@ const CategoriesOverview: React.FC = () => {
             >
               <div className={`absolute inset-0 bg-gradient-to-br ${category.bgGradient} opacity-20 group-hover:opacity-30 transition-opacity`} />
               
-              <div className="relative p-6">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="p-3 rounded-xl bg-gray-800/50">
-                    <Icon className="w-8 h-8 text-white" />
+              <div className="relative p-4 sm:p-4">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 rounded-lg bg-gray-800/50">
+                    <Icon className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white group-hover:text-purple-300 transition-colors">
+                    <h2 className="text-lg sm:text-xl font-bold text-white group-hover:text-purple-300 transition-colors">
                       {category.name}
                     </h2>
                     <p className="text-gray-400">
@@ -93,7 +93,7 @@ const CategoriesOverview: React.FC = () => {
                   </div>
                 </div>
 
-                <p className="text-gray-300 mb-6">
+                <p className="text-sm text-gray-300 mb-3">
                   {category.description}
                 </p>
 
@@ -142,7 +142,7 @@ const CategoriesOverview: React.FC = () => {
       {filteredCategories.length === 0 && (
         <div className="text-center py-16">
           <Search size={48} className="text-gray-500 mx-auto mb-4" />
-          <h3 className="text-2xl font-semibold text-white mb-2">No matching categories found</h3>
+          <h3 className="text-xl sm:text-2xl font-semibold text-white mb-2">No matching categories found</h3>
           <p className="text-gray-400">
             Try adjusting your search terms or browse all categories
           </p>

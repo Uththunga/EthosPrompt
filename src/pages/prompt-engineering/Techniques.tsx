@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Card } from '../../components/ui/Card';
-import { BookOpen, MessageCircle, Brain, Circle, ArrowRight, Target, Wrench, Shield, Zap, AlertTriangle } from 'lucide-react';
+import { Circle, ArrowRight, Target, Wrench, Shield, Zap, AlertTriangle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const PromptEngineeringTechniques: React.FC = () => {
@@ -13,13 +13,13 @@ const PromptEngineeringTechniques: React.FC = () => {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="max-w-4xl mx-auto mb-16 relative z-10">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-6 bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent">
             Practical Prompt{' '}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-indigo-400">
               Engineering Techniques
             </span>
           </h1>
-          <p className="text-xl text-gray-300">
+          <p className="text-base sm:text-lg text-gray-300">
             Master the Art of Crafting Effective Prompts
           </p>
         </div>
@@ -28,21 +28,21 @@ const PromptEngineeringTechniques: React.FC = () => {
         <div className="max-w-4xl mx-auto relative z-10">
           {/* Core Techniques Section */}
           <section className="mb-16">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-8 flex items-center">
+            <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-8 flex items-center">
               <Wrench size={24} className="text-purple-400 mr-3" /> Core Techniques
             </h2>
             <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50">
-              <div className="p-6">
+              <div className="p-4 sm:p-6">
                 <div className="prose prose-invert max-w-none">
-                  <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                  <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-6">
                     Just like a skilled chef knows the right ingredients and techniques to create a perfect dish, a prompt engineer uses specific techniques to get the best results from AI.
                   </p>
                   
-                  <div className="grid md:grid-cols-2 gap-6">
+                  <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                     {/* Left Column */}
                     <div className="space-y-6">
-                      <div className="bg-gray-900/30 p-4 rounded-lg">
-                        <h3 className="text-lg font-semibold text-purple-200 mb-3">1. Role Setting</h3>
+                      <div className="bg-gray-900/30 p-3 sm:p-4 rounded-lg">
+                        <h3 className="text-base sm:text-lg font-semibold text-purple-200 mb-3">1. Role Setting</h3>
                         <p className="text-gray-300 mb-2">Give the AI a specific role to guide its responses.</p>
                         <div className="bg-gray-900/50 p-3 rounded border border-purple-500/20">
                           <p className="text-sm text-purple-200 mb-2">Examples:</p>
@@ -55,8 +55,8 @@ const PromptEngineeringTechniques: React.FC = () => {
                         </div>
                       </div>
 
-                      <div className="bg-gray-900/30 p-4 rounded-lg">
-                        <h3 className="text-lg font-semibold text-purple-200 mb-3">2. Context Providing</h3>
+                      <div className="bg-gray-900/30 p-3 sm:p-4 rounded-lg">
+                        <h3 className="text-base sm:text-lg font-semibold text-purple-200 mb-3">2. Context Providing</h3>
                         <p className="text-gray-300 mb-2">Set the background and requirements clearly.</p>
                         <div className="bg-gray-900/50 p-3 rounded border border-purple-500/20">
                           <p className="text-sm text-purple-200 mb-2">Example Structure:</p>
@@ -72,8 +72,8 @@ const PromptEngineeringTechniques: React.FC = () => {
 
                     {/* Right Column */}
                     <div className="space-y-6">
-                      <div className="bg-gray-900/30 p-4 rounded-lg">
-                        <h3 className="text-lg font-semibold text-purple-200 mb-3">3. Task Breakdown</h3>
+                      <div className="bg-gray-900/30 p-3 sm:p-4 rounded-lg">
+                        <h3 className="text-base sm:text-lg font-semibold text-purple-200 mb-3">3. Task Breakdown</h3>
                         <p className="text-gray-300 mb-2">Split complex requests into clear steps.</p>
                         <div className="bg-gray-900/50 p-3 rounded border border-purple-500/20">
                           <p className="text-sm text-purple-200 mb-2">Example Format:</p>
@@ -87,8 +87,8 @@ const PromptEngineeringTechniques: React.FC = () => {
                         </div>
                       </div>
 
-                      <div className="bg-gray-900/30 p-4 rounded-lg">
-                        <h3 className="text-lg font-semibold text-purple-200 mb-3">4. Output Formatting</h3>
+                      <div className="bg-gray-900/30 p-3 sm:p-4 rounded-lg">
+                        <h3 className="text-base sm:text-lg font-semibold text-purple-200 mb-3">4. Output Formatting</h3>
                         <p className="text-gray-300 mb-2">Specify how you want the response structured.</p>
                         <div className="bg-gray-900/50 p-3 rounded border border-purple-500/20">
                           <p className="text-sm text-purple-200 mb-2">Format Examples:</p>
@@ -110,13 +110,13 @@ const PromptEngineeringTechniques: React.FC = () => {
 
           {/* Advanced Strategies Section */}
           <section className="mb-16">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-8 flex items-center">
+            <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-8 flex items-center">
               <Zap size={24} className="text-purple-400 mr-3" /> Advanced Strategies
             </h2>
             <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50">
-              <div className="p-6 space-y-6">
+              <div className="p-4 sm:p-6 space-y-6">
                 <div className="bg-gray-900/30 p-4 rounded-lg border border-gray-700/50">
-                  <h3 className="text-xl font-semibold text-white mb-3">Chain-of-Thought Prompting</h3>
+                  <h3 className="text-base sm:text-lg font-semibold text-white mb-3">Chain-of-Thought Prompting</h3>
                   <p className="text-gray-300 mb-4">
                     Guide the AI through a logical thinking process, like helping a student solve a complex problem step by step.
                   </p>
@@ -136,9 +136,9 @@ const PromptEngineeringTechniques: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="bg-gray-900/30 p-4 rounded-lg">
-                    <h3 className="text-lg font-semibold text-purple-200 mb-3">Few-Shot Learning</h3>
+                <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
+                  <div className="bg-gray-900/30 p-3 sm:p-4 rounded-lg">
+                    <h3 className="text-base sm:text-lg font-semibold text-purple-200 mb-3">Few-Shot Learning</h3>
                     <p className="text-gray-300 mb-4">
                       Provide examples of desired input-output pairs before your main request.
                     </p>
@@ -154,8 +154,8 @@ const PromptEngineeringTechniques: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="bg-gray-900/30 p-4 rounded-lg">
-                    <h3 className="text-lg font-semibold text-purple-200 mb-3">Temperature Control</h3>
+                  <div className="bg-gray-900/30 p-3 sm:p-4 rounded-lg">
+                    <h3 className="text-base sm:text-lg font-semibold text-purple-200 mb-3">Temperature Control</h3>
                     <p className="text-gray-300 mb-4">
                       Adjust the AI's creativity level based on your needs.
                     </p>
@@ -183,7 +183,7 @@ const PromptEngineeringTechniques: React.FC = () => {
                 </div>
 
                 <div className="bg-gray-900/30 p-4 rounded-lg border border-gray-700/50">
-                  <h3 className="text-xl font-semibold text-white mb-3">System Message Design</h3>
+                  <h3 className="text-base sm:text-lg font-semibold text-white mb-3">System Message Design</h3>
                   <p className="text-gray-300 mb-4">
                     Create effective system messages that set the foundation for AI behavior and responses.
                   </p>
@@ -211,15 +211,15 @@ const PromptEngineeringTechniques: React.FC = () => {
 
           {/* Best Practices Section */}
           <section className="mb-16">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-8 flex items-center">
+            <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-8 flex items-center">
               <Shield size={24} className="text-purple-400 mr-3" /> Best Practices & Common Pitfalls
             </h2>
             <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50">
-              <div className="p-6">
-                <div className="grid md:grid-cols-2 gap-6">
+              <div className="p-4 sm:p-6">
+                <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                   {/* Best Practices */}
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-4">✅ Best Practices</h3>
+                    <h3 className="text-base sm:text-lg font-semibold text-white mb-4">✅ Best Practices</h3>
                     <ul className="space-y-4">
                       <li className="flex items-start">
                         <Circle size={6} className="text-purple-400 mr-2 mt-2 flex-shrink-0" />
@@ -247,7 +247,7 @@ const PromptEngineeringTechniques: React.FC = () => {
 
                   {/* Common Pitfalls */}
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-4">⚠️ Common Pitfalls</h3>
+                    <h3 className="text-base sm:text-lg font-semibold text-white mb-4">⚠️ Common Pitfalls</h3>
                     <ul className="space-y-4">
                       <li className="flex items-start">
                         <AlertTriangle size={16} className="text-purple-400 mr-2 mt-1 flex-shrink-0" />
@@ -278,19 +278,19 @@ const PromptEngineeringTechniques: React.FC = () => {
 
           {/* Evaluation and Testing Section */}
           <section className="mb-16">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-8 flex items-center">
+            <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-8 flex items-center">
               <Target size={24} className="text-purple-400 mr-3" /> Evaluation & Testing
             </h2>
             <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50">
-              <div className="p-6">
-                <p className="text-gray-300 text-lg leading-relaxed mb-6">
+              <div className="p-4 sm:p-6">
+                <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-6">
                   Just like software testing, prompt engineering requires systematic evaluation to ensure reliability and effectiveness.
                 </p>
 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                   <div className="space-y-6">
-                    <div className="bg-gray-900/30 p-4 rounded-lg">
-                      <h3 className="text-lg font-semibold text-purple-200 mb-3">Testing Strategies</h3>
+                    <div className="bg-gray-900/30 p-3 sm:p-4 rounded-lg">
+                      <h3 className="text-base sm:text-lg font-semibold text-purple-200 mb-3">Testing Strategies</h3>
                       <ul className="space-y-3 text-gray-300">
                         <li className="flex items-start">
                           <Circle size={6} className="text-purple-400 mr-2 mt-2 flex-shrink-0" />
@@ -316,8 +316,8 @@ const PromptEngineeringTechniques: React.FC = () => {
                       </ul>
                     </div>
 
-                    <div className="bg-gray-900/30 p-4 rounded-lg">
-                      <h3 className="text-lg font-semibold text-purple-200 mb-3">Success Metrics</h3>
+                    <div className="bg-gray-900/30 p-3 sm:p-4 rounded-lg">
+                      <h3 className="text-base sm:text-lg font-semibold text-purple-200 mb-3">Success Metrics</h3>
                       <div className="space-y-3">
                         <div className="bg-gray-900/50 p-3 rounded border border-purple-500/20">
                           <p className="text-white text-sm mb-2"><strong>Accuracy</strong></p>
@@ -336,8 +336,8 @@ const PromptEngineeringTechniques: React.FC = () => {
                   </div>
 
                   <div className="space-y-6">
-                    <div className="bg-gray-900/30 p-4 rounded-lg">
-                      <h3 className="text-lg font-semibold text-purple-200 mb-3">Iteration Process</h3>
+                    <div className="bg-gray-900/30 p-3 sm:p-4 rounded-lg">
+                      <h3 className="text-base sm:text-lg font-semibold text-purple-200 mb-3">Iteration Process</h3>
                       <div className="bg-gray-900/50 p-4 rounded border border-gray-700/50">
                         <ol className="space-y-3 text-gray-300">
                           <li className="flex items-start">
@@ -372,8 +372,8 @@ const PromptEngineeringTechniques: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="bg-gray-900/30 p-4 rounded-lg">
-                      <h3 className="text-lg font-semibold text-purple-200 mb-3">Documentation</h3>
+                    <div className="bg-gray-900/30 p-3 sm:p-4 rounded-lg">
+                      <h3 className="text-base sm:text-lg font-semibold text-purple-200 mb-3">Documentation</h3>
                       <p className="text-gray-300 mb-4">
                         Keep track of your prompt engineering process:
                       </p>
