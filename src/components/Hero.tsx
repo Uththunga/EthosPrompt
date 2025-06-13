@@ -46,23 +46,23 @@ const Hero: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center px-4 sm:px-0 w-full max-w-md mx-auto">
             <Button 
               variant="default"
-              size="lg" 
-              className="group w-full justify-center bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 py-6 text-base sm:text-lg rounded-xl"
+              size="default"
+              className="group w-full justify-center bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
               onClick={() => navigate('/categories')}
             >
               Prompt Library
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
             
             <Button 
               variant="outline"
-              size="lg"
+              size="default"
               disabled
-              className="group w-full justify-center border-2 border-gray-500 text-gray-400 cursor-not-allowed py-6 text-base sm:text-lg rounded-xl opacity-70"
+              className="group w-full justify-center"
               onClick={(e) => e.preventDefault()}
             >
               Custom Prompts (Coming Soon)
-              <ArrowRight className="ml-2 h-5 w-5 text-gray-400" />
+              <ArrowRight className="ml-2 h-4 w-4 text-gray-400" />
             </Button>
           </div>
         </div>
