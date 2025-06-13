@@ -48,11 +48,11 @@ const Header: React.FC = () => {
           {/* Logo */}
           <div className="flex items-center gap-2">
             <Link to="/" className="flex items-center group relative" onClick={() => setIsMenuOpen(false)}>
-              <div className="absolute inset-0 bg-purple-500/20 blur-xl rounded-full animate-pulse"></div>
+              <div className="absolute inset-0 bg-purple-500/10 blur-xl rounded-full animate-pulse"></div>
               <img 
                 src="/EthosPrompt/WhatsApp Image 2025-06-03 at 13.03.32_eb705350.png" 
                 alt="EthosPrompt Logo" 
-                className="h-5 sm:h-6 md:h-7 transition-all duration-300 hover:scale-105 hover:brightness-125 hover:drop-shadow-[0_0_25px_rgba(168,85,247,0.5)] filter drop-shadow-[0_0_15px_rgba(168,85,247,0.4)] relative z-10"
+                className="h-5 sm:h-6 md:h-7 transition-all duration-300 hover:scale-105 hover:brightness-125 hover:drop-shadow-[0_0_15px_rgba(168,85,247,0.6)] filter drop-shadow-[0_0_10px_rgba(168,85,247,0.3)] relative z-10"
                 width="auto"
                 height="auto"
               />
@@ -70,10 +70,10 @@ const Header: React.FC = () => {
                 key={item.path}
                 to={item.path}
                 onClick={() => setIsMenuOpen(false)}
-                className={`px-3 sm:px-4 py-2 rounded-lg transition-colors text-sm sm:text-base ${
+                className={`px-3 sm:px-4 py-2 text-sm sm:text-base font-medium transition-all duration-200 ${
                   isActivePath(item.path)
-                    ? 'text-white bg-purple-500/10'
-                    : 'text-gray-300 hover:text-white hover:bg-gray-800'
+                    ? 'text-white'
+                    : 'text-gray-300 hover:text-white'
                 }`}
               >
                 {item.label}
@@ -150,15 +150,15 @@ const Header: React.FC = () => {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`px-4 py-3 rounded-lg transition-colors text-base ${
+                  className={`px-4 py-3 text-base font-medium transition-all duration-200 ${
                     isActivePath(item.path)
-                      ? 'text-white bg-purple-500/10 font-medium'
-                      : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
+                      ? 'text-white'
+                      : 'text-gray-300 hover:text-white'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
+              >
+                {item.label}
+              </Link>
               ))}
             </nav>
 
