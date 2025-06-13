@@ -57,11 +57,12 @@ const Hero: React.FC = () => {
             <Button 
               variant="outline"
               size="lg"
-              className="group w-full justify-center border-2 border-purple-400 hover:bg-purple-600/10 py-6 text-base sm:text-lg rounded-xl"
-              onClick={() => navigate('/custom-service')}
+              disabled
+              className="group w-full justify-center border-2 border-gray-500 text-gray-400 cursor-not-allowed py-6 text-base sm:text-lg rounded-xl opacity-70"
+              onClick={(e) => e.preventDefault()}
             >
-              Custom Prompts
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              Custom Prompts (Coming Soon)
+              <ArrowRight className="ml-2 h-5 w-5 text-gray-400" />
             </Button>
           </div>
         </div>
