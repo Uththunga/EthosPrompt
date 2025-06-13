@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import { Card } from '../../components/ui/Card';
 import { BookOpen, MessageCircle, Brain, Circle, ArrowRight, Target } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import Section from '../../components/prompt/Section';
+import ModelCard from '../../components/prompt/ModelCard';
 
 const PromptEngineeringBasics: React.FC = () => {
   useEffect(() => {
@@ -9,10 +12,15 @@ const PromptEngineeringBasics: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen pt-24 pb-16">
+    <div className="relative min-h-screen bg-gradient-to-b from-gray-900 to-gray-950 pt-24 pb-16">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="max-w-4xl mx-auto mb-16 relative z-10">
+        <motion.div 
+          className="max-w-4xl mx-auto mb-16 relative z-10 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <h1 className="text-3xl sm:text-4xl font-bold mb-6 bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent">            The Story of{' '}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-indigo-400">
               Prompting
@@ -21,14 +29,11 @@ const PromptEngineeringBasics: React.FC = () => {
           <p className="text-base sm:text-lg text-gray-300">
             How AI Learns to Talk Like a Human – An Interactive Journey
           </p>
-        </div>
+        </motion.div>
 
         {/* Main Content */}
         <div className="max-w-4xl mx-auto relative z-10">          {/* Terminology Section */}
-          <section className="mb-16">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-8 flex items-center">
-              <MessageCircle size={24} className="text-purple-400 mr-3" /> From "AI" to "LLM"
-            </h2>
+          <Section title={'From "AI" to "LLM"'} icon={<MessageCircle size={24} className="text-purple-400" />}>
             <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50">
               <div className="p-4 sm:p-6">
                 <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-6">
@@ -83,7 +88,7 @@ const PromptEngineeringBasics: React.FC = () => {
                 </div>
               </div>
             </Card>
-          </section>
+          </Section>
 
           {/* Chapter 1: The Birth of AI Brain */}
           <section className="mb-16">
@@ -581,88 +586,30 @@ const PromptEngineeringBasics: React.FC = () => {
               </div>
             </Card>
           </section>          {/* Popular LLM Models Section */}
-          <section className="mb-16">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent mb-8 flex items-center">
-              <Target size={24} className="text-purple-400 mr-3" /> Popular LLMs
-            </h2>
+          <Section title="Popular LLMs" icon={<Target size={24} className="text-purple-400" />}>
             <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50">
-              <div className="p-6">
-                <div className="grid md:grid-cols-3 gap-6">
-                  {/* ChatGPT */}
-                  <div className="group relative">
-                    <div className="bg-gray-900/50 p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 transform hover:-translate-y-1">
-                      <div className="flex justify-center mb-6">
-                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-400/20 to-indigo-400/20 p-3 border border-purple-500/30 shadow-lg">
-                          <img 
-                            src="/images/ai-logos/chatgpt-logo.svg" 
-                            alt="ChatGPT Logo" 
-                            className="w-full h-full object-contain filter brightness-150"
-                          />
-                        </div>
-                      </div>
-                      <h3 className="text-xl font-semibold text-white text-center mb-3 bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">ChatGPT</h3>
-                      <p className="text-gray-300 text-center text-sm leading-relaxed">
-                        OpenAI's versatile language model, excelling in natural conversations and creative content generation.
-                      </p>
-                      <div className="mt-4 bg-purple-500/10 p-3 rounded border border-purple-500/20">
-                        <p className="text-purple-200 text-xs text-center">
-                          💡 Best for: Creative writing, coding assistance, and general knowledge tasks
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Claude */}
-                  <div className="group relative">
-                    <div className="bg-gray-900/50 p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 transform hover:-translate-y-1">
-                      <div className="flex justify-center mb-6">
-                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-400/20 to-indigo-400/20 p-3 border border-purple-500/30 shadow-lg">
-                          <img 
-                            src="/images/ai-logos/claude-logo.svg" 
-                            alt="Claude Logo" 
-                            className="w-full h-full object-contain filter brightness-150"
-                          />
-                        </div>
-                      </div>
-                      <h3 className="text-xl font-semibold text-white text-center mb-3 bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">Claude</h3>
-                      <p className="text-gray-300 text-center text-sm leading-relaxed">
-                        Anthropic's analytical powerhouse, delivering precise and well-reasoned responses with high accuracy.
-                      </p>
-                      <div className="mt-4 bg-purple-500/10 p-3 rounded border border-purple-500/20">
-                        <p className="text-purple-200 text-xs text-center">
-                          💡 Best for: Complex analysis, technical writing, and detailed explanations
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Gemini */}
-                  <div className="group relative">
-                    <div className="bg-gray-900/50 p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 transform hover:-translate-y-1">
-                      <div className="flex justify-center mb-6">
-                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-400/20 to-indigo-400/20 p-3 border border-purple-500/30 shadow-lg">
-                          <img 
-                            src="/images/ai-logos/gemini-logo.svg" 
-                            alt="Gemini Logo" 
-                            className="w-full h-full object-contain filter brightness-150"
-                          />
-                        </div>
-                      </div>
-                      <h3 className="text-xl font-semibold text-white text-center mb-3 bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">Gemini</h3>
-                      <p className="text-gray-300 text-center text-sm leading-relaxed">
-                        Google's multimodal marvel, seamlessly handling text, code, and visual information.
-                      </p>
-                      <div className="mt-4 bg-purple-500/10 p-3 rounded border border-purple-500/20">
-                        <p className="text-purple-200 text-xs text-center">
-                          💡 Best for: Multimodal tasks, visual analysis, and integrated problem-solving
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className="p-6 grid md:grid-cols-3 gap-6">
+                <ModelCard
+                  name="ChatGPT"
+                  img="/images/ai-logos/chatgpt-logo.svg"
+                  description="OpenAI's versatile language model, excelling in natural conversations and creative content generation."
+                  bestFor="Creative writing, coding assistance, and general knowledge tasks"
+                />
+                <ModelCard
+                  name="Claude"
+                  img="/images/ai-logos/claude-logo.svg"
+                  description="Anthropic's analytical powerhouse, delivering precise and well-reasoned responses with high accuracy."
+                  bestFor="Complex analysis, technical writing, and detailed explanations"
+                />
+                <ModelCard
+                  name="Gemini"
+                  img="/images/ai-logos/gemini-logo.svg"
+                  description="Google's multimodal marvel, seamlessly handling text, code, and visual information."
+                  bestFor="Multimodal tasks, visual analysis, and integrated problem-solving"
+                />
               </div>
             </Card>
-          </section>
+          </Section>
 
           {/* Next Lesson Navigation */}
           <div className="mt-16 border-t border-gray-800 pt-8">

@@ -43,15 +43,25 @@ const Hero: React.FC = () => {
             Supercharge your AI workflows with premium, engineered prompts designed for content creators, marketers, recruiters, and more.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-2 sm:px-0">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center px-4 sm:px-0 w-full max-w-md mx-auto">
             <Button 
               variant="default"
               size="lg" 
-              className="group w-full sm:w-auto justify-center"
+              className="group w-full justify-center bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 py-6 text-base sm:text-lg rounded-xl"
               onClick={() => navigate('/categories')}
             >
-              <span>Prompt Categories</span>
-              <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
+              Prompt Library
+              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            </Button>
+            
+            <Button 
+              variant="outline"
+              size="lg"
+              className="group w-full justify-center border-2 border-purple-400 hover:bg-purple-600/10 py-6 text-base sm:text-lg rounded-xl"
+              onClick={() => navigate('/custom-service')}
+            >
+              Custom Prompts
+              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
         </div>
