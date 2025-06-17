@@ -19,18 +19,10 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import CookiePolicy from './pages/CookiePolicy';
 
-// Category Pages
+// Category & Prompt Pages
 import CategoriesOverview from './pages/categories/CategoriesOverview';
-import MarketingContent from './pages/categories/MarketingContent';
-import EducationTeaching from './pages/categories/EducationTeaching';
-import SoftwareDevelopment from './pages/categories/SoftwareDevelopment';
-import CustomerSupport from './pages/categories/CustomerSupport';
-import LegalServices from './pages/categories/LegalServices';
-import HRRecruitment from './pages/categories/HRRecruitment';
-import Healthcare from './pages/categories/Healthcare';
-import DataScience from './pages/categories/DataScience';
-import SubcategoryDetail from './pages/categories/SubcategoryDetail';
-import PromptExamples from './pages/prompt-engineering/prompt-examples';
+import CategoryPage from './pages/CategoryPage';
+import PromptDetailPage from './pages/PromptDetailPage';
 
 // Resource Pages
 import GettingStarted from './pages/resources/GettingStarted';
@@ -38,6 +30,7 @@ import Documentation from './pages/resources/Documentation';
 import FAQ from './pages/resources/FAQ.new';
 import Tutorials from './pages/resources/Tutorials';
 import Blog from './pages/resources/Blog';
+import DataTableDemo from './pages/DataTableDemo';
 
 const HomePage = () => (
   <main className="space-y-12 md:space-y-20">
@@ -61,37 +54,25 @@ function App() {
             <Route path="/prompt-engineering-guide" element={<PromptEngineeringGuide />} />
             <Route path="/prompt-engineering-guide/basics" element={<PromptEngineeringBasics />} />
             <Route path="/prompt-engineering-guide/techniques" element={<PromptEngineeringTechniques />} />
-            <Route path="/prompt-engineering-guide/examples" element={<PromptExamples />} />
             <Route path="/resources" element={<Resources />} />
             <Route path="/resources/getting-started" element={<GettingStarted />} />
             <Route path="/resources/documentation" element={<Documentation />} />
             <Route path="/resources/faq" element={<FAQ />} />
             <Route path="/resources/tutorials" element={<Tutorials />} />
             <Route path="/resources/blog" element={<Blog />} />
+            <Route path="/components/datatable" element={<DataTableDemo />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="/cookie-policy" element={<CookiePolicy />} />
             
             {/* Category Routes */}
-            <Route path="/categories/*" element={<CategoryLayout />}>
+            <Route path="/categories" element={<CategoryLayout />}>
               <Route index element={<CategoriesOverview />} />
-              <Route path="marketing" element={<MarketingContent />} />
-              <Route path="marketing/:subcategoryId" element={<SubcategoryDetail categoryId="marketing" />} />
-              <Route path="education" element={<EducationTeaching />} />
-              <Route path="education/:subcategoryId" element={<SubcategoryDetail categoryId="education" />} />
-              <Route path="development" element={<SoftwareDevelopment />} />
-              <Route path="development/:subcategoryId" element={<SubcategoryDetail categoryId="development" />} />
-              <Route path="support" element={<CustomerSupport />} />
-              <Route path="support/:subcategoryId" element={<SubcategoryDetail categoryId="support" />} />
-              <Route path="legal" element={<LegalServices />} />
-              <Route path="legal/:subcategoryId" element={<SubcategoryDetail categoryId="legal" />} />
-              <Route path="hr" element={<HRRecruitment />} />
-              <Route path="hr/:subcategoryId" element={<SubcategoryDetail categoryId="hr" />} />
-              <Route path="healthcare" element={<Healthcare />} />
-              <Route path="healthcare/:subcategoryId" element={<SubcategoryDetail categoryId="healthcare" />} />
-              <Route path="data-science" element={<DataScience />} />
-              <Route path="data-science/:subcategoryId" element={<SubcategoryDetail categoryId="data-science" />} />
+              <Route path=":id" element={<CategoryPage />} />
             </Route>
+
+            {/* Prompt Detail Route */}
+            <Route path="/prompts/:promptId" element={<PromptDetailPage />} />
           </Routes>
           <Footer />
         </div>

@@ -1,0 +1,118 @@
+/// <reference types="vitest" />
+import { defineConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { configDefaults } from 'vitest/config';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+export default defineConfig({
+  plugins: [
+    react({
+      jsxImportSource: '@emotion/react',
+      babel: {
+        plugins: ['@emotion/babel-plugin'],
+      },
+    }),
+  ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+      '@components': path.resolve(__dirname, './src/components'),
+      '@lib': path.resolve(__dirname, './src/lib'),
+      '@pages': path.resolve(__dirname, './src/pages'),
+      '@hooks': path.resolve(__dirname, './src/hooks'),
+      '@styles': path.resolve(__dirname, './src/styles'),
+      '@assets': path.resolve(__dirname, './src/assets'),
+      '@utils': path.resolve(__dirname, './src/utils'),
+      '@contexts': path.resolve(__dirname, './src/contexts'),
+    },
+  },
+  test: {
+    // Test environment and setup
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./vitest.setup.ts'],
+    
+    // Test file patterns
+    include: [
+      '**/__tests__/**/*.{test,spec}.[jt]s?(x)',
+      '**/?(*.){test,spec}.[jt]s?(x)',
+      '!**/node_modules/**',
+      '!**/dist/**',
+      '!**/.next/**',
+      '!**/.vercel/**',
+      '!**/.git/**',
+      '!**/cypress/**',
+      '!**/playwright-tests/**',
+      '!**/e2e/**',
+      '!**/coverage/**',
+    ],
+    exclude: [
+      ...(configDefaults.exclude || []),
+    ],
+    
+    // TypeScript configuration
+    typecheck: {
+      tsconfig: './tsconfig.vitest.json',
+    },
+    
+    // Test runner settings
+    testTimeout: 30000,
+    hookTimeout: 10000,
+    reporters: 'verbose',
+    
+    // Coverage configuration
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
+      exclude: [
+        ...(configDefaults.coverage?.exclude || []),
+        '**/node_modules/**',
+        '**/dist/**',
+        '**/.next/**',
+        '**/.vercel/**',
+        '**/.git/**',
+        '**/*.d.ts',
+        '**/*.test.{js,jsx,ts,tsx}',
+        '**/*.spec.{js,jsx,ts,tsx}',
+        '**/__tests__/**',
+        '**/__mocks__/**',
+      ],
+    },
+    
+    // Global setup
+    globalSetup: undefined,
+    
+    // Isolate tests for better error reporting
+    isolate: true,
+    open: false,
+    watch: false,
+    passWithNoTests: true,
+    logHeapUsage: true,
+    
+    // Mock handling
+    clearMocks: true,
+    mockReset: true,
+    restoreMocks: true,
+    
+    // Watch and re-run triggers
+    forceRerunTriggers: [
+      '**/*.{js,jsx,ts,tsx}',
+      '**/package.json',
+      '**/vite.config.*',
+      '**/vitest.config.*',
+    ],
+    
+    // Server configuration
+    server: {
+      deps: {
+        inline: [
+          '@emotion/react',
+          '@testing-library/user-event'
+        ],
+      },
+    },
+  },
+});

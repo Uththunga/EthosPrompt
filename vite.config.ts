@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
@@ -65,6 +66,12 @@ export default defineConfig(({ mode }) => {
     define: {
       'process.env': process.env,
       __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
+    },
+        test: {
+      globals: true,
+      environment: 'jsdom',
+      setupFiles: './jest.setup.js',
+      include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     },
   };
 });

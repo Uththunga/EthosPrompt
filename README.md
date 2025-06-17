@@ -94,6 +94,14 @@ Our clients typically see:
 - Regular security updates
 - Safe data handling practices
 
+## 🧩 Components
+
+### DataTable
+
+A highly customizable and feature-rich table component for React applications.
+
+[View Documentation](./Docs/DataTable.md)
+
 ## 🌟 Get Started
 
 Visit [EthosPrompt](https://ethosprompt.com) to explore how we can help your organization leverage AI more effectively.

@@ -1,0 +1,199 @@
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import React from 'react';
+import * as TabsModule from '../Tabs';
+
+const { default: Tabs, TabsList, TabsTrigger, TabsContent, TabsEnhanced } = TabsModule as any;
+
+// Helper function to wait for tab changes
+const waitForTabChange = async (): Promise<void> => {
+  await waitFor(() => new Promise(resolve => setTimeout(resolve, 0)));
+};
+
+// Simple text component to avoid JSX issues
+const TextContent = ({ children }: { children: string }) => (
+  <div data-testid="text-content">{children}</div>
+);
+
+// Type for tab items
+type TabItem = {
+  value: string;
+  label: string;
+  content: React.ReactNode;
+  disabled?: boolean;
+  badge?: React.ReactNode;
+  loading?: boolean;
+};
+
+// Create a wrapper component to handle the tabs
+const TabsWrapper = () => (
+  <Tabs>
+    <Tabs.List>
+      <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>
+      <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
+    </Tabs.List>
+    <Tabs.Content value="tab1">
+      <TextContent>Content 1</TextContent>
+    </Tabs.Content>
+    <Tabs.Content value="tab2">
+      <TextContent>Content 2</TextContent>
+    </Tabs.Content>
+  </Tabs>
+);
+
+describe('Tabs', () => {
+  it('renders tabs with content', () => {
+    render(<TabsWrapper />);
+
+    // Check if tabs are rendered
+    expect(screen.getByRole('tab', { name: 'Tab 1' })).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: 'Tab 2' })).toBeInTheDocument();
+    
+    // Check if active tab content is rendered
+    expect(screen.getByText('Content 1')).toBeInTheDocument();
+    
+    // Check that inactive tab content is not in the document
+    expect(screen.queryByText('Content 2')).not.toBeInTheDocument();
+  });
+
+  it('switches between tabs', async () => {
+    render(<TabsWrapper />);
+
+    // Get tab elements
+    const tab1 = screen.getByRole('tab', { name: 'Tab 1' });
+    const tab2 = screen.getByRole('tab', { name: 'Tab 2' });
+    
+    // Initial state - first tab should be active
+    expect(tab1).toHaveAttribute('data-state', 'active');
+    expect(tab2).toHaveAttribute('data-state', 'inactive');
+    
+    // First tab content should be visible
+    const tab1Panel = screen.getByRole('tabpanel', { name: 'Tab 1' });
+    expect(tab1Panel).toBeInTheDocument();
+    
+    // Second tab content should be hidden initially
+    expect(screen.queryByRole('tabpanel', { name: 'Tab 2' })).not.toBeInTheDocument();
+    
+    // Click the second tab
+    fireEvent.click(tab2);
+    
+    // Wait for the state update
+    await waitForTabChange();
+    
+    // After click, second tab should be active
+    await waitFor(() => {
+      expect(tab1).toHaveAttribute('data-state', 'inactive');
+      expect(tab2).toHaveAttribute('data-state', 'active');
+    });
+    
+    // First tab content should now be hidden
+    expect(screen.queryByRole('tabpanel', { name: 'Tab 1' })).not.toBeInTheDocument();
+    
+    // Second tab content should now be visible
+    const updatedTab2Panel = await screen.findByRole('tabpanel', { name: 'Tab 2' });
+    expect(updatedTab2Panel).toBeInTheDocument();
+  });
+
+  it('shows badge when provided', () => {
+    render(
+      <TabsModule.default defaultValue="tab1">
+        <TabsModule.TabsList>
+          <TabsModule.TabsTrigger value="tab1" badge="New">
+            Tab 1
+          </TabsModule.TabsTrigger>
+          <TabsModule.TabsTrigger value="tab2">
+            Tab 2
+          </TabsModule.TabsTrigger>
+        </TabsModule.TabsList>
+        <TabsModule.TabsContent value="tab1">
+          <TextContent>Content 1</TextContent>
+        </TabsModule.TabsContent>
+        <TabsModule.TabsContent value="tab2">
+          <TextContent>Content 2</TextContent>
+        </TabsModule.TabsContent>
+      </TabsModule.default>
+    );
+
+    expect(screen.getByText('New')).toBeInTheDocument();
+  });
+});
+
+describe('TabsEnhanced', () => {
+  it('renders with tabs prop', () => {
+    const tabs = [
+      { 
+        value: 'tab1', 
+        label: 'Tab 1', 
+        content: <TextContent>Content 1</TextContent>
+      },
+      { 
+        value: 'tab2', 
+        label: 'Tab 2', 
+        content: <TextContent>Content 2</TextContent>
+      },
+    ];
+
+    render(<TabsModule.TabsEnhanced tabs={tabs} />);
+
+    // Check if tabs are rendered
+    expect(screen.getByRole('tab', { name: 'Tab 1' })).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: 'Tab 2' })).toBeInTheDocument();
+    
+    // Check if active tab content is rendered
+    expect(screen.getByText('Content 1')).toBeInTheDocument();
+    // Inactive tab content should not be in the document
+    expect(screen.queryByText('Content 2')).not.toBeInTheDocument();
+  });
+
+  it('switches between tabs in TabsEnhanced', async () => {
+    // Increase test timeout
+    jest.setTimeout(15000);
+    const tabs = [
+      { 
+        value: 'tab1', 
+        label: 'Tab 1', 
+        content: <TextContent>Content 1</TextContent> 
+      },
+      { 
+        value: 'tab2', 
+        label: 'Tab 2', 
+        content: <TextContent>Content 2</TextContent> 
+      },
+    ];
+
+    render(<TabsModule.TabsEnhanced tabs={tabs} />);
+
+    // Get tab elements
+    const tab1 = screen.getByRole('tab', { name: 'Tab 1' });
+    const tab2 = screen.getByRole('tab', { name: 'Tab 2' });
+    
+    // Initial state - first tab should be active
+    expect(tab1).toHaveAttribute('data-state', 'active');
+    expect(tab2).toHaveAttribute('data-state', 'inactive');
+    
+    // First tab content should be visible
+    const tab1Panel = screen.getByRole('tabpanel', { name: 'Tab 1' });
+    expect(tab1Panel).toBeInTheDocument();
+    
+    // Second tab content should be hidden initially
+    expect(screen.queryByRole('tabpanel', { name: 'Tab 2' })).not.toBeInTheDocument();
+    
+    // Click the second tab
+    fireEvent.click(tab2);
+    
+    // Wait for the state update
+    await waitForTabChange();
+    
+    // After click, second tab should be active
+    await waitFor(() => {
+      expect(tab1).toHaveAttribute('data-state', 'inactive');
+      expect(tab2).toHaveAttribute('data-state', 'active');
+    });
+    
+    // First tab content should now be hidden
+    expect(screen.queryByRole('tabpanel', { name: 'Tab 1' })).not.toBeInTheDocument();
+    
+    // Second tab content should now be visible
+    const tab2Panel = await screen.findByRole('tabpanel', { name: 'Tab 2' });
+    expect(tab2Panel).toBeInTheDocument();
+  });
+});

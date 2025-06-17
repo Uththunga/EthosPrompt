@@ -1,0 +1,178 @@
+# Tabs
+
+A set of layered sections of content—known as tab panels—that are displayed one at a time.
+
+## Features
+
+- Supports both controlled and uncontrolled usage
+- Keyboard navigation
+- Horizontal and vertical orientations
+- Customizable styling using Tailwind CSS
+- Accessible by default
+- Supports loading states and badges
+
+## Installation
+
+```bash
+npm install @radix-ui/react-tabs
+```
+
+## Usage
+
+### Basic Usage
+
+```tsx
+import { Tabs } from '@/components/ui/Tabs';
+
+function MyComponent() {
+  return (
+    <Tabs defaultValue="account" className="w-[400px]">
+      <Tabs.List>
+        <Tabs.Trigger value="account">Account</Tabs.Trigger>
+        <Tabs.Trigger value="password">Password</Tabs.Trigger>
+      </Tabs.List>
+      <Tabs.Content value="account">
+        Make changes to your account here.
+      </Tabs.Content>
+      <Tabs.Content value="password">
+        Change your password here.
+      </Tabs.Content>
+    </Tabs>
+  );
+}
+```
+
+### With Enhanced API
+
+```tsx
+import { TabsEnhanced } from '@/components/ui/Tabs';
+
+function MyComponent() {
+  const tabs = [
+    {
+      value: 'account',
+      label: 'Account',
+      content: 'Make changes to your account here.',
+    },
+    {
+      value: 'password',
+      label: 'Password',
+      content: 'Change your password here.',
+    },
+  ];
+
+  return <TabsEnhanced tabs={tabs} className="w-[400px]" />;
+}
+```
+
+### With Loading States and Badges
+
+```tsx
+<Tabs defaultValue="account">
+  <Tabs.List>
+    <Tabs.Trigger value="account" badge="New">
+      Account
+    </Tabs.Trigger>
+    <Tabs.Trigger value="password" loading>
+      Password
+    </Tabs.Trigger>
+  </Tabs.List>
+  <Tabs.Content value="account">
+    Make changes to your account here.
+  </Tabs.Content>
+  <Tabs.Content value="password">
+    Change your password here.
+  </Tabs.Content>
+</Tabs>
+```
+
+## API Reference
+
+### Tabs
+
+#### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `defaultValue` | `string` | - | The value of the tab that should be active when initially rendered |
+| `value` | `string` | - | The controlled value of the active tab |
+| `onValueChange` | `(value: string) => void` | - | Event handler called when the value changes |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | The orientation of the tabs |
+| `activationMode` | `'automatic' \| 'manual'` | `'automatic'` | When `automatic`, tabs are activated when receiving focus. When `manual`, tabs are activated when clicked. |
+| `className` | `string` | - | Additional class name for the root element |
+
+### Tabs.List
+
+Container for the tab triggers.
+
+#### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | - | Additional class name |
+
+### Tabs.Trigger
+
+The button that activates its associated content.
+
+#### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | - | A unique value that associates the trigger with a content. |
+| `disabled` | `boolean` | `false` | When `true`, prevents the user from interacting with the tab |
+| `badge` | `React.ReactNode` | - | A badge to display on the tab |
+| `loading` | `boolean` | `false` | When `true`, shows a loading indicator |
+| `className` | `string` | - | Additional class name |
+
+### Tabs.Content
+
+The content shown when the associated trigger is active.
+
+#### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | - | A unique value that associates the content with a trigger. |
+| `className` | `string` | - | Additional class name |
+
+### TabsEnhanced
+
+A higher-level component that provides a simpler API for common tab use cases.
+
+#### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `tabs` | `TabItem[]` | - | Array of tab definitions |
+| `defaultValue` | `string` | - | The value of the tab that should be active when initially rendered |
+| `value` | `string` | - | The controlled value of the active tab |
+| `onValueChange` | `(value: string) => void` | - | Event handler called when the value changes |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | The orientation of the tabs |
+| `activateOnFocus` | `boolean` | `true` | When `true`, tabs are activated when receiving focus |
+| `listClassName` | `string` | - | Additional class name for the tab list |
+| `contentClassName` | `string` | - | Additional class name for the tab content |
+| `className` | `string` | - | Additional class name for the root element |
+
+#### TabItem
+
+```ts
+type TabItem = {
+  value: string;
+  label: React.ReactNode;
+  content: React.ReactNode;
+  disabled?: boolean;
+  badge?: React.ReactNode;
+  loading?: boolean;
+};
+```
+
+## Accessibility
+
+- Implements [WAI-ARIA Tabs Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)
+- Keyboard navigation:
+  - `Tab` - Move focus to the active tab trigger
+  - `ArrowRight` / `ArrowDown` - Move focus to the next tab
+  - `ArrowLeft` / `ArrowUp` - Move focus to the previous tab
+  - `Home` - Move focus to the first tab
+  - `End` - Move focus to the last tab
