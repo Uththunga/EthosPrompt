@@ -8,7 +8,7 @@ declare module 'react' {
 
   interface IntrinsicElements {
     // Add any custom elements here if needed
-    [elemName: string]: any;
+    [elemName: string]: unknown;
   }
 }
 
@@ -17,7 +17,7 @@ declare global {
   namespace JSX {
     interface IntrinsicElements {
       // Add any custom elements here if needed
-      [elemName: string]: any;
+      [elemName: string]: unknown;
     }
   }
 }

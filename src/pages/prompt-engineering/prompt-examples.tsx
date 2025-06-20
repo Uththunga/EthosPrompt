@@ -12,10 +12,15 @@ const PromptExamples: React.FC = () => {
     const [copied, setCopied] = React.useState<string | null>(null);
   const [isHowToUseOpen, setIsHowToUseOpen] = React.useState(false);
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopied(text);
-    setTimeout(() => setCopied(null), 2000); // Reset after 2 seconds
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(text);
+      setTimeout(() => setCopied(null), 2000); // Reset after 2 seconds
+    } catch (error) {
+      console.error('Failed to copy text:', error);
+      // Optionally show error to user
+    }
   };
 
   const examples = [

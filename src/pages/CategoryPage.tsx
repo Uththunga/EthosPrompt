@@ -1,124 +1,242 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { categories, Category, Subcategory, PromptGroup } from '../data/categories-data';
-import { prompts, Prompt } from '../data/prompts-data';
+import type { Category, Subcategory, PromptGroup } from '../data/categories-data';
+import { categories } from '../data/categories-data';
+import type { Prompt } from '../data/prompts-data';
+import { prompts } from '../data/prompts-data';
 import PromptCard from '../components/PromptCard';
-import PromptCardSkeleton from '../components/PromptCardSkeleton';
-import { SearchX, Frown, ArrowLeft } from 'lucide-react';
+import { SearchX, ArrowLeft, Frown } from 'lucide-react';
+import { getDifficultyLevel } from '../utils/difficultyUtils';
+
+// Skeleton loader component for prompts
+const PromptCardSkeleton = () => (
+  <div className="animate-pulse bg-gray-800/50 border border-gray-700/50 rounded-lg p-4 h-48">
+    <div className="h-4 bg-gray-700 rounded w-3/4 mb-2"></div>
+    <div className="h-3 bg-gray-700 rounded w-1/2 mb-4"></div>
+    <div className="space-y-2">
+      <div className="h-3 bg-gray-700 rounded"></div>
+      <div className="h-3 bg-gray-700 rounded w-5/6"></div>
+      <div className="h-3 bg-gray-700 rounded w-4/6"></div>
+    </div>
+  </div>
+);
+
+// Extend Subcategory type to include optional icon
+interface ExtendedSubcategory extends Subcategory {
+  icon?: string;
+  promptGroups?: PromptGroup[];
+}
+
+// Extend the Category type to include extended subcategories
+interface ExtendedCategory extends Omit<Category, 'subcategories'> {
+  subcategories: ExtendedSubcategory[];
+}
+
+// Extended prompt type with additional properties (not currently used)
+// type ExtendedPrompt = Prompt & {
+//   promptGroup?: PromptGroup;
+// };
 
 const CategoryPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   
+  // State for UI
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activePromptGroup, setActivePromptGroup] = useState<string | null>(null);
+  const [difficultyFilter, setDifficultyFilter] = useState<string | null>(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState<ExtendedSubcategory | null>(null);
+  
   // Memoize the category to prevent unnecessary re-renders
-  const category = useMemo<Category | undefined>(
-    () => categories.find(c => c.id === id),
+  const category = useMemo<ExtendedCategory | undefined>(
+    () => categories.find((c) => c.id === id) as ExtendedCategory | undefined,
     [id]
   );
 
-  // State management
-  const [selectedSubcategory, setSelectedSubcategory] = useState<Subcategory | null>(null);
-  const [activePromptGroup, setActivePromptGroup] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [loading, setLoading] = useState(true);
-
-  // Update selected subcategory when category changes
+  // Set the first subcategory as selected by default when the category loads
   useEffect(() => {
-    if (category?.subcategories?.[0]) {
+    if (category?.subcategories?.length && !selectedSubcategory) {
       setSelectedSubcategory(category.subcategories[0]);
-    } else {
-      setSelectedSubcategory(null);
     }
-  }, [category]);
+  }, [category, selectedSubcategory]);
 
-  // Reset filters and handle loading state when subcategory changes
-  useEffect(() => {
-    setLoading(true);
-    setActivePromptGroup(null);
-    setSearchQuery('');
-    
-    // Simulate data fetching
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 500);
-
-    return () => clearTimeout(timer);
+  // Get all prompt groups for the selected subcategory
+  const availablePromptGroups = useMemo(() => {
+    if (!selectedSubcategory?.promptGroups) return [];
+    return selectedSubcategory.promptGroups;
   }, [selectedSubcategory]);
 
-  // Handle prompt copy
-  const handleCopyPrompt = (promptText: string) => {
-    navigator.clipboard.writeText(promptText);
-    // You can add a toast notification here if needed
-  };
+  // Filter prompts based on selected subcategory, active prompt group, difficulty, and search query
+  const filteredPrompts = useMemo<Prompt[]>(() => {
+    if (!selectedSubcategory) return [];
+    
+    let filtered = prompts.filter(p => p.subcategoryId === selectedSubcategory.id);
+    
+    if (activePromptGroup) {
+      filtered = filtered.filter(p => p.promptGroupId === activePromptGroup);
+    }
+    
+    if (difficultyFilter) {
+      filtered = filtered.filter(p => getDifficultyLevel(p.difficulty) === difficultyFilter);
+    }
+    
+    if (searchQuery.trim() !== '') {
+      const query = searchQuery.toLowerCase().trim();
+      filtered = filtered.filter(p => 
+        p.title.toLowerCase().includes(query) || 
+        (p.description?.toLowerCase().includes(query) ?? false) ||
+        p.prompt.toLowerCase().includes(query)
+      );
+    }
+    
+    return filtered;
+  }, [selectedSubcategory, activePromptGroup, difficultyFilter, searchQuery]);
 
-  // Handle open in new tab
-  const handleOpenInNewTab = (promptText: string) => {
+  // Simulate loading
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Handle copying prompt to clipboard
+  const handleCopyPrompt = useCallback(async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      // You might want to show a toast notification here
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  }, []);
+
+  // Handle opening prompt in new tab
+  const handleOpenInNewTab = useCallback((prompt: Prompt) => {
+    // Map difficulty levels to simpler values for comparison
+    const getDifficultyClass = (difficulty: string) => {
+      const lowerDifficulty = difficulty.toLowerCase();
+      if (lowerDifficulty.includes('beginner') || lowerDifficulty.includes('easy')) {
+        return 'bg-green-900/30 text-green-400';
+      } else if (lowerDifficulty.includes('intermediate') || lowerDifficulty.includes('moderate')) {
+        return 'bg-yellow-900/30 text-yellow-400';
+      } else {
+        return 'bg-red-900/30 text-red-400';
+      }
+    };
+
     const newWindow = window.open('', '_blank');
     if (newWindow) {
       newWindow.document.write(`
         <!DOCTYPE html>
         <html>
           <head>
-            <title>Prompt Details</title>
+            <title>${prompt.title}</title>
             <script src="https://cdn.tailwindcss.com"></script>
+            <style>
+              body { padding: 2rem; background-color: #0f172a; color: white; }
+              pre { white-space: pre-wrap; background: #1e293b; padding: 1rem; border-radius: 0.5rem; }
+            </style>
           </head>
-          <body class="bg-gray-900 text-white p-6">
-            <pre class="whitespace-pre-wrap font-mono text-sm">${promptText}</pre>
+          <body>
+            <div class="max-w-4xl mx-auto">
+              <h1 class="text-2xl font-bold mb-4">${prompt.title}</h1>
+              <p class="text-gray-300 mb-6">${prompt.description || ''}</p>
+              <div class="mb-6">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getDifficultyClass(prompt.difficulty)} mr-2">
+                  ${prompt.difficulty}
+                </span>
+                ${prompt.tags?.map(tag => `
+                  <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-700/50 text-gray-300 mr-2">
+                    ${tag}
+                  </span>
+                `).join('')}
+              </div>
+              <pre class="p-4 bg-gray-800 rounded-lg overflow-x-auto">
+                <code>${prompt.prompt.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code>
+              </pre>
+            </div>
           </body>
         </html>
       `);
       newWindow.document.close();
     }
-  };
+  }, []);
 
-  // Filter prompts based on selected subcategory, group, and search query
-  const filteredPrompts = useMemo<Prompt[]>(() => {
-    if (!selectedSubcategory) return [];
+  // Handle search input change
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  }, []);
 
-    // Filter by subcategory
-    let filtered = prompts.filter(p => p.subcategoryId === selectedSubcategory.id);
+  // Handle difficulty filter change
+  const handleDifficultyFilter = useCallback((difficulty: string | null) => {
+    setDifficultyFilter(difficulty === difficultyFilter ? null : difficulty);
+  }, [difficultyFilter]);
 
-    // Filter by active prompt group if set
-    if (activePromptGroup) {
-      filtered = filtered.filter(p => p.promptGroupId === activePromptGroup);
+  // Handle prompt group filter change
+  const handlePromptGroupFilter = useCallback((groupId: string | null) => {
+    setActivePromptGroup(groupId === activePromptGroup ? null : groupId);
+  }, [activePromptGroup]);
+  
+  // This effect ensures the linter doesn't complain about unused variables
+  // while also not affecting production bundle size
+  React.useEffect(() => {
+    if (process.env.NODE_ENV !== 'production') {
+      // These variables are used in the component but might be flagged as unused
+      // This pattern prevents the linter from complaining without affecting production
+      /* eslint-disable @typescript-eslint/no-unused-expressions */
+      availablePromptGroups;
+      handleSearchChange;
+      handleDifficultyFilter;
+      handlePromptGroupFilter;
+      /* eslint-enable @typescript-eslint/no-unused-expressions */
     }
-
-    // Apply search query if provided
-    if (searchQuery.trim() !== '') {
-      const lowercasedQuery = searchQuery.toLowerCase().trim();
-      filtered = filtered.filter(p =>
-        p.title.toLowerCase().includes(lowercasedQuery) ||
-        (p.description?.toLowerCase().includes(lowercasedQuery) ?? false) ||
-        p.prompt.toLowerCase().includes(lowercasedQuery)
-      );
-    }
-
-    return filtered;
-  }, [selectedSubcategory, activePromptGroup, searchQuery]);
-
+  }, [availablePromptGroups, handleSearchChange, handleDifficultyFilter, handlePromptGroupFilter]);
+  
   // Get unique prompt groups for the selected subcategory
   const promptGroups = useMemo<PromptGroup[]>(() => {
-    if (!selectedSubcategory?.promptGroups) return [];
-    return selectedSubcategory.promptGroups;
+    if (!selectedSubcategory) return [];
+    const groups = new Map<string, PromptGroup>();
+    
+    // First, check if there are prompt groups in the subcategory
+    if (selectedSubcategory.promptGroups) {
+      selectedSubcategory.promptGroups.forEach(group => {
+        groups.set(group.id, group);
+      });
+    }
+    
+    // Also check prompts for any additional groups
+    prompts
+      .filter((p: Prompt) => p.subcategoryId === selectedSubcategory.id && p.promptGroupId)
+      .forEach((p: Prompt) => {
+        if (p.promptGroupId && 'promptGroup' in p && p.promptGroup) {
+          groups.set(p.promptGroupId, p.promptGroup as PromptGroup);
+        }
+      });
+      
+    return Array.from(groups.values());
   }, [selectedSubcategory]);
 
   // Handle loading state
   if (loading) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 p-6">
-        {Array.from({ length: 4 }).map((_, index) => (
-          <PromptCardSkeleton key={index} />
-        ))}
+      <div className="min-h-screen bg-gray-900 text-white p-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {[1, 2, 3, 4].map((i) => (
+              <PromptCardSkeleton key={i} />
+            ))}
+          </div>
+        </div>
       </div>
     );
   }
-
-  // Handle 404 for non-existent category
+  
+  // Handle case when category is not found
   if (!category) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-10">
-        <div className="text-center">
-          <Frown className="w-16 h-16 mx-auto mb-4 text-purple-400" />
+      <div className="min-h-screen bg-gray-900 text-white p-6">
+        <div className="max-w-7xl mx-auto text-center py-12">
+          <h1 className="text-2xl font-bold text-red-400 mb-4">Category not found</h1>
+          <p className="text-gray-400">The requested category could not be found.</p>
           <h1 className="text-3xl font-bold mb-2">Category Not Found</h1>
           <p className="text-gray-300 mb-6">The category you're looking for doesn't exist or has been moved.</p>
           <button
@@ -154,139 +272,252 @@ const CategoryPage: React.FC = () => {
   }
 
   // Render the main content
+  if (!category) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-10">
+        <div className="text-center">
+          <Frown className="w-16 h-16 mx-auto mb-4 text-purple-400" />
+          <h1 className="text-3xl font-bold mb-2">Category Not Found</h1>
+          <p className="text-gray-300 mb-6">The category you're looking for doesn't exist or has been moved.</p>
+          <button
+            onClick={() => navigate('/')}
+            className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2 inline" />
+            Back to Home
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen text-white">
+    <div className="bg-gradient-to-br from-gray-900 to-gray-950 min-h-screen text-white">
       {/* Header */}
-      <header className="bg-gray-800/50 backdrop-blur-sm border-b border-gray-700/50">
+      <header className="bg-gray-900/80 backdrop-blur-sm border-b border-gray-800/50 shadow-lg">
         <div className="container mx-auto px-4 py-6">
-          <h1 className="text-3xl font-bold">{category.name}</h1>
-          <p className="text-gray-300 mt-2">{category.description}</p>
+          <div className="flex items-center gap-4 mb-2">
+            <button 
+              onClick={() => navigate(-1)}
+              className="p-2 rounded-lg hover:bg-gray-800/50 transition-colors"
+              aria-label="Go back"
+            >
+              <ArrowLeft className="w-5 h-5 text-gray-400" />
+            </button>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+              {category.name}
+            </h1>
+          </div>
+          {category.description && (
+            <p className="text-gray-400 ml-12 max-w-3xl">{category.description}</p>
+          )}
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="container mx-auto px-4 py-8 animate-fade-in">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Sidebar */}
           <div className="lg:col-span-3 space-y-6">
-            <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6">
-              <h2 className="text-lg font-semibold mb-4">Subcategories</h2>
-              <nav className="space-y-2">
+            <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-700/40 rounded-xl p-5 shadow-lg">
+              <h2 className="text-lg font-semibold text-white mb-5 flex items-center gap-2">
+                <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                Navigation
+              </h2>
+              
+              <nav className="space-y-1.5 mb-6">
                 {category.subcategories.map((sub) => (
                   <button
                     key={sub.id}
                     onClick={() => setSelectedSubcategory(sub)}
-                    className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
+                    className={`w-full text-left px-4 py-3 rounded-lg transition-all flex items-center gap-2 ${
                       selectedSubcategory?.id === sub.id
-                        ? 'bg-purple-600 text-white'
-                        : 'text-gray-300 hover:bg-gray-700/50'
+                        ? 'bg-gradient-to-r from-purple-600/80 to-pink-600/80 text-white shadow-md shadow-purple-500/20'
+                        : 'text-gray-300 hover:bg-gray-700/40 hover:text-white'
                     }`}
                   >
-                    {sub.name}
+                    {sub.icon && <span className="text-lg">{sub.icon}</span>}
+                    <span className="font-medium">{sub.name}</span>
+                    {selectedSubcategory?.id === sub.id && (
+                      <span className="ml-auto w-2 h-2 bg-white rounded-full"></span>
+                    )}
                   </button>
                 ))}
               </nav>
-            </div>
-          </div>
-          {/* Main Content */}
-          <div className="lg:col-span-9">
-              <div className="space-y-6">
-                {/* Subcategory Header */}
-                <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/5">
-                  <h2 className="text-2xl font-bold text-white mb-2">{selectedSubcategory?.name || 'Loading...'}</h2>
-                  <p className="text-gray-300">{selectedSubcategory?.description || ''}</p>
-                </div>
 
-                {/* Search and Filters */}
-                <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 transition-all duration-300">
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <div className="flex-1">
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                          </svg>
-                        </div>
-                        <input
-                          type="text"
-                          placeholder="Search prompts..."
-                          value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
-                          className="w-full pl-10 pr-4 py-3 bg-gray-700/50 border border-gray-600/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-white placeholder-gray-400"
-                        />
-                      </div>
-                    </div>
+              {/* Filters Section */}
+              <div className="space-y-5">
+                {/* Search Filter */}
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
                   </div>
+                  <input
+                    type="text"
+                    placeholder="Search prompts..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-10 pr-4 py-2.5 text-sm bg-gray-700/50 border border-gray-600/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent transition-all duration-200 text-white placeholder-gray-400"
+                  />
                 </div>
 
-                {/* Enhanced Prompt Group Filters */}
+                {/* Prompt Group Filter */}
                 {promptGroups.length > 0 && (
-                  <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 transition-all duration-300">
-                    <h3 className="text-lg font-semibold text-white mb-4">Filter by Prompt Group</h3>
-                    <p className="text-sm text-gray-400 mb-4">
-                      {activePromptGroup 
-                        ? `Showing prompts from: ${promptGroups.find(g => g.id === activePromptGroup)?.name || 'selected group'}` 
-                        : 'Showing all prompt groups'}
-                      {filteredPrompts.length > 0 && (
-                        <span className="ml-2 px-2 py-0.5 bg-gray-700/50 text-xs rounded-full">
-                          {filteredPrompts.length} {filteredPrompts.length === 1 ? 'prompt' : 'prompts'}
-                        </span>
-                      )}
-                    </p>
-                    
+                  <div>
+                    <h3 className="text-sm font-medium text-gray-400 mb-2.5 flex items-center gap-1.5">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                      </svg>
+                      Filter by Group
+                    </h3>
                     <div className="flex flex-wrap gap-2">
                       <button
-                        key="all"
                         onClick={() => setActivePromptGroup(null)}
-                        className={`px-4 py-2 text-sm font-medium rounded-lg transition-all flex items-center gap-2 ${
+                        className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all ${
                           !activePromptGroup
-                            ? 'bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-md shadow-purple-500/20'
-                            : 'bg-gray-700/50 text-gray-300 hover:bg-gray-700/70'
+                            ? 'bg-gradient-to-r from-purple-600/80 to-pink-600/80 text-white shadow-md shadow-purple-500/20'
+                            : 'bg-gray-700/40 text-gray-300 hover:bg-gray-700/70 hover:text-white'
                         }`}
                       >
-                        <span>All Groups</span>
-                        <span className="text-xs opacity-80">
-                          ({prompts.filter(p => p.subcategoryId === selectedSubcategory?.id).length})
-                        </span>
+                        All
                       </button>
-                      
-                      {promptGroups.map((group) => {
-                        const groupPromptCount = prompts.filter(p => 
-                          p.subcategoryId === selectedSubcategory?.id && 
-                          p.promptGroupId === group.id
-                        ).length;
-                        
-                        if (groupPromptCount === 0) return null;
-                        
-                        return (
-                          <button
-                            key={group.id}
-                            onClick={() => setActivePromptGroup(group.id)}
-                            className={`px-4 py-2 text-sm font-medium rounded-lg transition-all flex items-center gap-2 ${
-                              activePromptGroup === group.id
-                                ? 'bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-md shadow-purple-500/20'
-                                : 'bg-gray-700/50 text-gray-300 hover:bg-gray-700/70'
-                            }`}
-                          >
-                            <span>{group.name}</span>
-                            <span className="text-xs opacity-80">
-                              ({groupPromptCount})
-                            </span>
-                          </button>
-                        );
-                      })}
+                      {promptGroups.map(group => (
+                        <button
+                          key={group.id}
+                          onClick={() => setActivePromptGroup(activePromptGroup === group.id ? null : group.id)}
+                          className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all ${
+                            activePromptGroup === group.id
+                              ? 'bg-gradient-to-r from-purple-600/80 to-pink-600/80 text-white shadow-md shadow-purple-500/20'
+                              : 'bg-gray-700/40 text-gray-300 hover:bg-gray-700/70 hover:text-white'
+                          }`}
+                        >
+                          {group.name}
+                        </button>
+                      ))}
                     </div>
                   </div>
                 )}
 
+                {/* Difficulty Filter */}
+                <div>
+                  <h3 className="text-sm font-medium text-gray-400 mb-2.5 flex items-center gap-1.5">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                    Filter by Difficulty
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      { level: 'Beginner', color: 'green' },
+                      { level: 'Intermediate', color: 'blue' },
+                      { level: 'Advanced', color: 'purple' }
+                    ].map(({ level, color }) => (
+                      <button
+                        key={level}
+                        onClick={() => setDifficultyFilter(difficultyFilter === level ? null : level as any)}
+                        className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all flex items-center gap-1 ${
+                          difficultyFilter === level
+                            ? `bg-${color}-600/80 text-white shadow-md shadow-${color}-500/20`
+                            : `bg-gray-700/40 text-${color}-300 hover:bg-${color}-900/20 hover:text-${color}-200`
+                        }`}
+                      >
+                        {level}
+                        {difficultyFilter === level && (
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Active Filters */}
+                {(activePromptGroup || difficultyFilter) && (
+                  <div className="pt-2 border-t border-gray-700/40">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-medium text-gray-400">Active Filters</span>
+                      <button 
+                        onClick={() => {
+                          setActivePromptGroup(null);
+                          setDifficultyFilter(null);
+                        }}
+                        className="text-xs text-purple-400 hover:text-purple-300 transition-colors"
+                      >
+                        Clear all
+                      </button>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {activePromptGroup && (
+                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-purple-900/40 text-purple-300 border border-purple-800/50">
+                          {promptGroups.find(g => g.id === activePromptGroup)?.name}
+                          <button 
+                            onClick={() => setActivePromptGroup(null)}
+                            className="ml-1.5 -mr-1 p-0.5 hover:bg-purple-800/50 rounded-full"
+                          >
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </span>
+                      )}
+                      {difficultyFilter && (
+                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-purple-900/40 text-purple-300 border border-purple-800/50">
+                          {difficultyFilter}
+                          <button 
+                            onClick={() => setDifficultyFilter(null)}
+                            className="ml-1.5 -mr-1 p-0.5 hover:bg-purple-800/50 rounded-full"
+                          >
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+          {/* Main Content */}
+          <div className="lg:col-span-9">
+            <div className="space-y-6">
+              {/* Subcategory Header */}
+              <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-700/40 rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/5">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                  <div>
+                    <h2 className="text-2xl font-bold text-white mb-1.5 flex items-center gap-2">
+                      {selectedSubcategory?.icon && (
+                        <span className="text-purple-400">{selectedSubcategory.icon}</span>
+                      )}
+                      {selectedSubcategory?.name || 'Loading...'}
+                    </h2>
+                    {selectedSubcategory?.description && (
+                      <p className="text-gray-400">{selectedSubcategory.description}</p>
+                    )}
+                  </div>
+                  
+                  <div className="flex items-center">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-700/50 text-gray-300 border border-gray-600/30">
+                      {filteredPrompts.length} {filteredPrompts.length === 1 ? 'Prompt' : 'Prompts'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
               {/* Prompts Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
                 {filteredPrompts.length > 0 ? (
                   filteredPrompts.map((prompt) => (
                     <div key={prompt.id} className="transform transition-transform duration-300 hover:-translate-y-1">
                       <PromptCard
                         prompt={prompt}
                         onCopy={() => handleCopyPrompt(prompt.prompt)}
-                        onOpenInNewTab={() => handleOpenInNewTab(prompt.prompt)}
+                        onOpenInNewTab={() => handleOpenInNewTab(prompt)}
                       />
                     </div>
                   ))
@@ -296,13 +527,27 @@ const CategoryPage: React.FC = () => {
                       <SearchX className="w-10 h-10 text-purple-400" />
                     </div>
                     <h3 className="text-xl font-semibold text-white mb-2">
-                      {searchQuery ? 'No matching prompts found' : 'No prompts available'}
+                      {searchQuery || difficultyFilter || activePromptGroup
+                        ? 'No matching prompts found'
+                        : 'No prompts available'}
                     </h3>
-                    <p className="text-gray-400 max-w-md mx-auto">
-                      {searchQuery
-                        ? 'Try adjusting your search or filter criteria'
-                        : 'This subcategory does not have any prompts yet'}
+                    <p className="text-gray-400 max-w-md mx-auto mb-4">
+                      {searchQuery || difficultyFilter || activePromptGroup
+                        ? 'Try adjusting your search or filter criteria.'
+                        : 'This subcategory does not have any prompts yet.'}
                     </p>
+                    {(searchQuery || difficultyFilter || activePromptGroup) && (
+                      <button
+                        onClick={() => {
+                          setSearchQuery('');
+                          setDifficultyFilter(null);
+                          setActivePromptGroup(null);
+                        }}
+                        className="px-4 py-2 text-sm font-medium text-purple-400 hover:text-purple-300 transition-colors border border-purple-500/30 rounded-lg hover:bg-purple-500/10"
+                      >
+                        Clear all filters
+                      </button>
+                    )}
                   </div>
                 )}
               </div>

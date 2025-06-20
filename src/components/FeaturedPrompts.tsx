@@ -19,12 +19,12 @@ const FeaturedPrompts: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {featuredPrompts.map((prompt) => (
-            <Card key={prompt.id} hover className="overflow-hidden h-full flex flex-col">
+            <Card key={prompt.id} hoverEffect className="overflow-hidden h-full flex flex-col">
               <div className="h-48 bg-gradient-to-br from-purple-900/70 to-indigo-900/70 relative overflow-hidden">
-                <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_50%_120%,white,transparent_70%)]"></div>
+                <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_50%_120%,white,transparent_70%)]" />
                 <div className="absolute top-4 left-4 z-10 flex space-x-2">
                   {prompt.categories.map((category) => (
-                    <Badge key={category} variant={category === 'Premium' ? 'default' : 'info'}>
+                    <Badge key={category} variant={category === 'Premium' ? 'default' : 'secondary'}>
                       {category}
                     </Badge>
                   ))}

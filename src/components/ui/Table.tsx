@@ -134,7 +134,7 @@ const TableCell = React.forwardRef<
   
   return (
     <Component
-      ref={ref as any}
+      ref={ref as unknown}
       className={cn(
         'p-4 align-middle [&:has([role=checkbox])]:pr-0',
         className
@@ -171,16 +171,16 @@ interface TableEnhancedProps extends React.HTMLAttributes<HTMLTableElement> {
     /** Whether the column is sortable */
     sortable?: boolean;
     /** Custom cell renderer */
-    cell?: (row: any, rowIndex: number) => React.ReactNode;
+    cell?: (row: unknown, rowIndex: number) => React.ReactNode;
     /** Additional class name for the column header */
     headerClassName?: string;
     /** Additional class name for the column cells */
-    cellClassName?: string | ((row: any, rowIndex: number) => string);
+    cellClassName?: string | ((row: unknown, rowIndex: number) => string);
   }>;
   /** The table data */
-  data: any[];
+  data: unknown[];
   /** The unique row key getter */
-  rowKey: string | ((row: any, index: number) => string | number);
+  rowKey: string | ((row: unknown, index: number) => string | number);
   /** The current sort configuration */
   sort?: {
     /** The column key being sorted */
@@ -205,9 +205,9 @@ interface TableEnhancedProps extends React.HTMLAttributes<HTMLTableElement> {
   /** Additional class name for the table body */
   bodyClassName?: string;
   /** Additional class name for the table rows */
-  rowClassName?: string | ((row: any, index: number) => string);
+  rowClassName?: string | ((row: unknown, index: number) => string);
   /** Whether rows are clickable */
-  onRowClick?: (row: any, index: number) => void;
+  onRowClick?: (row: unknown, index: number) => void;
   /** The currently selected row key(s) */
   selectedRowKeys?: (string | number)[];
   /** Whether to highlight the selected row */
@@ -255,16 +255,16 @@ const TableEnhanced: React.FC<TableEnhancedProps> = ({
     }
   };
 
-  const getRowKey = (row: any, index: number) => {
+  const getRowKey = (row: unknown, index: number) => {
     return typeof rowKey === 'function' ? rowKey(row, index) : row[rowKey];
   };
 
-  const isRowSelected = (row: any, index: number) => {
+  const isRowSelected = (row: unknown, index: number) => {
     const key = getRowKey(row, index);
     return selectedRowKeys.includes(key);
   };
 
-  const getRowClassName = (row: any, index: number) => {
+  const getRowClassName = (row: unknown, index: number) => {
     const baseClasses = [];
     
     if (typeof rowClassName === 'function') {
@@ -350,7 +350,7 @@ const TableEnhanced: React.FC<TableEnhancedProps> = ({
 const TableLoading: React.FC = () => (
   <div className="flex h-32 items-center justify-center">
     <div className="flex flex-col items-center space-y-2">
-      <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+      <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
       <p className="text-muted-foreground">Loading data...</p>
     </div>
   </div>

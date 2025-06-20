@@ -95,7 +95,7 @@ const Documentation: React.FC = () => {
                           className="flex items-center text-sm sm:text-base text-gray-300 hover:text-purple-400 transition-colors duration-150 py-1.5 px-1 -mx-1 rounded-md hover:bg-gray-700/30"
                           aria-label={`View ${item.title}`}
                         >
-                          <span className="w-1.5 h-1.5 rounded-full bg-gray-600 mr-2.5 flex-shrink-0"></span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-gray-600 mr-2.5 flex-shrink-0" />
                           <span className="truncate">{item.title}</span>
                         </Link>
                       </li>

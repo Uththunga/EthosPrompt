@@ -1,5 +1,5 @@
 // Minimal test file with .test.js extension
-const { test, expect } = require('vitest');
+import { test, expect } from 'vitest';
 
 console.log('JS test file is being loaded');
 

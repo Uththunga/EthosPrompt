@@ -1,13 +1,6 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import * as React from 'react';
 import * as TabsModule from '../Tabs';
-
-// Simple type for tab items
-interface TabItem {
-  value: string;
-  label: string;
-  content: React.ReactNode;
-}
 
 // Simple wrapper for components to avoid type issues
 const createComponent = <P extends object>(
@@ -28,15 +21,6 @@ const TabsList = (props: React.ComponentProps<typeof TabsModule.TabsList>) =>
 const TabsContent = (props: React.ComponentProps<typeof TabsModule.TabsContent>) => 
   createComponent(TabsModule.TabsContent, props);
 
-// Helper function to wait for tab changes
-const waitForTabChange = async (): Promise<void> => {
-  await waitFor(() => new Promise(resolve => setTimeout(resolve, 0)));
-};
-
-// Simple text content component to avoid JSX issues
-const TextContent = ({ children }: { children: string }) => (
-  <div>{children}</div>
-);
 
 describe('Tabs - Binary Search 2', () => {
   it('switches between tabs', async () => {
@@ -82,8 +66,8 @@ describe('Tabs - Binary Search 2', () => {
     // Click the second tab
     fireEvent.click(tab2);
     
-    // Wait for the state update
-    await waitForTabChange();
+    // Wait for the next tick to allow state updates
+    await Promise.resolve();
     
     // After click, second tab should be active
     expect(tab1).toHaveAttribute('data-state', 'inactive');

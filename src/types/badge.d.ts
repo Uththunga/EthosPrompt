@@ -1,9 +1,9 @@
-import * as React from 'react';
+import type * as React from 'react';
 
 declare module '@/components/ui/Badge' {
   export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
-    variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'success' | 'info' | 'warning';
-    size?: 'sm' | 'md' | 'lg';
+    variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'success' | 'warning';
+    size?: 'sm' | 'default' | 'lg';
     asChild?: boolean;
   }
 

@@ -8,7 +8,7 @@ const CategoriesSection: React.FC = () => {
 
   return (
     <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-gray-900 via-gray-900/90 to-gray-900 relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(124,58,237,0.1),transparent_50%)]"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(124,58,237,0.1),transparent_50%)]" />
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="text-center mb-8 sm:mb-12 px-2">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 text-white">
@@ -29,7 +29,7 @@ const CategoriesSection: React.FC = () => {
                   window.scrollTo(0, 0);
                   navigate(`/categories/${category.id}`);
                 }}
-                className="relative w-full p-4 sm:p-5 lg:p-6 rounded-lg text-left transition-all duration-300 overflow-hidden border border-gray-700/50 hover:border-purple-500/50 bg-gray-800/30 backdrop-blur-sm hover:bg-gray-800/50 group active:scale-[0.98]"
+                className="relative w-full p-4 sm:p-5 lg:p-6 rounded-lg text-left transition-all duration-300 overflow-hidden border border-gray-700/50 hover:border-purple-500/50 bg-black/50 backdrop-blur-sm hover:bg-black/60 group active:scale-[0.98]"
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${category.bgGradient} opacity-20 group-hover:opacity-30 transition-opacity`} />
                 

@@ -33,7 +33,7 @@ const PromptEngineeringBasics: React.FC = () => {
 
         {/* Main Content */}
         <div className="max-w-4xl mx-auto relative z-10">          {/* Terminology Section */}
-          <Section title={'From "AI" to "LLM"'} icon={<MessageCircle size={24} className="text-purple-400" />}>
+          <Section title='From "AI" to "LLM"' icon={<MessageCircle size={24} className="text-purple-400" />}>
             <Card className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50">
               <div className="p-4 sm:p-6">
                 <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-6">

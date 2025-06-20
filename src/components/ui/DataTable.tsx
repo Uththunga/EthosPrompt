@@ -108,7 +108,7 @@ const DEFAULT_PAGE_SIZE_OPTIONS = [10, 25, 50, 100];
 
 const defaultLoadingComponent = (
   <div className="flex items-center justify-center p-8">
-    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
     <span className="ml-2">Loading...</span>
   </div>
 );
@@ -166,7 +166,7 @@ export function DataTable<TData extends Record<string, unknown>>(props: DataTabl
     if (typeof rowKey === 'function') {
       return String(rowKey(row, index));
     }
-    return String(row[rowKey as keyof TData] || index);
+    return String(row[rowKey] || index);
   }, [rowKey]);
 
   const processedData = React.useMemo(() => {

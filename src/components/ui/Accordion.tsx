@@ -143,7 +143,7 @@ const AccordionEnhanced: React.FC<AccordionProps> = ({
   
   return (
     <Accordion
-      type={accordionType as any}
+      type={accordionType as unknown}
       collapsible={collapsible}
       value={value}
       defaultValue={defaultValue}

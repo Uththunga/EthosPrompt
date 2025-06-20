@@ -103,9 +103,14 @@ const SubcategoryDetail: React.FC<SubcategoryDetailProps> = ({ categoryId }) => 
     return acc;
   }, {});
 
-  const handleCopyPrompt = (text: string) => {
-    navigator.clipboard.writeText(text);
-    // Add toast notification here if needed
+  const handleCopyPrompt = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      // Add toast notification here if needed
+    } catch (error) {
+      console.error('Failed to copy text:', error);
+      // Optionally show error to user
+    }
   };
 
   return (

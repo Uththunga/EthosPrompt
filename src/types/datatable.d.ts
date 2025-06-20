@@ -1,10 +1,10 @@
-import * as React from 'react';
+import type * as React from 'react';
 
 declare module '@/components/ui/DataTable' {
   export interface ColumnDef<TData> {
     header: string;
     accessorKey: keyof TData | string;
-    cell?: (info: { getValue: () => any; row: any; column: any; table: any }) => React.ReactNode;
+    cell?: (info: { getValue: () => unknown; row: unknown; column: unknown; table: unknown }) => React.ReactNode;
     sortable?: boolean;
   }
 
@@ -22,7 +22,7 @@ declare module '@/components/ui/DataTable' {
     rowClassName?: string | ((row: TData, index: number) => string);
   }
 
-  const DataTable: <TData extends Record<string, any>>(
+  const DataTable: <TData extends Record<string, unknown>>(
     props: DataTableProps<TData> & React.RefAttributes<HTMLDivElement>
   ) => React.ReactElement;
 

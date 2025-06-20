@@ -1,4 +1,5 @@
-import React, { useEffect, ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import React, { useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Card } from '../components/ui/Card';
@@ -54,7 +55,7 @@ const PromptingGuide: React.FC = () => {
 
   return (
     <div className="relative min-h-screen bg-gradient-to-b from-gray-900 to-black text-white pt-24 pb-16">
-      <div className="absolute top-0 left-0 w-full h-full bg-grid-pattern opacity-10"></div>
+      <div className="absolute top-0 left-0 w-full h-full bg-grid-pattern opacity-10" />
       <div className="container mx-auto px-4 relative z-10">
         
         {/* Header */}
@@ -145,28 +146,28 @@ const PromptingGuide: React.FC = () => {
               {/* The Breakdown */}
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <div className="w-8 h-8 rounded-full bg-pink-500/20 flex-shrink-0 mr-4"></div>
+                  <div className="w-8 h-8 rounded-full bg-pink-500/20 flex-shrink-0 mr-4" />
                   <div>
                     <h4 className="font-semibold text-base text-pink-400">The Role: Set the Persona</h4>
                     <p className="text-gray-400">Tells the AI <span className="font-bold">who to be</span>. This sets the tone, style, and expertise. 'Expert storyteller' gets a very different result than 'news reporter'.</p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className="w-8 h-8 rounded-full bg-cyan-500/20 flex-shrink-0 mr-4"></div>
+                  <div className="w-8 h-8 rounded-full bg-cyan-500/20 flex-shrink-0 mr-4" />
                   <div>
                     <h4 className="font-semibold text-base text-cyan-400">The Task: Define the Goal</h4>
                     <p className="text-gray-400">This is the core instruction—<span className="font-bold">what you want the AI to do</span>. Being clear and concise is key. Here, it's to 'write a short, suspenseful story'.</p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className="w-8 h-8 rounded-full bg-green-500/20 flex-shrink-0 mr-4"></div>
+                  <div className="w-8 h-8 rounded-full bg-green-500/20 flex-shrink-0 mr-4" />
                   <div>
                     <h4 className="font-semibold text-base text-green-400">The Context: Provide the Details</h4>
                     <p className="text-gray-400">This gives the AI the <span className="font-bold">'who, what, where'</span> to work with. 'A mysterious key in an old library' provides the essential creative ingredients.</p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className="w-8 h-8 rounded-full bg-yellow-500/20 flex-shrink-0 mr-4"></div>
+                  <div className="w-8 h-8 rounded-full bg-yellow-500/20 flex-shrink-0 mr-4" />
                   <div>
                     <h4 className="font-semibold text-base text-yellow-400">The Constraint: Set the Rules</h4>
                     <p className="text-gray-400">These are boundaries or specific instructions that guide the output. 'End on a cliffhanger' is a direct rule that shapes the final result.</p>

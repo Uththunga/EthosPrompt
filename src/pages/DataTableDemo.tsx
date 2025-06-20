@@ -1,4 +1,5 @@
-import { useState, ReactNode } from 'react'; // Removed unused useMemo
+import type { ReactNode } from 'react';
+import { useState } from 'react'; // Removed unused useMemo
 import { DataTable } from '@/components/ui/DataTable';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
@@ -16,7 +17,7 @@ const Fragment = ({
 }: { 
   children: ReactNode; 
   className?: string; 
-  [key: string]: any; 
+  [key: string]: unknown; 
 }): JSXElement => {
   return <div className={className} {...props}>{children}</div>;
 };
@@ -47,67 +48,70 @@ export default function DataTableDemo() {
   const [selectedUsers, setSelectedUsers] = useState<number[]>([]);
   const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
 
-  const userColumns = [
+  // User table columns with proper typing
+  const userColumns: Array<{
+    key: string;
+    header: string | React.ReactNode;
+    cell: (row: any) => React.ReactNode;
+    sortable?: boolean;
+  }> = [
     {
+      key: 'id',
       header: 'ID',
-      accessorKey: 'id',
       cell: ({ getValue }: { getValue: () => number }): JSX.Element => (
         <div className="font-medium">#{getValue()}</div>
       ),
+      sortable: true,
     },
     {
+      key: 'name',
       header: 'Name',
-      accessorKey: 'name',
-      cell: ({ getValue }: { getValue: () => string }): JSX.Element => (
-        <div className="font-medium">{getValue()}</div>
-      ),
+      cell: (row) => row.name,
+      sortable: true,
     },
     {
+      key: 'email',
       header: 'Email',
-      accessorKey: 'email',
-      cell: ({ getValue }: { getValue: () => string }): string => getValue(),
+      cell: (row) => row.email,
     },
     {
+      key: 'role',
       header: 'Role',
-      accessorKey: 'role',
-      cell: ({ getValue }: { getValue: () => string }): JSX.Element => {
-        const role = getValue();
-        const variant = role === 'Admin' ? 'default' : role === 'Editor' ? 'secondary' : 'outline';
-        return (
-          <div className="inline-block">
-            <Badge variant={variant}>
-              {role}
-            </Badge>
-          </div>
-        );
-      },
-    },
-    {
-      header: 'Status',
-      accessorKey: 'status',
-      cell: ({ getValue }: { getValue: () => string }): JSX.Element => {
-        const status = getValue();
-        const variant = status === 'active' ? 'success' : 'destructive';
-        return (
-          <div className="inline-block">
-            <Badge variant={variant}>
-              {status.charAt(0).toUpperCase() + status.slice(1)}
-            </Badge>
-          </div>
-        );
-      },
-    },
-    {
-      header: 'Last Login',
-      accessorKey: 'lastLogin',
-      cell: ({ getValue }: { getValue: () => string }): JSX.Element => (
-        <div className="font-medium">{new Date(getValue()).toLocaleString()}</div>
+      cell: (row) => (
+        <div className="inline-block">
+          <Badge 
+            variant={
+              row.role === 'Admin' ? 'default' : 
+              row.role === 'Editor' ? 'secondary' : 'outline'
+            }
+          >
+            {row.role}
+          </Badge>
+        </div>
       ),
     },
     {
+      key: 'status',
+      header: 'Status',
+      cell: (row) => (
+        <div className="inline-block">
+          <Badge variant={row.status === 'active' ? 'success' : 'destructive'}>
+            {String(row.status).charAt(0).toUpperCase() + String(row.status).slice(1)}
+          </Badge>
+        </div>
+      ),
+    },
+    {
+      key: 'lastLogin',
+      header: 'Last Login',
+      cell: (row) => (
+        <div className="font-medium">{new Date(row.lastLogin).toLocaleString()}</div>
+      ),
+    },
+    {
+      key: 'actions',
       header: 'Actions',
-      accessorKey: 'actions',
-      cell: (): JSX.Element => (
+      cell: () => (
         <div className="flex space-x-2">
           <Button variant="outline" size="sm">Edit</Button>
           <Button variant="outline" size="sm" className="text-red-600 hover:bg-red-50 hover:text-red-700">
@@ -116,58 +120,62 @@ export default function DataTableDemo() {
         </div>
       ),
     },
-  ] as const;
+  ];
 
-  // Order table columns
-  // Define order columns with proper typing
-  const orderColumns = [
+  // Order table columns with proper typing
+  const orderColumns: Array<{
+    key: string;
+    header: string | React.ReactNode;
+    cell: (row: any) => React.ReactNode;
+    sortable?: boolean;
+  }> = [
     {
+      key: 'id',
       header: 'Order ID',
-      accessorKey: 'id',
-      cell: ({ getValue }: { getValue: () => string }): string => getValue(),
+      cell: (row) => row.id,
+      sortable: true,
     },
     {
+      key: 'customer',
       header: 'Customer',
-      accessorKey: 'customer',
-      cell: ({ getValue }: { getValue: () => string }): string => getValue(),
+      cell: (row) => row.customer,
     },
     {
+      key: 'date',
       header: 'Order Date',
-      accessorKey: 'date',
-      cell: ({ getValue }: { getValue: () => string }): JSX.Element => (
-        <div className="font-medium">{new Date(getValue()).toLocaleDateString()}</div>
+      cell: (row) => (
+        <div className="font-medium">{new Date(row.date).toLocaleDateString()}</div>
       ),
     },
     {
+      key: 'items',
       header: 'Items',
-      accessorKey: 'items',
-      cell: ({ getValue }: { getValue: () => number }): string => getValue().toString(),
+      cell: (row) => row.items.toString(),
     },
     {
+      key: 'amount',
       header: 'Amount',
-      accessorKey: 'amount',
-      cell: ({ getValue }: { getValue: () => number }): string => `$${getValue().toFixed(2)}`,
+      cell: (row) => `$${Number(row.amount).toFixed(2)}`,
     },
     {
+      key: 'status',
       header: 'Status',
-      accessorKey: 'status',
-      cell: ({ getValue }: { getValue: () => string }): JSX.Element => {
-        const status = getValue();
+      cell: (row) => {
         const variant = 
-          status === 'completed' ? 'success' : 
-          status === 'shipped' ? 'secondary' : 
-          status === 'processing' ? 'outline' : 'destructive';
+          row.status === 'completed' ? 'success' : 
+          row.status === 'shipped' ? 'secondary' : 
+          row.status === 'processing' ? 'outline' : 'destructive';
         
         return (
           <div className="inline-block">
             <Badge variant={variant}>
-              {status.charAt(0).toUpperCase() + status.slice(1)}
+              {String(row.status).charAt(0).toUpperCase() + String(row.status).slice(1)}
             </Badge>
           </div>
         );
       },
     },
-  ] as const;
+  ];
 
   // Handle user actions
   const handleDeleteUsers = () => {
@@ -217,7 +225,7 @@ export default function DataTableDemo() {
             </CardHeader>
             <CardContent>
               <DataTable
-                columns={userColumns as any} // Type assertion to handle readonly assignment
+                columns={userColumns}
                 data={users}
                 rowKey="id"
                 className="border rounded-lg overflow-hidden"
@@ -254,17 +262,12 @@ export default function DataTableDemo() {
             </CardHeader>
             <CardContent>
               <DataTable
-                columns={orderColumns as any} // Type assertion to handle readonly assignment
+                columns={orderColumns}
                 data={orders}
                 rowKey="id"
-                // Remove unsupported pagination props
-                // The DataTable component doesn't support pagination props directly
-                // Consider implementing pagination at the data level if needed
-                // Remove selection related state and handlers
-                // as they're not supported by the DataTable component
                 className="border rounded-lg overflow-hidden"
                 headerClassName="bg-gray-50"
-                rowClassName={(_row: any, index: number) => 
+                rowClassName={(_row, index) => 
                   `transition-colors ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`
                 }
               />

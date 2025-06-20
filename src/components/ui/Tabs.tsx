@@ -95,14 +95,14 @@ const TabsContent = React.forwardRef<
 TabsContent.displayName = TabsPrimitive.Content.displayName;
 
 // Enhanced Tabs component with simpler API
-type TabItem = {
+interface TabItem {
   value: string;
   label: React.ReactNode;
   content: React.ReactNode;
   disabled?: boolean;
   badge?: React.ReactNode;
   loading?: boolean;
-};
+}
 
 interface TabsEnhancedProps extends Omit<React.ComponentProps<typeof Tabs>, 'onValueChange'> {
   /** The default active tab value */

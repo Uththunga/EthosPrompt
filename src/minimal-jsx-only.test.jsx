@@ -5,5 +5,9 @@ import React from 'react';
 
 test('renders a div', () => {
   const { container } = render(<div>Test</div>);
-  expect(container.firstChild).toMatchInlineSnapshot(`<div>Test</div>`);
+  expect(container.firstChild).toMatchInlineSnapshot(`
+    <div>
+      Test
+    </div>
+  `);
 });

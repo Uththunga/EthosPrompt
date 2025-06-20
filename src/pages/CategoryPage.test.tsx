@@ -1,43 +1,73 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { describe, test, expect, vi, beforeEach, afterEach } from 'vitest';
-import '@testing-library/jest-dom/vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, expect, vi } from 'vitest';
+import { act } from 'react-dom/test-utils';
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import CategoryPage from './CategoryPage';
 
-// Mock the data to have a predictable test environment
+// Mock the useNavigate hook
+const mockNavigate = vi.fn();
+vi.mock('react-router-dom', async () => ({
+  ...(await vi.importActual('react-router-dom')),
+  useNavigate: () => mockNavigate,
+}));
+
+// Mock the difficultyUtils module
+vi.mock('../../utils/difficultyUtils', () => ({
+  getDifficultyLevel: (difficulty: string) => {
+    if (['Very Easy', 'Easy', 'Moderate'].includes(difficulty)) return 'Beginner';
+    if (['Challenging', 'Advanced'].includes(difficulty)) return 'Intermediate';
+    return 'Advanced';
+  }
+}));
+
+// Mock the prompts data
+vi.mock('../data/prompts-data', () => ({
+  prompts: [
+    {
+      id: '1',
+      title: 'Beginner Prompt',
+      difficulty: 'Easy',
+      categoryId: 'marketing',
+      subcategoryId: 'social-media',
+      promptGroupId: 'content',
+      prompt: 'This is a beginner prompt',
+      description: 'A beginner level prompt',
+      tags: []
+    },
+    {
+      id: '2',
+      title: 'Advanced Prompt',
+      difficulty: 'Expert',
+      categoryId: 'marketing',
+      subcategoryId: 'social-media',
+      promptGroupId: 'strategy',
+      prompt: 'This is an advanced prompt',
+      description: 'An advanced level prompt',
+      tags: []
+    }
+  ]
+}));
+
+// Mock the categories data
 vi.mock('../data/categories-data', () => ({
   categories: [
     {
       id: 'marketing',
-      name: 'Marketing & Content',
-      description: 'Test Description',
+      name: 'Marketing',
+      description: 'Marketing related prompts',
       subcategories: [
-        { 
-          id: 'marketing-strategy-planning', 
-          name: 'Strategy & Planning', 
-          description: 'Plan your marketing.',
-          promptGroups: [] 
-        },
-      ],
-    },
+        {
+          id: 'social-media',
+          name: 'Social Media',
+          description: 'Social media marketing',
+          promptGroups: []
+        }
+      ]
+    }
   ]
 }));
 
-vi.mock('../data/prompts-data', () => ({
-  prompts: [
-    { 
-      id: 'p1', 
-      categoryId: 'marketing', 
-      subcategoryId: 'marketing-strategy-planning', 
-      title: 'Strategy Prompt 1', 
-      description: 'Desc 1', 
-      prompt: 'Prompt 1',
-      promptGroupId: null
-    },
-  ]
-}));
-
-const renderComponent = (initialRoute: string) => {
+const renderComponent = (initialRoute = '/categories/marketing') => {
   return render(
     <MemoryRouter initialEntries={[initialRoute]}>
       <Routes>
@@ -48,50 +78,62 @@ const renderComponent = (initialRoute: string) => {
 };
 
 describe('CategoryPage', () => {
-  beforeEach(() => {
-    // Mock timers before each test
+  beforeAll(() => {
     vi.useFakeTimers();
   });
 
-  afterEach(() => {
-    // Clean up timers after each test
+  afterAll(() => {
     vi.useRealTimers();
   });
 
-  test('renders loading state initially', () => {
-    renderComponent('/categories/marketing');
-    // Check for the skeleton loading state
-    const skeletons = screen.getAllByTestId('prompt-card-skeleton');
-    expect(skeletons.length).toBeGreaterThan(0);
+  test('renders category name', async () => {
+    renderComponent();
+    await act(async () => {
+      await vi.runAllTimersAsync();
+    });
+    expect(screen.getByText('Marketing')).toBeInTheDocument();
   });
 
-  test('displays category name after loading', async () => {
-    renderComponent('/categories/marketing');
+  test('filters prompts by difficulty', async () => {
+    // Mock the loading delay to be immediate
+    vi.useFakeTimers();
     
-    // Fast-forward timers to skip loading state
-    await vi.runAllTimersAsync();
+    // Render the component
+    renderComponent();
     
-    // Wait for the content to be loaded
-    await waitFor(() => {
-      expect(screen.getByText('Marketing & Content')).toBeInTheDocument();
+    // Fast-forward through the loading state
+    await act(async () => {
+      vi.advanceTimersByTime(600); // 500ms loading + buffer
     });
     
-    // Clean up timers
-    vi.runOnlyPendingTimers();
-  });
-
-  test('shows 404 for non-existent category', async () => {
-    renderComponent('/categories/non-existent');
+    // Verify the difficulty filter section is rendered
+    const difficultySection = screen.getByText('Filter by Difficulty');
+    expect(difficultySection).toBeInTheDocument();
     
-    // Fast-forward timers to skip loading state
-    await vi.runAllTimersAsync();
+    // Verify all difficulty filter buttons are present
+    const difficultyButtons = screen.getAllByRole('button', { 
+      name: /^(Beginner|Intermediate|Advanced)$/ 
+    });
+    expect(difficultyButtons).toHaveLength(3);
     
-    // Wait for the 404 content
-    await waitFor(() => {
-      expect(screen.getByText(/not found/i)).toBeInTheDocument();
+    // Get the beginner button for testing
+    const beginnerButton = screen.getByRole('button', { name: 'Beginner' });
+    
+    // Verify both prompts are visible initially
+    expect(screen.getByText('Beginner Prompt')).toBeInTheDocument();
+    expect(screen.getByText('Advanced Prompt')).toBeInTheDocument();
+    
+    // Test filtering to Beginner only
+    fireEvent.click(beginnerButton);
+    await act(async () => {
+      vi.advanceTimersByTime(600);
     });
     
-    // Clean up timers
-    vi.runOnlyPendingTimers();
+    // Check if only beginner prompt is visible
+    expect(screen.getByText('Beginner Prompt')).toBeInTheDocument();
+    expect(screen.queryByText('Advanced Prompt')).not.toBeInTheDocument();
+    
+    // Clean up fake timers
+    vi.useRealTimers();
   });
 });

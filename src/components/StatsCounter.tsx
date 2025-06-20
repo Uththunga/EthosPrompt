@@ -35,7 +35,7 @@ const stats = [
 const StatsCounter: React.FC = () => {
 	return (
 		<section className="py-20 bg-gradient-to-b from-gray-900/50 via-gray-900/50 to-gray-900/90 relative">
-			<div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(124,58,237,0.1),transparent_70%)]"></div>
+			<div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(124,58,237,0.1),transparent_70%)]" />
 			<div className="container mx-auto px-4 relative z-10">
 				<div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
 					{stats.map((stat) => {

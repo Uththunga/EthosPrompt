@@ -2,12 +2,28 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import * as React from 'react';
 import { describe, it, expect } from 'vitest';
 import * as TabsModule from '../Tabs';
+import type { TabsProps } from '@/types/tabs';
 
-// Create minimal component wrappers
-const Tabs = (props: any) => React.createElement(TabsModule.default, props);
-const TabsList = (props: any) => React.createElement(TabsModule.TabsList, props);
-const TabsTrigger = (props: any) => React.createElement(TabsModule.TabsTrigger, props);
-const TabsContent = (props: any) => React.createElement(TabsModule.TabsContent, props);
+// Create typed component wrappers
+const Tabs = (props: TabsProps) => 
+  React.createElement(TabsModule.default, props);
+
+const TabsList = (props: React.ComponentProps<typeof TabsModule.TabsList>) => 
+  React.createElement(TabsModule.TabsList, props);
+
+const TabsTrigger = ({
+  value,
+  children,
+  ...props
+}: { value: string } & React.ComponentProps<typeof TabsModule.TabsTrigger>) => 
+  React.createElement(TabsModule.TabsTrigger, { value, ...props }, children);
+
+const TabsContent = ({
+  value,
+  children,
+  ...props
+}: { value: string } & React.ComponentProps<typeof TabsModule.TabsContent>) => 
+  React.createElement(TabsModule.TabsContent, { value, ...props }, children);
 
 describe('Tabs - Minimal Test', () => {
   it('should render tabs', () => {
@@ -34,7 +50,6 @@ describe('Tabs - Minimal Test', () => {
       </Tabs>
     );
 
-    const tab1 = screen.getByTestId('tab1');
     const tab2 = screen.getByTestId('tab2');
     
     fireEvent.click(tab2);

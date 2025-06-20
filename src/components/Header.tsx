@@ -48,7 +48,7 @@ const Header: React.FC = () => {
           {/* Logo */}
           <div className="flex items-center gap-2">
             <Link to="/" className="flex items-center group relative" onClick={() => setIsMenuOpen(false)}>
-              <div className="absolute inset-0 bg-purple-500/10 blur-xl rounded-full animate-pulse"></div>
+              <div className="absolute inset-0 bg-purple-500/10 blur-xl rounded-full animate-pulse" />
               <img 
                 src="/EthosPrompt/WhatsApp Image 2025-06-03 at 13.03.32_eb705350.png" 
                 alt="EthosPrompt Logo" 
@@ -87,7 +87,7 @@ const Header: React.FC = () => {
             <div className="flex items-center gap-4">
               <button className="relative p-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800 transition-colors">
                 <Bell size={22} />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-purple-500 rounded-full"></span>
+                <span className="absolute top-1 right-1 w-2 h-2 bg-purple-500 rounded-full" />
               </button>
               <button className="p-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800 transition-colors">
                 <ShoppingCart size={22} />
@@ -170,7 +170,7 @@ const Header: React.FC = () => {
                     aria-label="Notifications"
                   >
                     <Bell size={22} />
-                    <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-purple-500 rounded-full"></span>
+                    <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-purple-500 rounded-full" />
                   </button>
                   <button 
                     className="p-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 transition-colors active:bg-gray-800/30"

@@ -1,4 +1,5 @@
-import { LucideIcon, Code, Megaphone, GraduationCap, ScrollText, Stethoscope, UserCircle, BarChart2, MessageCircle, Video, DollarSign, ShoppingCart, Server } from 'lucide-react';
+import type { LucideIcon} from 'lucide-react';
+import { Code, Megaphone, GraduationCap, ScrollText, Stethoscope, UserCircle, BarChart2, MessageCircle, Video, DollarSign, ShoppingCart, Server } from 'lucide-react';
 
 export type SkillLevel = 'Beginner' | 'Intermediate' | 'Advanced';
 

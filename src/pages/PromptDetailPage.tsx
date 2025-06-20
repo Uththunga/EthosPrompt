@@ -8,11 +8,16 @@ const PromptDetailPage: React.FC = () => {
   const prompt = prompts.find(p => p.id === promptId);
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = () => {
+  const handleCopy = async () => {
     if (prompt) {
-      navigator.clipboard.writeText(prompt.prompt);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+      try {
+        await navigator.clipboard.writeText(prompt.prompt);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+      } catch (error) {
+        console.error('Failed to copy text:', error);
+        // Optionally show error to user
+      }
     }
   };
 

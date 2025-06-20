@@ -49,6 +49,21 @@ EthosPrompt serves various professional sectors:
 - 🛠️ Quality-Assured Templates
 - 📈 Improved ROI on AI Investments
 
+## 🔍 Filtering Prompts
+
+### By Difficulty
+Easily find prompts that match your expertise level:
+- **Beginner** - Perfect for those new to AI prompt engineering
+- **Intermediate** - For users with some experience in crafting prompts
+- **Advanced** - Complex prompts for experienced users
+
+Simply click on the difficulty level in the sidebar to filter prompts. Click the same level again to clear the filter.
+
+### Other Filtering Options
+- Filter by prompt groups
+- Search by keywords
+- Filter by subcategories
+
 ## 🚀 Getting Started
 
 1. Choose your industry category
