@@ -1,0 +1,1 @@
+const n=e=>e==="Beginner"?"Beginner":e==="Intermediate"?"Intermediate":e==="Advanced"?"Advanced":["Very Easy","Easy","Moderate"].includes(e)?"Beginner":["Challenging"].includes(e)?"Intermediate":"Advanced";export{n as getDifficultyLevel};

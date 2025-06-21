@@ -1,4 +1,4 @@
-import{r as S}from"./react-CdAMbM_C.js";var ws={exports:{}},Ht={};/**
+import{r as S}from"./react-vendor-DazevGLP.js";var ws={exports:{}},Ht={};/**
  * @license React
  * react-jsx-runtime.production.min.js
  *
