@@ -7,6 +7,10 @@ import { ErrorNotifications } from './components/ErrorNotifications';
 import { ToastProvider } from './components/ui/Toast';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import BottomNavigation from './components/mobile/BottomNavigation';
+import PWAInstallPrompt from './components/mobile/PWAInstallPrompt';
+import AppLoadingScreen from './components/mobile/AppLoadingScreen';
+import MobilePerformanceMonitor from './components/mobile/MobilePerformanceMonitor';
 import Hero from './components/Hero';
 import CategoriesSection from './components/Categories';
 import CallToAction from './components/CallToAction';
@@ -37,6 +41,7 @@ const Documentation = React.lazy(() => import('./pages/resources/Documentation')
 const FAQ = React.lazy(() => import('./pages/resources/FAQ.new'));
 const Tutorials = React.lazy(() => import('./pages/resources/Tutorials'));
 const Blog = React.lazy(() => import('./pages/resources/Blog'));
+const BlogPostDetail = React.lazy(() => import('./pages/BlogPostDetail'));
 const DataTableDemo = React.lazy(() => import('./pages/DataTableDemo'));
 
 const HomePage = () => (
@@ -51,6 +56,17 @@ const HomePage = () => (
 );
 
 function App() {
+  const [isAppLoading, setIsAppLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    // Simulate app initialization
+    const timer = setTimeout(() => {
+      setIsAppLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <ErrorProvider>
       <ToastProvider>
@@ -77,6 +93,12 @@ function App() {
                       <Route path="/resources/faq" element={<FAQ />} />
                       <Route path="/resources/tutorials" element={<Tutorials />} />
                       <Route path="/resources/blog" element={<Blog />} />
+                      <Route path="/blog" element={<Blog />} />
+                      <Route path="/blog/:slug" element={
+                        <Suspense fallback={<PageLoadingSpinner />}>
+                          <BlogPostDetail />
+                        </Suspense>
+                      } />
                       <Route path="/components/datatable" element={<DataTableDemo />} />
                       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                       <Route path="/terms-of-service" element={<TermsOfService />} />
@@ -106,14 +128,28 @@ function App() {
                   </Suspense>
                 </ErrorBoundary>
                 <Footer />
+                <BottomNavigation />
               </div>
             </Router>
             <ErrorNotifications />
+
+            {/* PWA Components */}
+            <PWAInstallPrompt />
+            <AppLoadingScreen
+              isVisible={isAppLoading}
+              onComplete={() => setIsAppLoading(false)}
+            />
 
             {/* Performance Monitor (development only) */}
             <PerformanceMonitor
               enabled={process.env.NODE_ENV === 'development'}
               position="bottom-right"
+            />
+
+            {/* Mobile Performance Monitor */}
+            <MobilePerformanceMonitor
+              enabled={process.env.NODE_ENV === 'development'}
+              position="bottom-left"
             />
           </ErrorBoundary>
         </ThemeProvider>

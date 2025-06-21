@@ -1,0 +1,331 @@
+/* Mobile-First Optimizations for EthosPrompt */
+
+/* Touch Target Optimization */
+.touch-target {
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.touch-target-large {
+  min-width: 56px;
+  min-height: 56px;
+}
+
+/* Mobile Typography Scale */
+@media (max-width: 768px) {
+  .mobile-heading-xl {
+    font-size: 2rem;
+    line-height: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+  }
+  
+  .mobile-heading-lg {
+    font-size: 1.75rem;
+    line-height: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+  
+  .mobile-heading-md {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+  
+  .mobile-heading-sm {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+    font-weight: 600;
+  }
+  
+  .mobile-body-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 400;
+  }
+  
+  .mobile-body {
+    font-size: 1rem;
+    line-height: 1.625rem;
+    font-weight: 400;
+  }
+  
+  .mobile-body-sm {
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+    font-weight: 400;
+  }
+  
+  .mobile-caption {
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+    font-weight: 500;
+  }
+}
+
+/* Mobile Reading Optimization */
+.mobile-reading-width {
+  max-width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .mobile-reading-width {
+    max-width: 65ch;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* Mobile Card Design */
+.mobile-card {
+  border-radius: 1rem;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease-in-out;
+}
+
+.mobile-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.mobile-card-compact {
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Mobile Navigation Spacing */
+.mobile-nav-spacing {
+  padding-bottom: 5rem; /* Account for bottom navigation */
+}
+
+@media (min-width: 768px) {
+  .mobile-nav-spacing {
+    padding-bottom: 1rem;
+  }
+}
+
+/* Mobile-Optimized Buttons */
+.mobile-button {
+  min-height: 44px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 0.75rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.mobile-button:active {
+  transform: scale(0.95);
+}
+
+.mobile-button-large {
+  min-height: 56px;
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  border-radius: 1rem;
+}
+
+.mobile-button-compact {
+  min-height: 36px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+}
+
+/* Mobile Form Elements */
+.mobile-input {
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(156, 163, 175, 0.3);
+  transition: all 0.2s ease-in-out;
+}
+
+.mobile-input:focus {
+  outline: none;
+  border-color: rgba(139, 92, 246, 0.5);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+/* Mobile Search Bar */
+.mobile-search {
+  position: relative;
+  width: 100%;
+}
+
+.mobile-search-input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.75rem 1rem 0.75rem 3rem;
+  font-size: 1rem;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(156, 163, 175, 0.3);
+  background-color: rgba(17, 24, 39, 0.8);
+  color: white;
+  transition: all 0.2s ease-in-out;
+}
+
+.mobile-search-input::placeholder {
+  color: rgba(156, 163, 175, 0.7);
+}
+
+.mobile-search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(156, 163, 175, 0.7);
+  pointer-events: none;
+}
+
+/* Mobile Grid Layouts */
+.mobile-grid-1 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .mobile-grid-1 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-grid-1 {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* Mobile Safe Areas */
+.mobile-safe-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.mobile-safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.mobile-safe-left {
+  padding-left: env(safe-area-inset-left);
+}
+
+.mobile-safe-right {
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Mobile Scroll Optimization */
+.mobile-scroll-smooth {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobile-scroll-snap {
+  scroll-snap-type: x mandatory;
+}
+
+.mobile-scroll-snap-item {
+  scroll-snap-align: start;
+}
+
+/* Mobile Animation Preferences */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-card,
+  .mobile-button,
+  .mobile-input {
+    transition: none;
+  }
+  
+  .mobile-card:active,
+  .mobile-button:active {
+    transform: none;
+  }
+}
+
+/* Mobile Dark Mode Optimizations */
+@media (prefers-color-scheme: dark) {
+  .mobile-card {
+    background-color: rgba(31, 41, 55, 0.8);
+    border: 1px solid rgba(75, 85, 99, 0.3);
+  }
+  
+  .mobile-input {
+    background-color: rgba(17, 24, 39, 0.8);
+    border-color: rgba(75, 85, 99, 0.3);
+    color: white;
+  }
+  
+  .mobile-input::placeholder {
+    color: rgba(156, 163, 175, 0.7);
+  }
+}
+
+/* Mobile Focus Indicators */
+.mobile-focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
+}
+
+.mobile-focus-ring:focus-visible {
+  outline: 2px solid rgba(139, 92, 246, 0.8);
+  outline-offset: 2px;
+}
+
+/* Mobile Loading States */
+.mobile-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.mobile-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: mobile-shimmer 1.5s infinite;
+}
+
+@keyframes mobile-shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Mobile Haptic Feedback Classes */
+.mobile-haptic-light {
+  /* Used with JavaScript vibration API */
+}
+
+.mobile-haptic-medium {
+  /* Used with JavaScript vibration API */
+}
+
+.mobile-haptic-heavy {
+  /* Used with JavaScript vibration API */
+}

@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ShoppingCart, User, Menu, X, Bell } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import MobileMenu from './mobile/MobileMenu';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
@@ -11,6 +13,10 @@ const Header: React.FC = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   // Handle scroll effect
@@ -113,13 +119,13 @@ const Header: React.FC = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <button 
+          <button
             className="md:hidden p-2 -mr-2 rounded-lg hover:bg-gray-800 transition-colors active:bg-gray-800/50"
-            onClick={toggleMenu}
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={isMenuOpen}
+            onClick={toggleMobileMenu}
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMobileMenuOpen}
           >
-            {isMenuOpen ? (
+            {isMobileMenuOpen ? (
               <X size={24} className="text-gray-300 w-6 h-6" />
             ) : (
               <Menu size={24} className="text-gray-300 w-6 h-6" />
@@ -201,6 +207,12 @@ const Header: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Enhanced Mobile Menu */}
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+      />
     </header>
   );
 };
