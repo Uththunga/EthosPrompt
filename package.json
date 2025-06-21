@@ -17,12 +17,16 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:analyze": "vite build --mode analyze",
     "lint": "eslint .",
+    "type-check": "tsc --noEmit",
     "preview": "vite preview",
-    "test": "vitest run",
-    "test:dev": "vitest",
+    "test": "vitest",
+    "test:run": "vitest run",
     "test:watch": "vitest watch",
     "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
+    "build-storybook": "echo 'Storybook not configured yet'",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "migrate-prompts": "node scripts/migrate-prompts.cjs"
@@ -53,7 +57,8 @@
     "react-intersection-observer": "^9.16.0",
     "react-router-dom": "^7.6.1",
     "tailwind-merge": "^3.3.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "web-vitals": "^5.0.3"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.27.2",
@@ -98,13 +103,14 @@
     "postcss-nested": "^7.0.0",
     "postcss-nesting": "^12.0.2",
     "prettier": "^3.2.5",
-    "rollup-plugin-visualizer": "^5.12.0",
+    "rollup-plugin-visualizer": "^5.14.0",
     "tailwindcss": "^3.4.1",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.34.1",
     "vite": "^5.0.12",
+    "vite-bundle-analyzer": "^0.22.3",
     "vitest": "^3.2.3"
   }
 }

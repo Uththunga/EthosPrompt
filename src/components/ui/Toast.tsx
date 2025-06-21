@@ -177,7 +177,7 @@ const useToast = () => {
 };
 
 export {
-  ToastProvider: ToastProviderWithContext,
+  ToastProviderWithContext as ToastProvider,
   useToast,
   ToastViewport,
   Toast,

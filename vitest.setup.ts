@@ -1,13 +1,14 @@
-// vitest.setup.ts
-import { expect, vi, beforeAll } from 'vitest';
-import * as matchers from '@testing-library/jest-dom/matchers';
-import { configure } from '@testing-library/react';
+import { expect, vi, beforeAll, afterEach } from 'vitest'
+import { cleanup } from '@testing-library/react'
+import * as matchers from '@testing-library/jest-dom/matchers'
 
 // Extend Vitest's expect with Jest DOM matchers
-expect.extend(matchers);
+expect.extend(matchers)
 
-// Configure test-id attribute for React Testing Library
-configure({ testIdAttribute: 'data-testid' });
+// Cleanup after each test case
+afterEach(() => {
+  cleanup()
+})
 
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
@@ -20,25 +21,20 @@ Object.defineProperty(window, 'matchMedia', {
     removeListener: vi.fn(),
     addEventListener: vi.fn(),
     removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn((event: Event) => false),
+    dispatchEvent: vi.fn(),
   })),
-});
+})
 
 // Mock ResizeObserver
-class ResizeObserverStub {
-  observe = vi.fn();
-  unobserve = vi.fn();
-  disconnect = vi.fn();
-}
+global.ResizeObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+}))
 
-// Add type declaration for ResizeObserver
-declare global {
-  interface Window {
-    ResizeObserver: typeof ResizeObserverStub;
-  }
-}
-
-// Setup mocks before tests
-beforeAll(() => {
-  window.ResizeObserver = ResizeObserverStub;
-});
+// Mock IntersectionObserver
+global.IntersectionObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+}))

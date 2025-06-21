@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import type { Category, Subcategory, PromptGroup } from '../data/categories-data';
-import { categories } from '../data/categories-data';
 import type { Prompt } from '../data/prompts-data';
-import { prompts } from '../data/prompts-data';
 import PromptCard from '../components/PromptCard';
+import { PromptErrorBoundary } from '../components/PromptErrorBoundary';
+import { useError } from '../contexts/ErrorContext';
+import { useCategories, usePrompts, useDataPreloader } from '../hooks/useDataLoader';
+import { ComponentLoadingSpinner } from '../components/LoadingSpinner';
+import { useOptimizedCallback, useOptimizedMemo, useDebounce } from '../utils/performanceUtils';
 import { SearchX, ArrowLeft, Frown } from 'lucide-react';
 import { getDifficultyLevel } from '../utils/difficultyUtils';
 
@@ -40,18 +43,24 @@ interface ExtendedCategory extends Omit<Category, 'subcategories'> {
 const CategoryPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  
+  const { addError } = useError();
+
   // State for UI
-  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [activePromptGroup, setActivePromptGroup] = useState<string | null>(null);
   const [difficultyFilter, setDifficultyFilter] = useState<string | null>(null);
   const [selectedSubcategory, setSelectedSubcategory] = useState<ExtendedSubcategory | null>(null);
-  
+
+  // Debounce search query for better performance
+  const debouncedSearchQuery = useDebounce(searchQuery, 300);
+
+  // Load categories dynamically
+  const { data: categories, loading: categoriesLoading, error: categoriesError } = useCategories();
+
   // Memoize the category to prevent unnecessary re-renders
-  const category = useMemo<ExtendedCategory | undefined>(
-    () => categories.find((c) => c.id === id) as ExtendedCategory | undefined,
-    [id]
+  const category = useOptimizedMemo<ExtendedCategory | undefined>(
+    () => categories?.find((c) => c.id === id) as ExtendedCategory | undefined,
+    [categories, id]
   );
 
   // Set the first subcategory as selected by default when the category loads
@@ -67,47 +76,43 @@ const CategoryPage: React.FC = () => {
     return selectedSubcategory.promptGroups;
   }, [selectedSubcategory]);
 
-  // Filter prompts based on selected subcategory, active prompt group, difficulty, and search query
-  const filteredPrompts = useMemo<Prompt[]>(() => {
-    if (!selectedSubcategory) return [];
-    
-    let filtered = prompts.filter(p => p.subcategoryId === selectedSubcategory.id);
-    
-    if (activePromptGroup) {
-      filtered = filtered.filter(p => p.promptGroupId === activePromptGroup);
-    }
-    
-    if (difficultyFilter) {
-      filtered = filtered.filter(p => getDifficultyLevel(p.difficulty) === difficultyFilter);
-    }
-    
-    if (searchQuery.trim() !== '') {
-      const query = searchQuery.toLowerCase().trim();
-      filtered = filtered.filter(p => 
-        p.title.toLowerCase().includes(query) || 
-        (p.description?.toLowerCase().includes(query) ?? false) ||
-        p.prompt.toLowerCase().includes(query)
-      );
-    }
-    
-    return filtered;
-  }, [selectedSubcategory, activePromptGroup, difficultyFilter, searchQuery]);
+  // Load prompts dynamically with filtering
+  const {
+    data: filteredPrompts,
+    loading: promptsLoading,
+    error: promptsError
+  } = usePrompts({
+    subcategoryId: selectedSubcategory?.id,
+    filters: {
+      difficulty: difficultyFilter || undefined,
+      promptGroupId: activePromptGroup || undefined,
+      searchQuery: debouncedSearchQuery.trim() || undefined
+    },
+    enabled: !!selectedSubcategory
+  });
 
-  // Simulate loading
+  // Preloader for performance optimization
+  const { preloadCategory } = useDataPreloader();
+
+  // Preload data for better performance
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 500);
-    return () => clearTimeout(timer);
-  }, []);
+    if (id) {
+      preloadCategory(id).catch(() => {
+        // Preloading failure is not critical
+      });
+    }
+  }, [id, preloadCategory]);
 
   // Handle copying prompt to clipboard
-  const handleCopyPrompt = useCallback(async (text: string) => {
+  const handleCopyPrompt = useOptimizedCallback(async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
       // You might want to show a toast notification here
     } catch (err) {
       console.error('Failed to copy text: ', err);
+      addError('Failed to copy prompt to clipboard. Please try selecting and copying manually.', 'warning', 'CategoryPage');
     }
-  }, []);
+  }, [addError]);
 
   // Handle opening prompt in new tab
   const handleOpenInNewTab = useCallback((prompt: Prompt) => {
@@ -192,39 +197,37 @@ const CategoryPage: React.FC = () => {
   }, [availablePromptGroups, handleSearchChange, handleDifficultyFilter, handlePromptGroupFilter]);
   
   // Get unique prompt groups for the selected subcategory
-  const promptGroups = useMemo<PromptGroup[]>(() => {
+  const promptGroups = useOptimizedMemo<PromptGroup[]>(() => {
     if (!selectedSubcategory) return [];
     const groups = new Map<string, PromptGroup>();
-    
+
     // First, check if there are prompt groups in the subcategory
     if (selectedSubcategory.promptGroups) {
       selectedSubcategory.promptGroups.forEach(group => {
         groups.set(group.id, group);
       });
     }
-    
-    // Also check prompts for any additional groups
-    prompts
-      .filter((p: Prompt) => p.subcategoryId === selectedSubcategory.id && p.promptGroupId)
-      .forEach((p: Prompt) => {
-        if (p.promptGroupId && 'promptGroup' in p && p.promptGroup) {
-          groups.set(p.promptGroupId, p.promptGroup as PromptGroup);
-        }
-      });
-      
-    return Array.from(groups.values());
-  }, [selectedSubcategory]);
 
-  // Handle loading state
-  if (loading) {
+    // Also check prompts for any additional groups
+    if (filteredPrompts) {
+      filteredPrompts
+        .filter((p: Prompt) => p.promptGroupId)
+        .forEach((p: Prompt) => {
+          if (p.promptGroupId && 'promptGroup' in p && p.promptGroup) {
+            groups.set(p.promptGroupId, p.promptGroup as PromptGroup);
+          }
+        });
+    }
+
+    return Array.from(groups.values());
+  }, [selectedSubcategory, filteredPrompts]);
+
+  // Handle loading states
+  if (categoriesLoading) {
     return (
       <div className="min-h-screen bg-gray-900 text-white p-6">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {[1, 2, 3, 4].map((i) => (
-              <PromptCardSkeleton key={i} />
-            ))}
-          </div>
+          <ComponentLoadingSpinner text="Loading category..." />
         </div>
       </div>
     );
@@ -503,25 +506,47 @@ const CategoryPage: React.FC = () => {
                   
                   <div className="flex items-center">
                     <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-700/50 text-gray-300 border border-gray-600/30">
-                      {filteredPrompts.length} {filteredPrompts.length === 1 ? 'Prompt' : 'Prompts'}
+                      {promptsLoading ? 'Loading...' : `${filteredPrompts?.length || 0} ${(filteredPrompts?.length || 0) === 1 ? 'Prompt' : 'Prompts'}`}
                     </span>
                   </div>
                 </div>
               </div>
 
               {/* Prompts Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-                {filteredPrompts.length > 0 ? (
-                  filteredPrompts.map((prompt) => (
-                    <div key={prompt.id} className="transform transition-transform duration-300 hover:-translate-y-1">
-                      <PromptCard
-                        prompt={prompt}
-                        onCopy={() => handleCopyPrompt(prompt.prompt)}
-                        onOpenInNewTab={() => handleOpenInNewTab(prompt)}
-                      />
+              <PromptErrorBoundary categoryId={id} promptId={selectedSubcategory?.id}>
+                {promptsLoading ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                    {[1, 2, 3, 4, 5, 6].map((i) => (
+                      <div key={i} className="bg-gray-800/60 rounded-xl p-6 animate-pulse">
+                        <div className="h-4 bg-gray-700 rounded mb-3"></div>
+                        <div className="h-3 bg-gray-700 rounded mb-2"></div>
+                        <div className="h-3 bg-gray-700 rounded w-3/4"></div>
+                      </div>
+                    ))}
+                  </div>
+                ) : promptsError ? (
+                  <div className="col-span-full text-center py-12">
+                    <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-red-500/10 mb-4">
+                      <Frown className="w-10 h-10 text-red-400" />
                     </div>
-                  ))
+                    <h3 className="text-xl font-semibold text-white mb-2">Failed to Load Prompts</h3>
+                    <p className="text-gray-400 max-w-md mx-auto mb-4">
+                      There was an error loading the prompts. Please try again.
+                    </p>
+                  </div>
                 ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                    {filteredPrompts && filteredPrompts.length > 0 ? (
+                      filteredPrompts.map((prompt) => (
+                        <div key={prompt.id} className="transform transition-transform duration-300 hover:-translate-y-1">
+                          <PromptCard
+                            prompt={prompt}
+                            onCopy={() => handleCopyPrompt(prompt.prompt)}
+                            onOpenInNewTab={() => handleOpenInNewTab(prompt)}
+                          />
+                        </div>
+                      ))
+                    ) : (
                   <div className="col-span-full text-center py-12">
                     <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-purple-500/10 mb-4">
                       <SearchX className="w-10 h-10 text-purple-400" />
@@ -549,8 +574,10 @@ const CategoryPage: React.FC = () => {
                       </button>
                     )}
                   </div>
+                    )}
+                  </div>
                 )}
-              </div>
+              </PromptErrorBoundary>
             </div>
           </div>
         </div>

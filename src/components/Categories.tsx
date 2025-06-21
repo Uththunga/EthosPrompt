@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useCallback, useMemo, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { categories } from '../data/categories-data';
 
-const CategoriesSection: React.FC = () => {
+const CategoriesSection: React.FC = memo(() => {
   const navigate = useNavigate();
-  const filteredCategories = categories;
+  const filteredCategories = useMemo(() => categories, []);
 
   return (
     <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-gray-900 via-gray-900/90 to-gray-900 relative overflow-hidden">
@@ -22,13 +22,15 @@ const CategoriesSection: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
           {filteredCategories.map((category) => {
             const Icon = category.icon;
+            const handleCategoryClick = useCallback(() => {
+              window.scrollTo(0, 0);
+              navigate(`/categories/${category.id}`);
+            }, [category.id, navigate]);
+
             return (
               <button
                 key={category.id}
-                onClick={() => {
-                  window.scrollTo(0, 0);
-                  navigate(`/categories/${category.id}`);
-                }}
+                onClick={handleCategoryClick}
                 className="relative w-full p-4 sm:p-5 lg:p-6 rounded-lg text-left transition-all duration-300 overflow-hidden border border-gray-700/50 hover:border-purple-500/50 bg-black/50 backdrop-blur-sm hover:bg-black/60 group active:scale-[0.98]"
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${category.bgGradient} opacity-20 group-hover:opacity-30 transition-opacity`} />
@@ -90,6 +92,9 @@ const CategoriesSection: React.FC = () => {
       </div>
     </section>
   );
-};
+});
+
+// Add display name for debugging
+CategoriesSection.displayName = 'CategoriesSection';
 
 export default CategoriesSection;

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
-import CategoriesOverview from '../../pages/categories/CategoriesOverview';
 
 interface BreadcrumbItem {
   label: string;
@@ -49,11 +48,7 @@ const CategoryLayout: React.FC = () => {
         </nav>
 
         {/* Main Content */}
-        {location.pathname === '/categories' ? (
-          <CategoriesOverview />
-        ) : (
-          <Outlet />
-        )}
+        <Outlet />
       </div>
     </div>
   );

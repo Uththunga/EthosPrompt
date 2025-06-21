@@ -1,4 +1,3 @@
-/// <reference types="vitest" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
@@ -46,13 +45,22 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         output: {
           manualChunks: {
-            react: ['react', 'react-dom', 'react-router-dom'],
-            ui: ['@headlessui/react', '@heroicons/react', 'framer-motion'],
-            utils: ['clsx', 'tailwind-merge', 'class-variance-authority'],
+            // Core React libraries
+            'react-vendor': ['react', 'react-dom'],
+            'react-router': ['react-router-dom'],
+
+            // UI libraries
+            'ui-vendor': ['@headlessui/react', 'framer-motion'],
+
+            // Icon library (large)
+            'icons': ['lucide-react'],
+
+            // Utility libraries
+            'utils': ['clsx', 'tailwind-merge', 'class-variance-authority'],
           },
         },
       },
-      chunkSizeWarningLimit: 1000,
+      chunkSizeWarningLimit: 500, // Reduced from 1000 to enforce smaller chunks
     },
     server: {
       port: 3000,
@@ -66,12 +74,6 @@ export default defineConfig(({ mode }) => {
     define: {
       'process.env': process.env,
       __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
-    },
-        test: {
-      globals: true,
-      environment: 'jsdom',
-      setupFiles: './jest.setup.js',
-      include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     },
   };
 });
