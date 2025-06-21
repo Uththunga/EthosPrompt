@@ -1,6 +1,6 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, Clock, ArrowRight, Download, Code, BookOpen, TrendingUp, Users, Filter, Search, Tag, ExternalLink } from 'lucide-react';
+import { Calendar, Clock, ArrowRight, Download, Code, BookOpen, TrendingUp, Search, Tag, ExternalLink } from 'lucide-react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
@@ -10,13 +10,17 @@ import TrendingArticles from '../../components/blog/TrendingArticles';
 import BookmarkButton from '../../components/blog/BookmarkButton';
 import PullToRefresh from '../../components/mobile/PullToRefresh';
 import SwipeNavigation from '../../components/mobile/SwipeNavigation';
-import { useSearch, type SearchResult } from '../../hooks/useSearch';
+import { type SearchResult } from '../../hooks/useSearch';
 
 const Blog: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<CategoryId>('all');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearchActive, setIsSearchActive] = useState(false);
-  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const featuredPost = getFeaturedPost();
 
@@ -30,7 +34,6 @@ const Blog: React.FC = () => {
 
   // Handle pull-to-refresh
   const handleRefresh = async () => {
-    setIsRefreshing(true);
     try {
       // Simulate refresh delay
       await new Promise(resolve => setTimeout(resolve, 1000));
@@ -41,11 +44,8 @@ const Blog: React.FC = () => {
       setSelectedCategory('all');
 
       // In a real app, you would refetch data here
-      console.log('Blog refreshed');
     } catch (error) {
-      console.error('Refresh failed:', error);
-    } finally {
-      setIsRefreshing(false);
+      // Handle refresh error silently in production
     }
   };
 
