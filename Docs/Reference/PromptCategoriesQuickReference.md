@@ -1,151 +1,158 @@
-# Prompt Categories Quick Reference
+# EthosPrompt 9-Category Quick Reference
 
 ## Category Summary
 
-| Category | ID | Prompts | Status | Skill Level Focus |
-|----------|----|---------|---------|-------------------|
-| Marketing & Content | `marketing` | 180 | Featured | Intermediate-Advanced |
-| Digital Creators | `digital-creators` | 230 | Featured | Beginner-Advanced |
-| Education & Teaching | `education` | 38 | Trending | Beginner-Advanced |
-| Software Development | `development` | 42 | Featured | Advanced |
-| Customer Support | `support` | 35 | - | Beginner-Advanced |
-| Legal Services | `legal` | 32 | - | Advanced |
-| HR & Recruitment | `hr` | 30 | Trending | Beginner-Advanced |
-| Healthcare | `healthcare` | 28 | - | Advanced |
-| Data Science & Analysis | `data-science` | 34 | Featured | Advanced |
-| Finance & Investing | `finance` | 120 | - | Beginner-Advanced |
-| E-commerce & Retail | `ecommerce` | 90 | - | Beginner-Advanced |
-| Technology & SaaS | `technology` | 110 | - | Intermediate-Advanced |
+| Category | ID | Type | Skill Levels | Primary Users |
+|----------|----|------|--------------|---------------|
+| 🎯 Strategy & Planning | `strategy-planning` | Core | Basic → Intermediate → Advanced | Entrepreneurs, Managers, Executives |
+| 📝 Content & Communication | `content-communication` | Core | Basic → Intermediate → Advanced | Marketers, Writers, Communicators |
+| 📊 Data & Analysis | `data-analysis` | Core | Basic → Intermediate → Advanced | Analysts, Researchers, Data Scientists |
+| 🤝 Customer & Sales | `customer-sales` | Core | Basic → Intermediate → Advanced | Sales Teams, Customer Success |
+| 🔧 Operations & Process | `operations-process` | Core | Basic → Intermediate → Advanced | Operations Managers, Project Managers |
+| 📚 Learning & Development | `learning-development` | Core | Basic → Intermediate → Advanced | Trainers, HR, Educators |
+| ⚖️ Legal & Compliance | `legal-compliance` | Specialized | Basic → Intermediate → Advanced | Legal Professionals, Compliance |
+| 🏥 Healthcare & Clinical | `healthcare-clinical` | Specialized | Basic → Intermediate → Advanced | Healthcare Professionals |
+| 💻 Technology & Development | `technology-development` | Specialized | Basic → Intermediate → Advanced | Developers, Engineers, Architects |
 
-## Category Details
+## Core Categories (6)
 
-### 🎯 Marketing & Content (`marketing`)
-- **Subcategories**: 4
-- **Key Areas**: Strategy, Content Creation, Promotion, Analytics
-- **Best For**: Marketers, Content Creators, Growth Teams
+### 🎯 Strategy & Planning
+- **Subcategories**: 12 (4 per skill level)
+- **Key Areas**: Business planning, competitive analysis, strategic planning, innovation strategy
+- **Skill Progression**: Business basics → Strategic planning → Corporate strategy
 
-### 🎬 Digital Creators (`digital-creators`)
-- **Subcategories**: 3
-- **Key Areas**: Content Ideation, Audience Growth, Strategy
-- **Best For**: YouTubers, Influencers, Content Creators
+### 📝 Content & Communication
+- **Subcategories**: 12 (4 per skill level)
+- **Key Areas**: Copywriting, content marketing, brand messaging, technical writing
+- **Skill Progression**: Basic copywriting → Content strategy → Thought leadership
 
-### 🎓 Education & Teaching (`education`)
-- **Subcategories**: 4
-- **Key Areas**: Lesson Planning, Assessment, Feedback, Curriculum
-- **Best For**: Teachers, Educators, Instructional Designers
+### 📊 Data & Analysis
+- **Subcategories**: 12 (4 per skill level)
+- **Key Areas**: Reporting, business intelligence, analytics, data science
+- **Skill Progression**: Basic reporting → BI & analytics → Predictive analytics
 
-### 💻 Software Development (`development`)
-- **Subcategories**: 4
-- **Key Areas**: Code Assistance, Documentation, Testing, Architecture
-- **Best For**: Developers, Engineers, Technical Writers
+### 🤝 Customer & Sales
+- **Subcategories**: 12 (4 per skill level)
+- **Key Areas**: Customer service, sales processes, CRM, customer success
+- **Skill Progression**: Basic service → Sales management → Enterprise sales
 
-### 💬 Customer Support (`support`)
-- **Subcategories**: 4
-- **Key Areas**: Response Templates, Issue Resolution, Onboarding, Feedback
-- **Best For**: Support Teams, Customer Success Managers
+### 🔧 Operations & Process
+- **Subcategories**: 12 (4 per skill level)
+- **Key Areas**: Project management, process improvement, workflow automation, operations
+- **Skill Progression**: Basic PM → Process optimization → Enterprise operations
 
-### ⚖️ Legal Services (`legal`)
-- **Subcategories**: 4
-- **Key Areas**: Document Drafting, Research, Communication, Compliance
-- **Best For**: Lawyers, Legal Professionals, Compliance Officers
+### 📚 Learning & Development
+- **Subcategories**: 12 (4 per skill level)
+- **Key Areas**: Training, skill development, knowledge management, organizational learning
+- **Skill Progression**: Basic training → Program development → Learning strategy
 
-### 👥 HR & Recruitment (`hr`)
-- **Subcategories**: 4
-- **Key Areas**: Job Descriptions, Assessment, Communications, Policies
-- **Best For**: HR Professionals, Recruiters, Hiring Managers
+## Specialized Categories (3)
 
-### 🏥 Healthcare (`healthcare`)
-- **Subcategories**: 4
-- **Key Areas**: Clinical Documentation, Patient Education, Research, Communications
-- **Best For**: Healthcare Professionals, Medical Writers
+### ⚖️ Legal & Compliance
+- **Subcategories**: 12 (4 per skill level)
+- **Key Areas**: Legal documentation, compliance, contract management, risk management
+- **Skill Progression**: Basic legal docs → Regulatory compliance → Complex legal strategy
 
-### 📊 Data Science & Analysis (`data-science`)
-- **Subcategories**: 4
-- **Key Areas**: Analysis, Visualization, Reporting, Machine Learning
-- **Best For**: Data Scientists, Analysts, Business Intelligence Teams
+### 🏥 Healthcare & Clinical
+- **Subcategories**: 12 (4 per skill level)
+- **Key Areas**: Patient communication, clinical documentation, healthcare administration, clinical research
+- **Skill Progression**: Basic patient care → Clinical documentation → Advanced practice
 
-### 💰 Finance & Investing (`finance`)
-- **Subcategories**: 4
-- **Key Areas**: Market Research, Portfolio Management, Planning, Reporting
-- **Best For**: Financial Analysts, Advisors, Investment Professionals
+### 💻 Technology & Development
+- **Subcategories**: 12 (4 per skill level)
+- **Key Areas**: Programming, system architecture, DevOps, enterprise technology
+- **Skill Progression**: Basic programming → Software engineering → Enterprise architecture
 
-### 🛒 E-commerce & Retail (`ecommerce`)
-- **Subcategories**: 4
-- **Key Areas**: Product SEO, CRO/UX, Retention, Operations
-- **Best For**: E-commerce Managers, Retail Professionals
+## Skill Level System
 
-### 🚀 Technology & SaaS (`technology`)
-- **Subcategories**: 4
-- **Key Areas**: Product Strategy, Onboarding, Customer Success, Dev Relations
-- **Best For**: Product Managers, SaaS Teams, Developer Relations
+### 3-Level Progression Model
 
-## Skill Level Distribution
+**Level 1: Basic/Foundational**
+- Target: Beginners, small business owners, coordinators
+- Focus: Simple tasks, foundational concepts, getting started
+- Available in: All 9 categories (4 subcategories each)
 
-### Beginner-Friendly Categories
-- Digital Creators
-- Education & Teaching
-- Customer Support
-- HR & Recruitment
-- Finance & Investing
-- E-commerce & Retail
+**Level 2: Intermediate/Professional**
+- Target: Experienced professionals, managers, specialists
+- Focus: Complex workflows, professional expertise, strategic thinking
+- Available in: All 9 categories (4 subcategories each)
 
-### Intermediate Categories
-- Marketing & Content
-- Customer Support
-- HR & Recruitment
-- Data Science & Analysis
-- Finance & Investing
-- E-commerce & Retail
-- Technology & SaaS
-
-### Advanced Categories
-- Marketing & Content
-- Digital Creators
-- Education & Teaching
-- Software Development
-- Legal Services
-- Healthcare
-- Data Science & Analysis
-- Finance & Investing
-- Technology & SaaS
+**Level 3: Advanced/Specialized**
+- Target: Experts, executives, specialized professionals
+- Focus: Sophisticated analysis, strategic leadership, innovation
+- Available in: All 9 categories (4 subcategories each)
 
 ## Quick Navigation
 
-### By Industry
-- **Creative**: Digital Creators, Marketing & Content
-- **Education**: Education & Teaching
-- **Technology**: Software Development, Technology & SaaS, Data Science
-- **Business**: Marketing & Content, HR & Recruitment, Finance & Investing
-- **Service**: Customer Support, Legal Services, Healthcare
-- **Retail**: E-commerce & Retail
+### By User Type
+- **Entrepreneurs & Small Business**: Strategy & Planning (Basic), Operations & Process (Basic)
+- **Marketing Professionals**: Content & Communication, Customer & Sales, Data & Analysis
+- **Technical Professionals**: Technology & Development, Data & Analysis, Operations & Process
+- **Healthcare Professionals**: Healthcare & Clinical, Learning & Development, Operations & Process
+- **Legal Professionals**: Legal & Compliance, Content & Communication, Operations & Process
+- **Managers & Executives**: Strategy & Planning (Advanced), Operations & Process (Advanced), Learning & Development
 
-### By Use Case
-- **Content Creation**: Marketing & Content, Digital Creators, Education & Teaching
-- **Documentation**: Software Development, Legal Services, Healthcare
-- **Analysis**: Data Science & Analysis, Finance & Investing
-- **Communication**: Customer Support, HR & Recruitment, Healthcare
-- **Strategy**: Marketing & Content, Technology & SaaS, Finance & Investing
+### By Workflow
+- **Planning & Strategy**: Strategy & Planning, Operations & Process
+- **Content & Marketing**: Content & Communication, Customer & Sales
+- **Analysis & Insights**: Data & Analysis, Strategy & Planning
+- **Process & Operations**: Operations & Process, Technology & Development
+- **People & Development**: Learning & Development, Customer & Sales
+- **Compliance & Risk**: Legal & Compliance, Operations & Process
 
-## File Locations
+## Implementation Details
 
-- **Categories Data**: `src/data/categories-data.ts`
+### File Locations
+- **Categories Data**: `src/data/categories-data.ts` (updated for 9-category structure)
 - **Prompts Data**: `src/data/prompts-data.ts`
 - **Category Pages**: `src/pages/categories/`
 - **Components**: `src/components/`
-
-## Common Patterns
+- **Framework Documentation**: `Docs/9-Category-Framework.md`
 
 ### ID Naming Convention
-- Categories: `kebab-case` (e.g., `marketing`, `digital-creators`)
-- Subcategories: `kebab-case` (e.g., `content-creation`, `lesson-planning`)
-- Prompt Groups: `kebab-case` (e.g., `long-form-content`, `lesson-plans`)
+- **Categories**: `kebab-case` (e.g., `strategy-planning`, `content-communication`)
+- **Subcategories**: `kebab-case` with skill level (e.g., `business-planning-basics`, `competitive-analysis`)
+- **Prompt Groups**: `kebab-case` (e.g., `business-model-canvas`, `market-research`)
 
-### Icon Usage
-All categories use Lucide React icons for consistency and visual appeal.
+### Database Schema
+```sql
+-- skill_level enum supports 3-level progression
+CREATE TYPE skill_level_enum AS ENUM ('basic', 'intermediate', 'advanced');
 
-### Background Gradients
-Each category has a unique gradient for visual distinction in the UI.
+-- Categories table for 9-category structure
+CREATE TABLE categories (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  icon TEXT NOT NULL,
+  description TEXT NOT NULL,
+  prompt_count INTEGER DEFAULT 0,
+  bg_gradient TEXT NOT NULL
+);
+
+-- Subcategories with skill level classification
+CREATE TABLE subcategories (
+  id TEXT PRIMARY KEY,
+  category_id TEXT REFERENCES categories(id),
+  name TEXT NOT NULL,
+  description TEXT NOT NULL,
+  skill_level skill_level_enum NOT NULL
+);
+```
+
+## Migration Benefits
+
+### User Experience Improvements
+- **Reduced Decision Fatigue**: 9 categories vs. 12+ reduces cognitive load
+- **Workflow Alignment**: Categories match how users actually work
+- **Skill Progression**: Clear path from basic to advanced
+- **Better Discoverability**: Function-based organization improves findability
+
+### Business Impact
+- **Higher Conversion**: Improved UX leads to better conversion rates
+- **Reduced Support**: Better navigation reduces support requests
+- **Competitive Advantage**: Superior categorization system
+- **Scalable Growth**: Framework supports future expansion
 
 ---
 
-*For detailed information, see the main [Prompt Categories Documentation](./PromptCategories.md)* 
+*For complete implementation details, see [9-Category Framework Documentation](../9-Category-Framework.md) and [Prompt Categories Documentation](../Components/PromptCategories.md)*

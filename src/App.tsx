@@ -2,12 +2,16 @@ import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './components/ThemeProvider';
 import { ErrorProvider } from './contexts/ErrorContext';
+import { AuthProvider } from './contexts/AuthContext';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { ErrorNotifications } from './components/ErrorNotifications';
 import { ToastProvider } from './components/ui/Toast';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import BottomNavigation from './components/mobile/BottomNavigation';
+import IndustryOnboarding from './components/onboarding/IndustryOnboarding';
+import { useUserPreferences } from './hooks/useUserPreferences';
 
 import AppLoadingScreen from './components/mobile/AppLoadingScreen';
 import MobilePerformanceMonitor from './components/mobile/MobilePerformanceMonitor';
@@ -32,6 +36,7 @@ const CookiePolicy = React.lazy(() => import('./pages/CookiePolicy'));
 
 // Category & Prompt Pages (Heavy components - high priority for lazy loading)
 const CategoriesOverview = React.lazy(() => import('./pages/categories/CategoriesOverview'));
+const CategoryOverview = React.lazy(() => import('./pages/CategoryOverview'));
 const CategoryPage = React.lazy(() => import('./pages/CategoryPage'));
 const PromptDetailPage = React.lazy(() => import('./pages/PromptDetailPage'));
 
@@ -43,6 +48,14 @@ const Tutorials = React.lazy(() => import('./pages/resources/Tutorials'));
 const Blog = React.lazy(() => import('./pages/resources/Blog'));
 const BlogPostDetail = React.lazy(() => import('./pages/BlogPostDetail'));
 const DataTableDemo = React.lazy(() => import('./pages/DataTableDemo'));
+const PromptCardDemo = React.lazy(() => import('./pages/PromptCardDemo'));
+
+// Auth Pages
+const LoginPage = React.lazy(() => import('./pages/auth/LoginPage'));
+const RegisterPage = React.lazy(() => import('./pages/auth/RegisterPage'));
+const ProfilePage = React.lazy(() => import('./pages/auth/ProfilePage'));
+const UpgradePage = React.lazy(() => import('./pages/UpgradePage'));
+
 
 const HomePage = () => (
   <main className="space-y-12 md:space-y-20">
@@ -57,20 +70,52 @@ const HomePage = () => (
 
 function App() {
   const [isAppLoading, setIsAppLoading] = React.useState(true);
+  const [showOnboarding, setShowOnboarding] = React.useState(false);
+  const { needsOnboarding, completeOnboarding } = useUserPreferences();
 
   React.useEffect(() => {
     // Simulate app initialization
     const timer = setTimeout(() => {
       setIsAppLoading(false);
+      // Check if onboarding is needed after app loads
+      if (needsOnboarding()) {
+        setShowOnboarding(true);
+      }
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [needsOnboarding]);
+
+  const handleOnboardingComplete = (industries: string[], skillLevel: string) => {
+    completeOnboarding(industries, skillLevel as any);
+    setShowOnboarding(false);
+  };
+
+  const handleOnboardingSkip = () => {
+    setShowOnboarding(false);
+  };
+
+  // Show onboarding if needed
+  if (showOnboarding) {
+    return (
+      <ErrorProvider>
+        <ToastProvider>
+          <ThemeProvider>
+            <IndustryOnboarding
+              onComplete={handleOnboardingComplete}
+              onSkip={handleOnboardingSkip}
+            />
+          </ThemeProvider>
+        </ToastProvider>
+      </ErrorProvider>
+    );
+  }
 
   return (
     <ErrorProvider>
       <ToastProvider>
         <ThemeProvider>
+          <AuthProvider>
           <ErrorBoundary level="critical" onError={(error, errorInfo) => {
             console.error('Critical App Error:', error, errorInfo)
             // In production, send to error tracking service
@@ -100,6 +145,7 @@ function App() {
                         </Suspense>
                       } />
                       <Route path="/components/datatable" element={<DataTableDemo />} />
+                      <Route path="/demo/prompt-cards" element={<PromptCardDemo />} />
                       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                       <Route path="/terms-of-service" element={<TermsOfService />} />
                       <Route path="/cookie-policy" element={<CookiePolicy />} />
@@ -109,6 +155,11 @@ function App() {
                         <Route index element={
                           <Suspense fallback={<PageLoadingSpinner />}>
                             <CategoriesOverview />
+                          </Suspense>
+                        } />
+                        <Route path=":id/overview" element={
+                          <Suspense fallback={<PageLoadingSpinner />}>
+                            <CategoryOverview />
                           </Suspense>
                         } />
                         <Route path=":id" element={
@@ -124,6 +175,16 @@ function App() {
                           <PromptDetailPage />
                         </Suspense>
                       } />
+
+                      {/* Auth Routes */}
+                      <Route path="/login" element={<LoginPage />} />
+                      <Route path="/register" element={<RegisterPage />} />
+                      <Route path="/profile" element={
+                        <ProtectedRoute>
+                          <ProfilePage />
+                        </ProtectedRoute>
+                      } />
+                      <Route path="/upgrade" element={<UpgradePage />} />
                     </Routes>
                   </Suspense>
                 </ErrorBoundary>
@@ -150,6 +211,7 @@ function App() {
               position="bottom-left"
             />
           </ErrorBoundary>
+          </AuthProvider>
         </ThemeProvider>
       </ToastProvider>
     </ErrorProvider>

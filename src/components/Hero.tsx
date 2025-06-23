@@ -61,7 +61,7 @@ const Hero: React.FC = () => {
               className="group w-full justify-center"
               onClick={(e) => e.preventDefault()}
             >
-              Custom Prompts (Coming Soon)
+              Custom Prompts
               <ArrowRight className="ml-2 h-4 w-4 text-gray-400" />
             </Button>
           </div>

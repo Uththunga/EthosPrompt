@@ -1,0 +1,964 @@
+{
+  "timestamp": "2025-06-22T17:23:55.932Z",
+  "categories": [
+    {
+      "id": "marketing",
+      "name": "Marketing & Content",
+      "icon": "Megaphone",
+      "description": "Drive growth with AI-powered strategies, from planning and creation to promotion and analytics.",
+      "prompt_count": 13,
+      "bg_gradient": "from-purple-600/20 to-pink-600/20",
+      "trending": false,
+      "featured": true,
+      "created_at": "2025-06-22T09:07:35.055106+00:00",
+      "updated_at": "2025-06-22T09:34:42.568635+00:00"
+    },
+    {
+      "id": "education",
+      "name": "Education & Teaching",
+      "icon": "GraduationCap",
+      "description": "Design effective learning materials and curricula",
+      "prompt_count": 6,
+      "bg_gradient": "from-blue-600/20 to-cyan-600/20",
+      "trending": true,
+      "featured": false,
+      "created_at": "2025-06-22T09:07:39.09337+00:00",
+      "updated_at": "2025-06-22T09:34:42.568635+00:00"
+    },
+    {
+      "id": "development",
+      "name": "Software Development",
+      "icon": "Code",
+      "description": "Code generation, documentation, and technical writing",
+      "prompt_count": 6,
+      "bg_gradient": "from-emerald-600/20 to-teal-600/20",
+      "trending": false,
+      "featured": true,
+      "created_at": "2025-06-22T09:07:41.414455+00:00",
+      "updated_at": "2025-06-22T09:34:42.568635+00:00"
+    },
+    {
+      "id": "strategy-planning",
+      "name": "Strategy & Planning",
+      "icon": "Target",
+      "description": "Business strategy, market research, and strategic planning workflows",
+      "prompt_count": 0,
+      "bg_gradient": "from-blue-600/20 to-indigo-600/20",
+      "trending": false,
+      "featured": true,
+      "created_at": "2025-06-22T17:12:29.45801+00:00",
+      "updated_at": "2025-06-22T17:12:31.735542+00:00"
+    },
+    {
+      "id": "content-communication",
+      "name": "Content & Communication",
+      "icon": "FileText",
+      "description": "Content creation, copywriting, and communication strategies",
+      "prompt_count": 0,
+      "bg_gradient": "from-purple-600/20 to-pink-600/20",
+      "trending": true,
+      "featured": true,
+      "created_at": "2025-06-22T17:12:29.45801+00:00",
+      "updated_at": "2025-06-22T17:12:33.060769+00:00"
+    },
+    {
+      "id": "data-analysis",
+      "name": "Data & Analysis",
+      "icon": "BarChart2",
+      "description": "Data analysis, reporting, and business intelligence workflows",
+      "prompt_count": 0,
+      "bg_gradient": "from-cyan-600/20 to-blue-600/20",
+      "trending": false,
+      "featured": true,
+      "created_at": "2025-06-22T17:12:29.45801+00:00",
+      "updated_at": "2025-06-22T17:12:33.838773+00:00"
+    },
+    {
+      "id": "customer-sales",
+      "name": "Customer & Sales",
+      "icon": "Users",
+      "description": "Customer relationship management, sales processes, and customer success",
+      "prompt_count": 0,
+      "bg_gradient": "from-green-600/20 to-emerald-600/20",
+      "trending": true,
+      "featured": true,
+      "created_at": "2025-06-22T17:12:29.45801+00:00",
+      "updated_at": "2025-06-22T17:12:35.410752+00:00"
+    },
+    {
+      "id": "operations-process",
+      "name": "Operations & Process",
+      "icon": "Settings",
+      "description": "Operational efficiency, process improvement, and workflow optimization",
+      "prompt_count": 0,
+      "bg_gradient": "from-orange-600/20 to-yellow-600/20",
+      "trending": false,
+      "featured": false,
+      "created_at": "2025-06-22T17:12:29.45801+00:00",
+      "updated_at": "2025-06-22T17:12:36.774781+00:00"
+    },
+    {
+      "id": "learning-development",
+      "name": "Learning & Development",
+      "icon": "BookOpen",
+      "description": "Training programs, skill development, and knowledge management",
+      "prompt_count": 0,
+      "bg_gradient": "from-indigo-600/20 to-purple-600/20",
+      "trending": false,
+      "featured": false,
+      "created_at": "2025-06-22T17:12:29.45801+00:00",
+      "updated_at": "2025-06-22T17:12:37.476014+00:00"
+    },
+    {
+      "id": "legal-compliance",
+      "name": "Legal & Compliance",
+      "icon": "Scale",
+      "description": "Legal documentation, regulatory compliance, and risk management",
+      "prompt_count": 0,
+      "bg_gradient": "from-gray-600/20 to-slate-600/20",
+      "trending": false,
+      "featured": false,
+      "created_at": "2025-06-22T17:12:29.45801+00:00",
+      "updated_at": "2025-06-22T17:12:38.233378+00:00"
+    },
+    {
+      "id": "healthcare-clinical",
+      "name": "Healthcare & Clinical",
+      "icon": "Heart",
+      "description": "Clinical documentation, patient care, and healthcare administration",
+      "prompt_count": 0,
+      "bg_gradient": "from-red-600/20 to-pink-600/20",
+      "trending": false,
+      "featured": false,
+      "created_at": "2025-06-22T17:12:29.45801+00:00",
+      "updated_at": "2025-06-22T17:12:39.487383+00:00"
+    },
+    {
+      "id": "technology-development",
+      "name": "Technology & Development",
+      "icon": "Code",
+      "description": "Software development, technical documentation, and IT workflows",
+      "prompt_count": 0,
+      "bg_gradient": "from-emerald-600/20 to-teal-600/20",
+      "trending": true,
+      "featured": false,
+      "created_at": "2025-06-22T17:12:29.45801+00:00",
+      "updated_at": "2025-06-22T17:12:40.04939+00:00"
+    }
+  ],
+  "subcategories": [
+    {
+      "id": "marketing-strategy-planning",
+      "category_id": "marketing",
+      "name": "Marketing Strategy & Planning",
+      "description": "Develop comprehensive marketing strategies, define target audiences, and plan campaigns.",
+      "examples": [
+        "Develop a Q3 marketing plan.",
+        "Define the target audience for a new SaaS product."
+      ],
+      "skill_level": "advanced",
+      "created_at": "2025-06-22T09:07:35.312721+00:00",
+      "updated_at": "2025-06-22T09:07:35.312721+00:00"
+    },
+    {
+      "id": "content-creation-copywriting",
+      "category_id": "marketing",
+      "name": "Content Creation & Copywriting",
+      "description": "Generate high-quality content for various platforms, from blog posts to ad copy.",
+      "examples": [
+        "Write a 1000-word blog post on AI in marketing.",
+        "Generate 5 ad headlines for a new sneaker launch."
+      ],
+      "skill_level": "intermediate",
+      "created_at": "2025-06-22T09:07:37.230078+00:00",
+      "updated_at": "2025-06-22T09:07:37.230078+00:00"
+    },
+    {
+      "id": "lesson-planning",
+      "category_id": "education",
+      "name": "Lesson Planning",
+      "description": "Structured lesson plans and materials",
+      "examples": [
+        "Unit Plans",
+        "Activity Designs",
+        "Learning Objectives"
+      ],
+      "skill_level": "beginner",
+      "created_at": "2025-06-22T09:07:39.424731+00:00",
+      "updated_at": "2025-06-22T09:07:39.424731+00:00"
+    },
+    {
+      "id": "code-assistance",
+      "category_id": "development",
+      "name": "Code Assistance",
+      "description": "Code generation and problem-solving",
+      "examples": [
+        "Function Generation",
+        "Bug Fixing",
+        "Code Optimization"
+      ],
+      "skill_level": "advanced",
+      "created_at": "2025-06-22T09:07:41.677236+00:00",
+      "updated_at": "2025-06-22T09:07:41.677236+00:00"
+    },
+    {
+      "id": "business-planning-basics",
+      "category_id": "strategy-planning",
+      "name": "Business Planning Basics",
+      "description": "Simple business plans, goal setting, basic market analysis",
+      "examples": [
+        "Business model canvas",
+        "SWOT analysis",
+        "Basic market research"
+      ],
+      "skill_level": "beginner",
+      "created_at": "2025-06-22T17:12:29.79362+00:00",
+      "updated_at": "2025-06-22T17:12:29.79362+00:00"
+    },
+    {
+      "id": "competitive-analysis",
+      "category_id": "strategy-planning",
+      "name": "Competitive Analysis",
+      "description": "In-depth competitor research, positioning analysis, market intelligence",
+      "examples": [
+        "Competitive matrices",
+        "Positioning maps",
+        "Market intelligence reports"
+      ],
+      "skill_level": "intermediate",
+      "created_at": "2025-06-22T17:12:29.79362+00:00",
+      "updated_at": "2025-06-22T17:12:29.79362+00:00"
+    },
+    {
+      "id": "corporate-strategy-ma",
+      "category_id": "strategy-planning",
+      "name": "Corporate Strategy & M&A",
+      "description": "Corporate development, mergers & acquisitions, portfolio strategy",
+      "examples": [
+        "M&A analysis",
+        "Portfolio optimization",
+        "Corporate restructuring"
+      ],
+      "skill_level": "advanced",
+      "created_at": "2025-06-22T17:12:29.79362+00:00",
+      "updated_at": "2025-06-22T17:12:29.79362+00:00"
+    },
+    {
+      "id": "basic-copywriting",
+      "category_id": "content-communication",
+      "name": "Basic Copywriting",
+      "description": "Simple copy for websites, emails, basic marketing materials",
+      "examples": [
+        "Website copy",
+        "Email templates",
+        "Basic ads"
+      ],
+      "skill_level": "beginner",
+      "created_at": "2025-06-22T17:12:29.79362+00:00",
+      "updated_at": "2025-06-22T17:12:29.79362+00:00"
+    },
+    {
+      "id": "content-marketing-strategy",
+      "category_id": "content-communication",
+      "name": "Content Marketing Strategy",
+      "description": "Content calendars, blog strategies, content planning",
+      "examples": [
+        "Content calendars",
+        "Blog strategies",
+        "Content audits"
+      ],
+      "skill_level": "intermediate",
+      "created_at": "2025-06-22T17:12:29.79362+00:00",
+      "updated_at": "2025-06-22T17:12:29.79362+00:00"
+    },
+    {
+      "id": "technical-writing-documentation",
+      "category_id": "content-communication",
+      "name": "Technical Writing & Documentation",
+      "description": "API docs, user manuals, technical specifications",
+      "examples": [
+        "API documentation",
+        "User guides",
+        "Technical specifications"
+      ],
+      "skill_level": "advanced",
+      "created_at": "2025-06-22T17:12:29.79362+00:00",
+      "updated_at": "2025-06-22T17:12:29.79362+00:00"
+    }
+  ],
+  "prompts": [
+    {
+      "id": "43fcd7e9-aa05-498d-8c9d-9b4110ed552f",
+      "title": "Marketing Strategy & Planning Prompt 1",
+      "description": "A beginner-friendly prompt for marketing strategy & planning. Develop comprehensive marketing strategies, define target audiences, and plan campaigns.",
+      "content": "You are an expert in marketing & content. Help me with develop a q3 marketing plan.. \n\nPlease provide:\n1. A clear and actionable approach\n2. Step-by-step guidance\n3. Best practices to follow\n4. Common mistakes to avoid\n\nContext: [Describe your specific situation here]\nGoal: [What you want to achieve]\nConstraints: [Any limitations or requirements]\n\nPlease tailor your response to be practical and immediately actionable.",
+      "category_id": "marketing",
+      "subcategory_id": "marketing-strategy-planning",
+      "prompt_group_id": "market-audience-research",
+      "tags": [
+        "marketing-&-content",
+        "marketing-strategy-&-planning",
+        "beginner",
+        "template"
+      ],
+      "industry": "marketing",
+      "use_case": "Develop a Q3 marketing plan.",
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:07:36.440674+00:00",
+      "updated_at": "2025-06-22T09:07:36.440674+00:00"
+    },
+    {
+      "id": "531a68b3-6baa-43fc-b8c9-29c797d393e2",
+      "title": "Marketing Strategy & Planning Prompt 2",
+      "description": "A beginner-friendly prompt for marketing strategy & planning. Develop comprehensive marketing strategies, define target audiences, and plan campaigns.",
+      "content": "You are an expert in marketing & content. Help me with define the target audience for a new saas product.. \n\nPlease provide:\n1. A clear and actionable approach\n2. Step-by-step guidance\n3. Best practices to follow\n4. Common mistakes to avoid\n\nContext: [Describe your specific situation here]\nGoal: [What you want to achieve]\nConstraints: [Any limitations or requirements]\n\nPlease tailor your response to be practical and immediately actionable.",
+      "category_id": "marketing",
+      "subcategory_id": "marketing-strategy-planning",
+      "prompt_group_id": "market-audience-research",
+      "tags": [
+        "marketing-&-content",
+        "marketing-strategy-&-planning",
+        "beginner",
+        "template"
+      ],
+      "industry": "marketing",
+      "use_case": "Define the target audience for a new SaaS product.",
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:07:36.693753+00:00",
+      "updated_at": "2025-06-22T09:07:36.693753+00:00"
+    },
+    {
+      "id": "17a18075-2108-43d1-9f25-85a721276555",
+      "title": "Marketing Strategy & Planning Prompt 3",
+      "description": "A beginner-friendly prompt for marketing strategy & planning. Develop comprehensive marketing strategies, define target audiences, and plan campaigns.",
+      "content": "You are an expert in marketing & content. Help me with define the target audience for a new saas product.. \n\nPlease provide:\n1. A clear and actionable approach\n2. Step-by-step guidance\n3. Best practices to follow\n4. Common mistakes to avoid\n\nContext: [Describe your specific situation here]\nGoal: [What you want to achieve]\nConstraints: [Any limitations or requirements]\n\nPlease tailor your response to be practical and immediately actionable.",
+      "category_id": "marketing",
+      "subcategory_id": "marketing-strategy-planning",
+      "prompt_group_id": "market-audience-research",
+      "tags": [
+        "marketing-&-content",
+        "marketing-strategy-&-planning",
+        "beginner",
+        "template"
+      ],
+      "industry": "marketing",
+      "use_case": "Define the target audience for a new SaaS product.",
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:07:36.938212+00:00",
+      "updated_at": "2025-06-22T09:07:36.938212+00:00"
+    },
+    {
+      "id": "30b69f7b-37ff-43d4-9e2f-f544f0a26ca5",
+      "title": "Content Creation & Copywriting Prompt 1",
+      "description": "A beginner-friendly prompt for content creation & copywriting. Generate high-quality content for various platforms, from blog posts to ad copy.",
+      "content": "You are an expert in marketing & content. Help me with write a 1000-word blog post on ai in marketing.. \n\nPlease provide:\n1. A clear and actionable approach\n2. Step-by-step guidance\n3. Best practices to follow\n4. Common mistakes to avoid\n\nContext: [Describe your specific situation here]\nGoal: [What you want to achieve]\nConstraints: [Any limitations or requirements]\n\nPlease tailor your response to be practical and immediately actionable.",
+      "category_id": "marketing",
+      "subcategory_id": "content-creation-copywriting",
+      "prompt_group_id": "long-form-content",
+      "tags": [
+        "marketing-&-content",
+        "content-creation-&-copywriting",
+        "beginner",
+        "template"
+      ],
+      "industry": "marketing",
+      "use_case": "Write a 1000-word blog post on AI in marketing.",
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:07:38.287172+00:00",
+      "updated_at": "2025-06-22T09:07:38.287172+00:00"
+    },
+    {
+      "id": "57c73ea4-4990-4959-b43b-1a0c0fa4fa8d",
+      "title": "Content Creation & Copywriting Prompt 2",
+      "description": "A beginner-friendly prompt for content creation & copywriting. Generate high-quality content for various platforms, from blog posts to ad copy.",
+      "content": "You are an expert in marketing & content. Help me with generate 5 ad headlines for a new sneaker launch.. \n\nPlease provide:\n1. A clear and actionable approach\n2. Step-by-step guidance\n3. Best practices to follow\n4. Common mistakes to avoid\n\nContext: [Describe your specific situation here]\nGoal: [What you want to achieve]\nConstraints: [Any limitations or requirements]\n\nPlease tailor your response to be practical and immediately actionable.",
+      "category_id": "marketing",
+      "subcategory_id": "content-creation-copywriting",
+      "prompt_group_id": "long-form-content",
+      "tags": [
+        "marketing-&-content",
+        "content-creation-&-copywriting",
+        "beginner",
+        "template"
+      ],
+      "industry": "marketing",
+      "use_case": "Generate 5 ad headlines for a new sneaker launch.",
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:07:38.552915+00:00",
+      "updated_at": "2025-06-22T09:07:38.552915+00:00"
+    },
+    {
+      "id": "7027a5df-6cce-459b-aabc-ad589a4e608b",
+      "title": "Content Creation & Copywriting Prompt 3",
+      "description": "A beginner-friendly prompt for content creation & copywriting. Generate high-quality content for various platforms, from blog posts to ad copy.",
+      "content": "You are an expert in marketing & content. Help me with generate 5 ad headlines for a new sneaker launch.. \n\nPlease provide:\n1. A clear and actionable approach\n2. Step-by-step guidance\n3. Best practices to follow\n4. Common mistakes to avoid\n\nContext: [Describe your specific situation here]\nGoal: [What you want to achieve]\nConstraints: [Any limitations or requirements]\n\nPlease tailor your response to be practical and immediately actionable.",
+      "category_id": "marketing",
+      "subcategory_id": "content-creation-copywriting",
+      "prompt_group_id": "long-form-content",
+      "tags": [
+        "marketing-&-content",
+        "content-creation-&-copywriting",
+        "beginner",
+        "template"
+      ],
+      "industry": "marketing",
+      "use_case": "Generate 5 ad headlines for a new sneaker launch.",
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:07:38.814082+00:00",
+      "updated_at": "2025-06-22T09:07:38.814082+00:00"
+    },
+    {
+      "id": "df3a0910-a9d0-43f1-b3fb-a34994771f88",
+      "title": "Lesson Planning Prompt 1",
+      "description": "A beginner-friendly prompt for lesson planning. Structured lesson plans and materials",
+      "content": "You are an expert in education & teaching. Help me with unit plans. \n\nPlease provide:\n1. A clear and actionable approach\n2. Step-by-step guidance\n3. Best practices to follow\n4. Common mistakes to avoid\n\nContext: [Describe your specific situation here]\nGoal: [What you want to achieve]\nConstraints: [Any limitations or requirements]\n\nPlease tailor your response to be practical and immediately actionable.",
+      "category_id": "education",
+      "subcategory_id": "lesson-planning",
+      "prompt_group_id": "lesson-plans",
+      "tags": [
+        "education-&-teaching",
+        "lesson-planning",
+        "beginner",
+        "template"
+      ],
+      "industry": "education",
+      "use_case": "Unit Plans",
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:07:40.507648+00:00",
+      "updated_at": "2025-06-22T09:07:40.507648+00:00"
+    },
+    {
+      "id": "428b8dd8-de53-4a9d-9774-ec9351211469",
+      "title": "Lesson Planning Prompt 2",
+      "description": "A beginner-friendly prompt for lesson planning. Structured lesson plans and materials",
+      "content": "You are an expert in education & teaching. Help me with activity designs. \n\nPlease provide:\n1. A clear and actionable approach\n2. Step-by-step guidance\n3. Best practices to follow\n4. Common mistakes to avoid\n\nContext: [Describe your specific situation here]\nGoal: [What you want to achieve]\nConstraints: [Any limitations or requirements]\n\nPlease tailor your response to be practical and immediately actionable.",
+      "category_id": "education",
+      "subcategory_id": "lesson-planning",
+      "prompt_group_id": "lesson-plans",
+      "tags": [
+        "education-&-teaching",
+        "lesson-planning",
+        "beginner",
+        "template"
+      ],
+      "industry": "education",
+      "use_case": "Activity Designs",
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:07:40.839168+00:00",
+      "updated_at": "2025-06-22T09:07:40.839168+00:00"
+    },
+    {
+      "id": "c965e5e6-2786-40ab-8b78-dc5bce46a61e",
+      "title": "Lesson Planning Prompt 3",
+      "description": "A beginner-friendly prompt for lesson planning. Structured lesson plans and materials",
+      "content": "You are an expert in education & teaching. Help me with learning objectives. \n\nPlease provide:\n1. A clear and actionable approach\n2. Step-by-step guidance\n3. Best practices to follow\n4. Common mistakes to avoid\n\nContext: [Describe your specific situation here]\nGoal: [What you want to achieve]\nConstraints: [Any limitations or requirements]\n\nPlease tailor your response to be practical and immediately actionable.",
+      "category_id": "education",
+      "subcategory_id": "lesson-planning",
+      "prompt_group_id": "lesson-plans",
+      "tags": [
+        "education-&-teaching",
+        "lesson-planning",
+        "beginner",
+        "template"
+      ],
+      "industry": "education",
+      "use_case": "Learning Objectives",
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:07:41.145173+00:00",
+      "updated_at": "2025-06-22T09:07:41.145173+00:00"
+    },
+    {
+      "id": "20ad5515-240d-49f1-bdd5-f87a025543e5",
+      "title": "Code Assistance Prompt 1",
+      "description": "A beginner-friendly prompt for code assistance. Code generation and problem-solving",
+      "content": "You are an expert in software development. Help me with function generation. \n\nPlease provide:\n1. A clear and actionable approach\n2. Step-by-step guidance\n3. Best practices to follow\n4. Common mistakes to avoid\n\nContext: [Describe your specific situation here]\nGoal: [What you want to achieve]\nConstraints: [Any limitations or requirements]\n\nPlease tailor your response to be practical and immediately actionable.",
+      "category_id": "development",
+      "subcategory_id": "code-assistance",
+      "prompt_group_id": "code-generation",
+      "tags": [
+        "software-development",
+        "code-assistance",
+        "beginner",
+        "template"
+      ],
+      "industry": "technology",
+      "use_case": "Function Generation",
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:07:42.403444+00:00",
+      "updated_at": "2025-06-22T09:07:42.403444+00:00"
+    },
+    {
+      "id": "feb27793-629c-4785-84e9-690727c2761c",
+      "title": "Code Assistance Prompt 2",
+      "description": "A beginner-friendly prompt for code assistance. Code generation and problem-solving",
+      "content": "You are an expert in software development. Help me with bug fixing. \n\nPlease provide:\n1. A clear and actionable approach\n2. Step-by-step guidance\n3. Best practices to follow\n4. Common mistakes to avoid\n\nContext: [Describe your specific situation here]\nGoal: [What you want to achieve]\nConstraints: [Any limitations or requirements]\n\nPlease tailor your response to be practical and immediately actionable.",
+      "category_id": "development",
+      "subcategory_id": "code-assistance",
+      "prompt_group_id": "code-generation",
+      "tags": [
+        "software-development",
+        "code-assistance",
+        "beginner",
+        "template"
+      ],
+      "industry": "technology",
+      "use_case": "Bug Fixing",
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:07:42.647109+00:00",
+      "updated_at": "2025-06-22T09:07:42.647109+00:00"
+    },
+    {
+      "id": "f56916ca-4e1e-4544-b693-dbc4913252d8",
+      "title": "Code Assistance Prompt 3",
+      "description": "A beginner-friendly prompt for code assistance. Code generation and problem-solving",
+      "content": "You are an expert in software development. Help me with code optimization. \n\nPlease provide:\n1. A clear and actionable approach\n2. Step-by-step guidance\n3. Best practices to follow\n4. Common mistakes to avoid\n\nContext: [Describe your specific situation here]\nGoal: [What you want to achieve]\nConstraints: [Any limitations or requirements]\n\nPlease tailor your response to be practical and immediately actionable.",
+      "category_id": "development",
+      "subcategory_id": "code-assistance",
+      "prompt_group_id": "code-generation",
+      "tags": [
+        "software-development",
+        "code-assistance",
+        "beginner",
+        "template"
+      ],
+      "industry": "technology",
+      "use_case": "Code Optimization",
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:07:42.913043+00:00",
+      "updated_at": "2025-06-22T09:07:42.913043+00:00"
+    },
+    {
+      "id": "c28c4947-c469-4dae-abac-78d13249c4af",
+      "title": "Create a Customer Persona",
+      "description": "Develop a detailed customer persona for your target audience.",
+      "content": "Create a comprehensive customer persona for [your product/service]. Include: 1) Demographics (age, gender, location, income), 2) Psychographics (interests, values, lifestyle), 3) Pain points and challenges, 4) Goals and motivations, 5) Preferred communication channels, 6) Buying behavior patterns. Give your persona a name and write a brief story about their typical day.",
+      "category_id": "marketing",
+      "subcategory_id": "marketing-strategy-planning",
+      "prompt_group_id": "market-audience-research",
+      "tags": [
+        "persona",
+        "target audience",
+        "market research"
+      ],
+      "industry": null,
+      "use_case": null,
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:34:42.568635+00:00",
+      "updated_at": "2025-06-22T09:34:42.568635+00:00"
+    },
+    {
+      "id": "11e5cf11-28da-4e65-8037-97588b5c7f4c",
+      "title": "Competitive Analysis Framework",
+      "description": "Analyze your competitors to identify opportunities and threats.",
+      "content": "Conduct a competitive analysis for [your industry/niche]. For each of your top 5 competitors, analyze: 1) Their unique value proposition, 2) Pricing strategy, 3) Marketing channels they use, 4) Strengths and weaknesses, 5) Customer reviews and feedback, 6) Market positioning. Then identify 3 opportunities where you can differentiate yourself.",
+      "category_id": "marketing",
+      "subcategory_id": "marketing-strategy-planning",
+      "prompt_group_id": "market-audience-research",
+      "tags": [
+        "competitive analysis",
+        "market research",
+        "positioning"
+      ],
+      "industry": null,
+      "use_case": null,
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:34:42.568635+00:00",
+      "updated_at": "2025-06-22T09:34:42.568635+00:00"
+    },
+    {
+      "id": "0dfd3a2b-961a-45a9-b645-4d670d0d0cec",
+      "title": "Marketing Campaign Brief",
+      "description": "Create a comprehensive brief for your next marketing campaign.",
+      "content": "Develop a marketing campaign brief for [your product/service launch]. Include: 1) Campaign objectives and KPIs, 2) Target audience description, 3) Key messaging and value proposition, 4) Recommended marketing channels, 5) Budget allocation suggestions, 6) Timeline and milestones, 7) Success metrics and measurement plan.",
+      "category_id": "marketing",
+      "subcategory_id": "marketing-strategy-planning",
+      "prompt_group_id": "campaign-strategy-briefs",
+      "tags": [
+        "campaign planning",
+        "marketing strategy",
+        "brief"
+      ],
+      "industry": null,
+      "use_case": null,
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:34:42.568635+00:00",
+      "updated_at": "2025-06-22T09:34:42.568635+00:00"
+    },
+    {
+      "id": "fd88a11f-9c57-4acf-8701-27e2bbd23d6e",
+      "title": "Content Marketing Strategy",
+      "description": "Plan a 3-month content marketing strategy for your business.",
+      "content": "Create a 3-month content marketing strategy for [your business type]. Include: 1) Content pillars and themes, 2) Content types and formats, 3) Publishing schedule and frequency, 4) Distribution channels, 5) SEO keyword targets, 6) Content creation workflow, 7) Performance metrics to track.",
+      "category_id": "marketing",
+      "subcategory_id": "marketing-strategy-planning",
+      "prompt_group_id": "content-seo-planning",
+      "tags": [
+        "content strategy",
+        "SEO",
+        "content planning"
+      ],
+      "industry": null,
+      "use_case": null,
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:34:42.568635+00:00",
+      "updated_at": "2025-06-22T09:34:42.568635+00:00"
+    },
+    {
+      "id": "2435cc49-a636-4802-9fcc-12ed6f653edc",
+      "title": "Blog Post Outline Generator",
+      "description": "Create engaging blog post outlines that drive traffic and engagement.",
+      "content": "Create a detailed blog post outline for the topic \"[your topic]\" targeting [your audience]. Include: 1) Compelling headline with emotional hook, 2) Introduction that addresses reader pain points, 3) 5-7 main sections with subheadings, 4) Key points and examples for each section, 5) Call-to-action suggestions, 6) SEO keywords to include naturally.",
+      "category_id": "marketing",
+      "subcategory_id": "content-creation-copywriting",
+      "prompt_group_id": "long-form-content",
+      "tags": [
+        "blog writing",
+        "content outline",
+        "SEO"
+      ],
+      "industry": null,
+      "use_case": null,
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:34:42.568635+00:00",
+      "updated_at": "2025-06-22T09:34:42.568635+00:00"
+    },
+    {
+      "id": "db9bf5ca-0182-4567-b099-5ce27aa87c13",
+      "title": "Social Media Caption Creator",
+      "description": "Write engaging social media captions that boost engagement.",
+      "content": "Write 5 different social media captions for [platform] about [your topic/product]. Each caption should: 1) Start with a hook that stops scrolling, 2) Provide value or entertainment, 3) Include relevant hashtags, 4) Have a clear call-to-action, 5) Match the platform's tone and style. Vary the approaches: educational, behind-the-scenes, user-generated content, promotional, and storytelling.",
+      "category_id": "marketing",
+      "subcategory_id": "content-creation-copywriting",
+      "prompt_group_id": "social-media-content",
+      "tags": [
+        "social media",
+        "captions",
+        "engagement"
+      ],
+      "industry": null,
+      "use_case": null,
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:34:42.568635+00:00",
+      "updated_at": "2025-06-22T09:34:42.568635+00:00"
+    },
+    {
+      "id": "35f2c5f3-81fe-48dd-a5f9-96bdcd27645f",
+      "title": "Email Newsletter Template",
+      "description": "Create compelling email newsletters that subscribers love to read.",
+      "content": "Design an email newsletter template for [your business/niche]. Include: 1) Subject line that increases open rates, 2) Personal greeting and introduction, 3) 3-4 content sections (news, tips, featured content), 4) Clear call-to-action buttons, 5) Social media links, 6) Unsubscribe and contact information. Write sample content for each section.",
+      "category_id": "marketing",
+      "subcategory_id": "content-creation-copywriting",
+      "prompt_group_id": "email-ad-copy",
+      "tags": [
+        "email marketing",
+        "newsletter",
+        "engagement"
+      ],
+      "industry": null,
+      "use_case": null,
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:34:42.568635+00:00",
+      "updated_at": "2025-06-22T09:34:42.568635+00:00"
+    },
+    {
+      "id": "1b392f83-16a2-41a9-a663-f35a185cd1d2",
+      "title": "Interactive Lesson Plan Template",
+      "description": "Create engaging lesson plans that keep students actively involved.",
+      "content": "Design a 45-minute interactive lesson plan for [subject] on the topic of \"[lesson topic]\" for [grade level]. Include: 1) Learning objectives (3-4 specific goals), 2) Materials needed, 3) Warm-up activity (5 minutes), 4) Main instruction with interactive elements (25 minutes), 5) Hands-on activity or group work (10 minutes), 6) Wrap-up and assessment (5 minutes), 7) Differentiation strategies for different learning styles.",
+      "category_id": "education",
+      "subcategory_id": "lesson-planning",
+      "prompt_group_id": "lesson-plans",
+      "tags": [
+        "lesson planning",
+        "interactive learning",
+        "education"
+      ],
+      "industry": null,
+      "use_case": null,
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:34:42.568635+00:00",
+      "updated_at": "2025-06-22T09:34:42.568635+00:00"
+    },
+    {
+      "id": "83ab11b8-1824-474b-8c57-a71b857b011b",
+      "title": "Assessment Rubric Creator",
+      "description": "Develop clear rubrics that help students understand expectations.",
+      "content": "Create a detailed assessment rubric for [assignment type] in [subject area]. Include: 1) 4-5 key criteria to evaluate, 2) 4 performance levels (Excellent, Good, Satisfactory, Needs Improvement), 3) Specific descriptors for each level, 4) Point values for each criterion, 5) Space for written feedback, 6) Student self-assessment section.",
+      "category_id": "education",
+      "subcategory_id": "lesson-planning",
+      "prompt_group_id": "instructional-materials",
+      "tags": [
+        "assessment",
+        "rubrics",
+        "evaluation"
+      ],
+      "industry": null,
+      "use_case": null,
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:34:42.568635+00:00",
+      "updated_at": "2025-06-22T09:34:42.568635+00:00"
+    },
+    {
+      "id": "28852d2e-23d6-4cf7-bb0a-fabae4be8044",
+      "title": "Classroom Activity Designer",
+      "description": "Design engaging activities that reinforce learning objectives.",
+      "content": "Create 3 different classroom activities for teaching [concept] to [grade level] students. For each activity, include: 1) Activity name and brief description, 2) Learning objectives addressed, 3) Materials needed, 4) Step-by-step instructions, 5) Time required, 6) Assessment method, 7) Modifications for different ability levels.",
+      "category_id": "education",
+      "subcategory_id": "lesson-planning",
+      "prompt_group_id": "activity-design",
+      "tags": [
+        "classroom activities",
+        "engagement",
+        "learning"
+      ],
+      "industry": null,
+      "use_case": null,
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:34:42.568635+00:00",
+      "updated_at": "2025-06-22T09:34:42.568635+00:00"
+    },
+    {
+      "id": "608a7952-f43e-417c-a376-61ef5ee42b1f",
+      "title": "Code Review Checklist",
+      "description": "Create comprehensive checklists for thorough code reviews.",
+      "content": "Generate a code review checklist for [programming language] projects. Include checks for: 1) Code functionality and logic, 2) Code style and formatting, 3) Performance considerations, 4) Security vulnerabilities, 5) Documentation and comments, 6) Test coverage, 7) Error handling, 8) Code reusability and maintainability. Provide specific examples for each category.",
+      "category_id": "development",
+      "subcategory_id": "code-assistance",
+      "prompt_group_id": "debugging-help",
+      "tags": [
+        "code review",
+        "best practices",
+        "quality assurance"
+      ],
+      "industry": null,
+      "use_case": null,
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:34:42.568635+00:00",
+      "updated_at": "2025-06-22T09:34:42.568635+00:00"
+    },
+    {
+      "id": "47396ca9-89a5-49e5-bbc5-55b6c0cccaa6",
+      "title": "Function Documentation Generator",
+      "description": "Write clear, comprehensive documentation for your functions.",
+      "content": "Create documentation for this [programming language] function: [paste your function here]. Include: 1) Brief description of what the function does, 2) Parameters with types and descriptions, 3) Return value description, 4) Usage examples, 5) Potential exceptions or edge cases, 6) Time/space complexity if relevant, 7) Related functions or dependencies.",
+      "category_id": "development",
+      "subcategory_id": "code-assistance",
+      "prompt_group_id": "code-generation",
+      "tags": [
+        "documentation",
+        "functions",
+        "code clarity"
+      ],
+      "industry": null,
+      "use_case": null,
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:34:42.568635+00:00",
+      "updated_at": "2025-06-22T09:34:42.568635+00:00"
+    },
+    {
+      "id": "6078eeeb-ffaa-4737-b088-f162bf9e623b",
+      "title": "Debugging Strategy Guide",
+      "description": "Systematic approach to identifying and fixing code issues.",
+      "content": "Create a debugging strategy for this [programming language] error: \"[error message]\" in the context of [brief description of what you were trying to do]. Provide: 1) Possible causes of this error, 2) Step-by-step debugging approach, 3) Common solutions to try, 4) How to prevent this error in the future, 5) Tools or techniques that can help, 6) When to seek additional help.",
+      "category_id": "development",
+      "subcategory_id": "code-assistance",
+      "prompt_group_id": "debugging-help",
+      "tags": [
+        "debugging",
+        "problem solving",
+        "troubleshooting"
+      ],
+      "industry": null,
+      "use_case": null,
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T09:34:42.568635+00:00",
+      "updated_at": "2025-06-22T09:34:42.568635+00:00"
+    },
+    {
+      "id": "c8ad5da3-43b9-4538-bb55-d5b1a72546a9",
+      "title": "Create a Business Model Canvas",
+      "description": "Generate a comprehensive business model canvas for a new startup idea",
+      "content": "Help me create a business model canvas for [BUSINESS IDEA]. Include all 9 key components: Key Partners, Key Activities, Key Resources, Value Propositions, Customer Relationships, Channels, Customer Segments, Cost Structure, and Revenue Streams. Provide specific examples and suggestions for each section.",
+      "category_id": "strategy-planning",
+      "subcategory_id": "business-planning-basics",
+      "prompt_group_id": null,
+      "tags": [
+        "business model",
+        "startup",
+        "planning",
+        "canvas"
+      ],
+      "industry": "General",
+      "use_case": "Business Planning",
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T17:12:30.498645+00:00",
+      "updated_at": "2025-06-22T17:12:30.498645+00:00"
+    },
+    {
+      "id": "b22417ef-a0a9-4eb3-b763-245e816adcfe",
+      "title": "Competitive Analysis Framework",
+      "description": "Develop a comprehensive competitive analysis for your industry",
+      "content": "Create a detailed competitive analysis for [COMPANY/INDUSTRY]. Include: 1) Identify top 5-7 competitors, 2) Analyze their strengths and weaknesses, 3) Compare pricing strategies, 4) Evaluate their market positioning, 5) Assess their digital presence, 6) Identify market gaps and opportunities. Present findings in a structured format with actionable insights.",
+      "category_id": "strategy-planning",
+      "subcategory_id": "competitive-analysis",
+      "prompt_group_id": null,
+      "tags": [
+        "competitive analysis",
+        "market research",
+        "strategy"
+      ],
+      "industry": "General",
+      "use_case": "Market Analysis",
+      "skill_level": "intermediate",
+      "access_type": "free",
+      "created_at": "2025-06-22T17:12:30.498645+00:00",
+      "updated_at": "2025-06-22T17:12:30.498645+00:00"
+    },
+    {
+      "id": "f56904d5-464c-4c94-85c3-a084d83cece1",
+      "title": "Website Copy for Landing Page",
+      "description": "Write compelling copy for a product landing page",
+      "content": "Write persuasive landing page copy for [PRODUCT/SERVICE]. Include: 1) Attention-grabbing headline, 2) Clear value proposition, 3) Benefits-focused bullet points, 4) Social proof section, 5) Strong call-to-action, 6) FAQ section. Target audience: [TARGET AUDIENCE]. Tone: [TONE - professional/casual/friendly]. Focus on conversion optimization.",
+      "category_id": "content-communication",
+      "subcategory_id": "basic-copywriting",
+      "prompt_group_id": null,
+      "tags": [
+        "copywriting",
+        "landing page",
+        "conversion",
+        "marketing"
+      ],
+      "industry": "Marketing",
+      "use_case": "Website Copy",
+      "skill_level": "beginner",
+      "access_type": "free",
+      "created_at": "2025-06-22T17:12:30.498645+00:00",
+      "updated_at": "2025-06-22T17:12:30.498645+00:00"
+    },
+    {
+      "id": "4e31074a-25aa-414c-bb4b-f6caaa743231",
+      "title": "Content Marketing Strategy Plan",
+      "description": "Develop a comprehensive content marketing strategy",
+      "content": "Create a 6-month content marketing strategy for [BUSINESS/BRAND]. Include: 1) Content audit of existing materials, 2) Target audience personas, 3) Content pillars and themes, 4) Content calendar with posting frequency, 5) Distribution channels strategy, 6) KPIs and measurement plan, 7) Resource requirements and budget considerations. Focus on [PRIMARY GOAL - brand awareness/lead generation/customer retention].",
+      "category_id": "content-communication",
+      "subcategory_id": "content-marketing-strategy",
+      "prompt_group_id": null,
+      "tags": [
+        "content strategy",
+        "marketing plan",
+        "content calendar"
+      ],
+      "industry": "Marketing",
+      "use_case": "Strategic Planning",
+      "skill_level": "intermediate",
+      "access_type": "paid",
+      "created_at": "2025-06-22T17:12:30.498645+00:00",
+      "updated_at": "2025-06-22T17:12:30.498645+00:00"
+    }
+  ],
+  "promptGroups": [
+    {
+      "id": "market-audience-research",
+      "subcategory_id": "marketing-strategy-planning",
+      "name": "Market & Audience Research",
+      "created_at": "2025-06-22T09:07:35.595588+00:00",
+      "updated_at": "2025-06-22T09:07:35.595588+00:00"
+    },
+    {
+      "id": "campaign-strategy-briefs",
+      "subcategory_id": "marketing-strategy-planning",
+      "name": "Campaign Strategy & Briefs",
+      "created_at": "2025-06-22T09:07:35.859208+00:00",
+      "updated_at": "2025-06-22T09:07:35.859208+00:00"
+    },
+    {
+      "id": "content-seo-planning",
+      "subcategory_id": "marketing-strategy-planning",
+      "name": "Content & SEO Planning",
+      "created_at": "2025-06-22T09:07:36.139958+00:00",
+      "updated_at": "2025-06-22T09:07:36.139958+00:00"
+    },
+    {
+      "id": "long-form-content",
+      "subcategory_id": "content-creation-copywriting",
+      "name": "Long-Form Content",
+      "created_at": "2025-06-22T09:07:37.484035+00:00",
+      "updated_at": "2025-06-22T09:07:37.484035+00:00"
+    },
+    {
+      "id": "social-media-content",
+      "subcategory_id": "content-creation-copywriting",
+      "name": "Social Media Content",
+      "created_at": "2025-06-22T09:07:37.722745+00:00",
+      "updated_at": "2025-06-22T09:07:37.722745+00:00"
+    },
+    {
+      "id": "email-ad-copy",
+      "subcategory_id": "content-creation-copywriting",
+      "name": "Email & Ad Copy",
+      "created_at": "2025-06-22T09:07:38.006695+00:00",
+      "updated_at": "2025-06-22T09:07:38.006695+00:00"
+    },
+    {
+      "id": "lesson-plans",
+      "subcategory_id": "lesson-planning",
+      "name": "Lesson Plans",
+      "created_at": "2025-06-22T09:07:39.737524+00:00",
+      "updated_at": "2025-06-22T09:07:39.737524+00:00"
+    },
+    {
+      "id": "activity-design",
+      "subcategory_id": "lesson-planning",
+      "name": "Activity Design",
+      "created_at": "2025-06-22T09:07:39.976441+00:00",
+      "updated_at": "2025-06-22T09:07:39.976441+00:00"
+    },
+    {
+      "id": "instructional-materials",
+      "subcategory_id": "lesson-planning",
+      "name": "Instructional Materials",
+      "created_at": "2025-06-22T09:07:40.249971+00:00",
+      "updated_at": "2025-06-22T09:07:40.249971+00:00"
+    },
+    {
+      "id": "code-generation",
+      "subcategory_id": "code-assistance",
+      "name": "Code Generation",
+      "created_at": "2025-06-22T09:07:41.91536+00:00",
+      "updated_at": "2025-06-22T09:07:41.91536+00:00"
+    },
+    {
+      "id": "debugging-help",
+      "subcategory_id": "code-assistance",
+      "name": "Debugging Help",
+      "created_at": "2025-06-22T09:07:42.153226+00:00",
+      "updated_at": "2025-06-22T09:07:42.153226+00:00"
+    }
+  ]
+}

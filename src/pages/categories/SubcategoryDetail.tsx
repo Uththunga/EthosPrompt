@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ChevronRight, Copy, ThumbsUp, Zap, Lightbulb, Rocket } from 'lucide-react';
-import { categories } from '../../data/categories-data';
+import { categories, type SkillLevel } from '../../data/categories-data';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
-
-type SkillLevel = 'Beginner' | 'Intermediate' | 'Advanced';
 
 interface Prompt {
   id: string;
@@ -22,7 +20,7 @@ interface Prompt {
 
 const getSkillLevelIcon = (level: SkillLevel) => {
   switch (level) {
-    case 'Beginner':
+    case 'Basic':
       return <Zap className="w-4 h-4 mr-1 text-green-400" />;
     case 'Intermediate':
       return <Lightbulb className="w-4 h-4 mr-1 text-yellow-400" />;
@@ -62,9 +60,9 @@ const SubcategoryDetail: React.FC<SubcategoryDetailProps> = ({ categoryId }) => 
     // In a real app, these would come from an API or data source
     const promptsBySubcategory: Record<string, Record<SkillLevel, Prompt[]>> = {
       'content-creation': {
-        'Beginner': [
-          { id: 'b1', title: 'Basic Blog Introduction', content: 'Write a simple introduction for a blog post about [topic].', likes: 42, used: 210, skillLevel: 'Beginner', useCase: 'Content Creation', promptGroupId: 'content-ideas' },
-          { id: 'b2', title: 'Simple Script Hook', content: 'Write a 15-second video script hook for a video about [product/service].', likes: 35, used: 150, skillLevel: 'Beginner', useCase: 'Content Creation', promptGroupId: 'scripts-storytelling' }
+        'Basic': [
+          { id: 'b1', title: 'Basic Blog Introduction', content: 'Write a simple introduction for a blog post about [topic].', likes: 42, used: 210, skillLevel: 'Basic', useCase: 'Content Creation', promptGroupId: 'content-ideas' },
+          { id: 'b2', title: 'Simple Script Hook', content: 'Write a 15-second video script hook for a video about [product/service].', likes: 35, used: 150, skillLevel: 'Basic', useCase: 'Content Creation', promptGroupId: 'scripts-storytelling' }
         ],
         'Intermediate': [
           { id: 'i1', title: 'Comprehensive Blog Post Outline', content: 'Create a detailed outline for a blog post about [topic].', likes: 56, used: 189, skillLevel: 'Intermediate', useCase: 'Content Creation', promptGroupId: 'content-ideas' },
@@ -146,7 +144,7 @@ const SubcategoryDetail: React.FC<SubcategoryDetailProps> = ({ categoryId }) => 
 
           <div className="bg-gray-800/50 rounded-lg p-1 border border-gray-700">
             <div className="flex space-x-1">
-              {(['Beginner', 'Intermediate', 'Advanced'] as SkillLevel[]).map((level) => (
+              {(['Basic', 'Intermediate', 'Advanced'] as SkillLevel[]).map((level) => (
                 <button
                   key={level}
                   onClick={() => setActiveTab(level)}

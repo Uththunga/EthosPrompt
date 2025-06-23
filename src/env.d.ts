@@ -19,6 +19,11 @@ interface ImportMetaEnv {
   readonly VITE_GOOGLE_ANALYTICS_ID?: string;
   readonly VITE_SENTRY_DSN?: string;
   readonly VITE_STRIPE_PUBLIC_KEY?: string;
+
+  // Supabase
+  readonly VITE_SUPABASE_URL?: string;
+  readonly VITE_SUPABASE_ANON_KEY?: string;
+  readonly SUPABASE_SERVICE_ROLE_KEY?: string;
   
   // Development
   readonly VITE_DEBUG: string;

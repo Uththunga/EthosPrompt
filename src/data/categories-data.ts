@@ -1,7 +1,7 @@
 import type { LucideIcon} from 'lucide-react';
-import { Code, Megaphone, GraduationCap, ScrollText, Stethoscope, UserCircle, BarChart2, MessageCircle, Video, DollarSign, ShoppingCart, Server } from 'lucide-react';
+import { Target, FileText, BarChart2, Users, Settings, GraduationCap, Scale, Stethoscope, Code } from 'lucide-react';
 
-export type SkillLevel = 'Beginner' | 'Intermediate' | 'Advanced';
+export type SkillLevel = 'Basic' | 'Intermediate' | 'Advanced';
 
 export interface PromptGroup {
   id: string;
@@ -27,725 +27,893 @@ export interface Category {
   bgGradient: string;
   trending?: boolean;
   featured?: boolean;
+  industryTags?: string[];
+  crossIndustry?: boolean;
 }
 
 export const categories: Category[] = [
   {
-    id: 'marketing',
-    name: 'Marketing & Content',
-    icon: Megaphone,
-    description: 'Drive growth with AI-powered strategies, from planning and creation to promotion and analytics.',
-    promptCount: 180,
+    id: 'strategy-planning',
+    name: '🎯 Strategy & Planning',
+    icon: Target,
+    description: 'Business strategy, market research, and strategic planning workflows',
+    promptCount: 0,
+    bgGradient: 'from-blue-600/20 to-indigo-600/20',
+    featured: true,
+    crossIndustry: true,
+    subcategories: [
+      // Basic Level
+      {
+        id: 'business-planning-basics',
+        name: 'Business Planning Basics',
+        description: 'Simple business plans, goal setting, basic market analysis',
+        examples: ['Business model canvas', 'SWOT analysis', 'Basic market research'],
+        skillLevel: 'Basic'
+      },
+      {
+        id: 'goal-setting-objectives',
+        name: 'Goal Setting & Objectives',
+        description: 'Setting SMART goals, KPI definition, milestone planning',
+        examples: ['Quarterly goals', 'Team objectives', 'Performance metrics'],
+        skillLevel: 'Basic'
+      },
+      {
+        id: 'market-research-fundamentals',
+        name: 'Market Research Fundamentals',
+        description: 'Basic customer research, simple surveys, market sizing',
+        examples: ['Customer interviews', 'Market surveys', 'Competitor basics'],
+        skillLevel: 'Basic'
+      },
+      {
+        id: 'strategic-communication',
+        name: 'Strategic Communication',
+        description: 'Presenting strategies, stakeholder updates, vision statements',
+        examples: ['Strategy presentations', 'Vision documents', 'Stakeholder reports'],
+        skillLevel: 'Basic'
+      },
+      // Intermediate Level
+      {
+        id: 'competitive-analysis',
+        name: 'Competitive Analysis',
+        description: 'In-depth competitor research, positioning analysis, market intelligence',
+        examples: ['Competitive matrices', 'Positioning maps', 'Market intelligence reports'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'strategic-planning-roadmaps',
+        name: 'Strategic Planning & Roadmaps',
+        description: 'Multi-year planning, strategic roadmaps, resource allocation',
+        examples: ['3-year plans', 'Strategic roadmaps', 'Resource planning'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'risk-assessment-management',
+        name: 'Risk Assessment & Management',
+        description: 'Risk identification, mitigation strategies, scenario planning',
+        examples: ['Risk matrices', 'Contingency plans', 'Scenario analysis'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'performance-strategy',
+        name: 'Performance Strategy',
+        description: 'Performance frameworks, optimization strategies, growth planning',
+        examples: ['Performance dashboards', 'Optimization plans', 'Growth strategies'],
+        skillLevel: 'Intermediate'
+      },
+      // Advanced Level
+      {
+        id: 'corporate-strategy-ma',
+        name: 'Corporate Strategy & M&A',
+        description: 'Corporate development, mergers & acquisitions, portfolio strategy',
+        examples: ['M&A analysis', 'Portfolio optimization', 'Corporate restructuring'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'innovation-strategy',
+        name: 'Innovation Strategy',
+        description: 'Innovation frameworks, R&D planning, disruptive strategy',
+        examples: ['Innovation pipelines', 'Technology roadmaps', 'Disruption analysis'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'digital-transformation-strategy',
+        name: 'Digital Transformation Strategy',
+        description: 'Technology adoption, digital roadmaps, change management',
+        examples: ['Digital roadmaps', 'Technology adoption plans', 'Transformation strategies'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'international-expansion-strategy',
+        name: 'International & Expansion Strategy',
+        description: 'Global expansion, market entry, international business planning',
+        examples: ['Market entry strategies', 'International expansion plans', 'Global operations'],
+        skillLevel: 'Advanced'
+      }
+    ]
+  },
+  {
+    id: 'content-communication',
+    name: '📝 Content & Communication',
+    icon: FileText,
+    description: 'Content creation, copywriting, and communication strategies',
+    promptCount: 0,
     bgGradient: 'from-purple-600/20 to-pink-600/20',
     featured: true,
+    crossIndustry: true,
     subcategories: [
+      // Basic Level
       {
-        id: 'marketing-strategy-planning',
-        name: 'Marketing Strategy & Planning',
-        description: 'Develop comprehensive marketing strategies, define target audiences, and plan campaigns.',
-        examples: ['Develop a Q3 marketing plan.', 'Define the target audience for a new SaaS product.'],
-        skillLevel: 'Advanced',
-        promptGroups: [
-          { id: 'market-audience-research', name: 'Market & Audience Research' },
-          { id: 'campaign-strategy-briefs', name: 'Campaign Strategy & Briefs' },
-          { id: 'content-seo-planning', name: 'Content & SEO Planning' },
-        ],
+        id: 'basic-copywriting',
+        name: 'Basic Copywriting',
+        description: 'Simple copy for websites, emails, basic marketing materials',
+        examples: ['Website copy', 'Email templates', 'Basic ads'],
+        skillLevel: 'Basic'
       },
       {
-        id: 'content-creation-copywriting',
-        name: 'Content Creation & Copywriting',
-        description: 'Generate high-quality content for various platforms, from blog posts to ad copy.',
-        examples: ['Write a 1000-word blog post on AI in marketing.', 'Generate 5 ad headlines for a new sneaker launch.'],
-        skillLevel: 'Intermediate',
-        promptGroups: [
-          { id: 'long-form-content', name: 'Long-Form Content' },
-          { id: 'social-media-content', name: 'Social Media Content' },
-          { id: 'email-ad-copy', name: 'Email & Ad Copy' },
-        ],
+        id: 'social-media-content',
+        name: 'Social Media Content',
+        description: 'Social posts, captions, basic social media strategy',
+        examples: ['Instagram captions', 'Facebook posts', 'LinkedIn updates'],
+        skillLevel: 'Basic'
       },
       {
-        id: 'content-promotion-distribution',
-        name: 'Content Promotion & Distribution',
-        description: 'Amplify your content\'s reach through strategic promotion and outreach.',
-        examples: ['Draft a press release for our new funding round.', 'Write an outreach email to a potential collaborator.'],
-        skillLevel: 'Intermediate',
-        promptGroups: [
-          { id: 'press-media-outreach', name: 'Press & Media Outreach' },
-          { id: 'influencer-partner-collaboration', name: 'Influencer & Partner Collaboration' },
-          { id: 'content-repurposing', name: 'Content Repurposing' },
-        ],
+        id: 'email-communication',
+        name: 'Email Communication',
+        description: 'Professional emails, newsletters, basic email marketing',
+        examples: ['Sales emails', 'Customer communications', 'Newsletters'],
+        skillLevel: 'Basic'
       },
       {
-        id: 'performance-analytics',
-        name: 'Performance & Analytics',
-        description: 'Measure campaign success, analyze data, and generate reports to optimize future efforts.',
-        examples: ['Analyze this customer survey data for key insights.', 'Create a monthly marketing KPI report.'],
-        skillLevel: 'Advanced',
-        promptGroups: [
-          { id: 'data-analysis-insights', name: 'Data Analysis & Insights' },
-          { id: 'performance-reporting', name: 'Performance Reporting' },
-          { id: 'ab-testing-optimization', name: 'A/B Testing & Optimization' },
-        ],
+        id: 'internal-communication',
+        name: 'Internal Communication',
+        description: 'Team updates, announcements, internal documentation',
+        examples: ['Team announcements', 'Policy updates', 'Meeting notes'],
+        skillLevel: 'Basic'
       },
-    ],
-  },
-  {
-    id: 'digital-creators',
-    name: 'Digital Creators',
-    icon: Video,
-    description: 'Supercharge your content with AI-driven tools for ideation, creation, and growth.',
-    promptCount: 230,
-    bgGradient: 'from-purple-600/20 to-indigo-600/20',
-    featured: true,
-    subcategories: [
+      // Intermediate Level
       {
-        id: 'content-creation-ideation',
-        name: 'Content & Ideation',
-        description: 'Brainstorm fresh ideas, craft compelling narratives, and design stunning visuals.',
-        examples: ['Generate 10 viral video ideas for a cooking channel.', 'Write a 60-second video script about meditation.'],
-        skillLevel: 'Beginner',
-        promptGroups: [
-          { id: 'idea-generation', name: 'Idea Generation' },
-          { id: 'scriptwriting-storytelling', name: 'Scriptwriting & Storytelling' },
-          { id: 'visual-content-creation', name: 'Visual Content Creation' },
-        ],
+        id: 'content-marketing-strategy',
+        name: 'Content Marketing Strategy',
+        description: 'Content calendars, blog strategies, content planning',
+        examples: ['Content calendars', 'Blog strategies', 'Content audits'],
+        skillLevel: 'Intermediate'
       },
       {
-        id: 'audience-growth-engagement',
-        name: 'Audience Growth & Engagement',
-        description: 'Expand your reach, foster a loyal community, and build meaningful connections.',
-        examples: ['Write 3 engaging Instagram captions for a photo of a sunset.', 'Draft a response to a negative comment.'],
-        skillLevel: 'Intermediate',
-        promptGroups: [
-          { id: 'captions-hooks', name: 'Captions & Hooks' },
-          { id: 'community-management', name: 'Community Management' },
-          { id: 'collaboration-outreach', name: 'Collaboration & Outreach' },
-        ],
+        id: 'brand-messaging-voice',
+        name: 'Brand Messaging & Voice',
+        description: 'Brand guidelines, tone of voice, messaging frameworks',
+        examples: ['Brand guidelines', 'Messaging frameworks', 'Voice & tone guides'],
+        skillLevel: 'Intermediate'
       },
       {
-        id: 'strategy-operations',
-        name: 'Strategy & Operations',
-        description: 'Optimize your workflow, analyze performance, and turn your passion into a business.',
-        examples: ['Turn a blog post about healthy eating into a Twitter thread.', 'List 5 ways a travel blogger can monetize their content.'],
-        skillLevel: 'Advanced',
-        promptGroups: [
-          { id: 'content-repurposing', name: 'Content Repurposing' },
-          { id: 'monetization-strategies', name: 'Monetization Strategies' },
-          { id: 'performance-analytics', name: 'Performance Analytics' },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'education',
-    name: 'Education & Teaching',
-    icon: GraduationCap,
-    description: 'Design effective learning materials and curricula',
-    promptCount: 38,
-    bgGradient: 'from-blue-600/20 to-cyan-600/20',
-    trending: true,
-    subcategories: [
-      {
-        id: 'lesson-planning',
-        name: 'Lesson Planning',
-        description: 'Structured lesson plans and materials',
-        examples: ['Unit Plans', 'Activity Designs', 'Learning Objectives'],
-        skillLevel: 'Beginner',
-        promptGroups: [
-          { id: 'lesson-plans', name: 'Lesson Plans' },
-          { id: 'activity-design', name: 'Activity Design' },
-          { id: 'instructional-materials', name: 'Instructional Materials' },
-          { id: 'differentiation-strategies', name: 'Differentiation Strategies' }
-        ]
+        id: 'long-form-content-creation',
+        name: 'Long-form Content Creation',
+        description: 'Blog posts, whitepapers, case studies, thought leadership',
+        examples: ['Blog posts', 'Whitepapers', 'Case studies', 'Industry reports'],
+        skillLevel: 'Intermediate'
       },
       {
-        id: 'assessment',
-        name: 'Assessment Creation',
-        description: 'Tests, quizzes, and evaluation tools',
-        examples: ['Quiz Questions', 'Rubrics', 'Assessment Criteria'],
-        skillLevel: 'Intermediate',
-        promptGroups: [
-          { id: 'formative-assessments', name: 'Formative Assessments' },
-          { id: 'summative-assessments', name: 'Summative Assessments' },
-          { id: 'rubrics-scoring-guides', name: 'Rubrics & Scoring Guides' },
-          { id: 'test-bank-questions', name: 'Test Bank Questions' }
-        ]
+        id: 'video-multimedia-content',
+        name: 'Video & Multimedia Content',
+        description: 'Video scripts, podcast content, multimedia campaigns',
+        examples: ['Video scripts', 'Podcast outlines', 'Multimedia campaigns'],
+        skillLevel: 'Intermediate'
+      },
+      // Advanced Level
+      {
+        id: 'technical-writing-documentation',
+        name: 'Technical Writing & Documentation',
+        description: 'API docs, user manuals, technical specifications',
+        examples: ['API documentation', 'User guides', 'Technical specifications'],
+        skillLevel: 'Advanced'
       },
       {
-        id: 'student-feedback',
-        name: 'Student Feedback',
-        description: 'Constructive feedback and guidance',
-        examples: ['Progress Reports', 'Performance Reviews', 'Study Tips'],
-        skillLevel: 'Intermediate',
-        promptGroups: [
-          { id: 'written-feedback', name: 'Written Feedback' },
-          { id: 'progress-reports', name: 'Progress Reports' },
-          { id: 'goal-setting', name: 'Goal Setting' },
-          { id: 'study-strategies', name: 'Study Strategies' }
-        ]
+        id: 'crisis-communication',
+        name: 'Crisis Communication',
+        description: 'Crisis messaging, reputation management, emergency communications',
+        examples: ['Crisis statements', 'Reputation management', 'Emergency protocols'],
+        skillLevel: 'Advanced'
       },
       {
-        id: 'curriculum-design',
-        name: 'Curriculum Design',
-        description: 'Complete course and program development',
-        examples: ['Course Outlines', 'Module Planning', 'Learning Paths'],
-        skillLevel: 'Advanced',
-        promptGroups: [
-          { id: 'course-outlines', name: 'Course Outlines' },
-          { id: 'learning-objectives', name: 'Learning Objectives' },
-          { id: 'scope-sequence', name: 'Scope & Sequence' },
-          { id: 'curriculum-mapping', name: 'Curriculum Mapping' }
-        ]
+        id: 'thought-leadership-pr',
+        name: 'Thought Leadership & PR',
+        description: 'Industry insights, expert positioning, media relations',
+        examples: ['Thought leadership articles', 'Press releases', 'Media pitches'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'localization-global-content',
+        name: 'Localization & Global Content',
+        description: 'Multi-language content, cultural adaptation, global messaging',
+        examples: ['Localized campaigns', 'Cultural adaptations', 'Global brand messaging'],
+        skillLevel: 'Advanced'
       }
     ]
   },
   {
-    id: 'development',
-    name: 'Software Development',
-    icon: Code,
-    description: 'Code generation, documentation, and technical writing',
-    promptCount: 42,
-    bgGradient: 'from-emerald-600/20 to-teal-600/20',
+    id: 'data-analysis',
+    name: '📊 Data & Analysis',
+    icon: BarChart2,
+    description: 'Data analysis, reporting, and business intelligence workflows',
+    promptCount: 0,
+    bgGradient: 'from-cyan-600/20 to-blue-600/20',
     featured: true,
+    crossIndustry: true,
     subcategories: [
+      // Basic Level
       {
-        id: 'code-assistance',
-        name: 'Code Assistance',
-        description: 'Code generation and problem-solving',
-        examples: ['Function Generation', 'Bug Fixing', 'Code Optimization'],
-        skillLevel: 'Advanced',
-        promptGroups: [
-          { id: 'code-generation', name: 'Code Generation' },
-          { id: 'debugging-help', name: 'Debugging Help' },
-          { id: 'code-review', name: 'Code Review' },
-          { id: 'refactoring', name: 'Refactoring' }
-        ]
+        id: 'basic-reporting-dashboards',
+        name: 'Basic Reporting & Dashboards',
+        description: 'Simple reports, basic charts, KPI tracking',
+        examples: ['Weekly reports', 'Basic dashboards', 'KPI summaries'],
+        skillLevel: 'Basic'
       },
       {
-        id: 'documentation',
-        name: 'Documentation',
-        description: 'Technical documentation and guides',
-        examples: ['API Docs', 'User Guides', 'Code Comments'],
-        skillLevel: 'Intermediate',
-        promptGroups: [
-          { id: 'api-documentation', name: 'API Documentation' },
-          { id: 'code-comments', name: 'Code Comments' },
-          { id: 'tutorials-guides', name: 'Tutorials & Guides' },
-          { id: 'technical-specs', name: 'Technical Specifications' }
-        ]
+        id: 'data-collection-surveys',
+        name: 'Data Collection & Surveys',
+        description: 'Survey design, data gathering, basic research methods',
+        examples: ['Customer surveys', 'Feedback forms', 'Data collection plans'],
+        skillLevel: 'Basic'
       },
       {
-        id: 'testing',
-        name: 'Testing & QA',
-        description: 'Test cases and quality assurance',
-        examples: ['Unit Tests', 'Test Scenarios', 'Bug Reports'],
-        skillLevel: 'Advanced',
-        promptGroups: [
-          { id: 'unit-testing', name: 'Unit Testing' },
-          { id: 'integration-testing', name: 'Integration Testing' },
-          { id: 'test-scenarios', name: 'Test Scenarios' },
-          { id: 'test-automation', name: 'Test Automation' }
-        ]
+        id: 'excel-spreadsheet-analysis',
+        name: 'Excel & Spreadsheet Analysis',
+        description: 'Spreadsheet formulas, basic data manipulation, simple analysis',
+        examples: ['Excel formulas', 'Data cleaning', 'Basic calculations'],
+        skillLevel: 'Basic'
       },
       {
-        id: 'architecture',
-        name: 'Architecture & Design',
-        description: 'System design and architecture',
-        examples: ['Design Patterns', 'Architecture Docs', 'System Diagrams'],
-        skillLevel: 'Advanced',
-        promptGroups: [
-          { id: 'system-design', name: 'System Design' },
-          { id: 'design-patterns', name: 'Design Patterns' },
-          { id: 'architecture-diagrams', name: 'Architecture Diagrams' },
-          { id: 'tech-stack-selection', name: 'Tech Stack Selection' }
-        ]
+        id: 'performance-metrics-kpis',
+        name: 'Performance Metrics & KPIs',
+        description: 'Metric definition, KPI frameworks, performance tracking',
+        examples: ['KPI definitions', 'Performance scorecards', 'Metric frameworks'],
+        skillLevel: 'Basic'
+      },
+      // Intermediate Level
+      {
+        id: 'business-intelligence-analytics',
+        name: 'Business Intelligence & Analytics',
+        description: 'BI tools, advanced analytics, data visualization',
+        examples: ['BI dashboards', 'Analytics reports', 'Data visualizations'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'market-research-analysis',
+        name: 'Market Research & Analysis',
+        description: 'Market studies, customer analysis, competitive intelligence',
+        examples: ['Market studies', 'Customer segmentation', 'Competitive analysis'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'financial-analysis-modeling',
+        name: 'Financial Analysis & Modeling',
+        description: 'Financial models, budget analysis, ROI calculations',
+        examples: ['Financial models', 'Budget forecasts', 'ROI analysis'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'customer-analytics-insights',
+        name: 'Customer Analytics & Insights',
+        description: 'Customer behavior analysis, segmentation, journey mapping',
+        examples: ['Customer segmentation', 'Behavior analysis', 'Journey maps'],
+        skillLevel: 'Intermediate'
+      },
+      // Advanced Level
+      {
+        id: 'predictive-analytics-forecasting',
+        name: 'Predictive Analytics & Forecasting',
+        description: 'Predictive models, forecasting, trend analysis',
+        examples: ['Predictive models', 'Demand forecasting', 'Trend analysis'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'statistical-analysis-research',
+        name: 'Statistical Analysis & Research',
+        description: 'Statistical methods, hypothesis testing, research design',
+        examples: ['Statistical tests', 'Research methodologies', 'Experimental design'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'big-data-advanced-analytics',
+        name: 'Big Data & Advanced Analytics',
+        description: 'Big data processing, machine learning, advanced algorithms',
+        examples: ['Big data pipelines', 'ML models', 'Advanced algorithms'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'data-science-machine-learning',
+        name: 'Data Science & Machine Learning',
+        description: 'ML algorithms, data science workflows, AI model development',
+        examples: ['ML pipelines', 'Model development', 'AI algorithms'],
+        skillLevel: 'Advanced'
       }
     ]
   },
   {
-    id: 'support',
-    name: 'Customer Support',
-    icon: MessageCircle,
-    description: 'Enhance customer service and support operations',
-    promptCount: 35,
-    bgGradient: 'from-orange-600/20 to-yellow-600/20',
+    id: 'customer-sales',
+    name: '🤝 Customer & Sales',
+    icon: Users,
+    description: 'Customer relationship management, sales processes, and customer success',
+    promptCount: 0,
+    bgGradient: 'from-green-600/20 to-emerald-600/20',
+    featured: true,
+    crossIndustry: true,
     subcategories: [
+      // Basic Level
       {
-        id: 'response-templates',
-        name: 'Response Templates',
-        description: 'Professional customer communication',
-        examples: ['Email Templates', 'Chat Responses', 'Support Scripts'],
-        skillLevel: 'Beginner',
-        promptGroups: [
-          { id: 'email-templates', name: 'Email Templates' },
-          { id: 'chat-responses', name: 'Chat Responses' },
-          { id: 'phone-scripts', name: 'Phone Scripts' },
-          { id: 'knowledge-base-articles', name: 'Knowledge Base Articles' }
-        ]
+        id: 'basic-customer-service',
+        name: 'Basic Customer Service',
+        description: 'Customer support responses, basic service protocols',
+        examples: ['Support emails', 'FAQ responses', 'Basic service scripts'],
+        skillLevel: 'Basic'
       },
       {
-        id: 'issue-resolution',
-        name: 'Issue Resolution',
-        description: 'Problem-solving and troubleshooting',
-        examples: ['Solution Guides', 'Escalation Protocols', 'FAQs'],
-        skillLevel: 'Intermediate',
-        promptGroups: [
-          { id: 'troubleshooting-guides', name: 'Troubleshooting Guides' },
-          { id: 'common-solutions', name: 'Common Solutions' },
-          { id: 'escalation-procedures', name: 'Escalation Procedures' },
-          { id: 'technical-troubleshooting', name: 'Technical Troubleshooting' }
-        ]
+        id: 'lead-generation-basics',
+        name: 'Lead Generation Basics',
+        description: 'Simple lead generation, prospect identification, basic outreach',
+        examples: ['Lead lists', 'Basic outreach', 'Prospect research'],
+        skillLevel: 'Basic'
+      },
+      {
+        id: 'sales-communication',
+        name: 'Sales Communication',
+        description: 'Sales emails, follow-ups, basic sales conversations',
+        examples: ['Sales emails', 'Follow-up messages', 'Meeting requests'],
+        skillLevel: 'Basic'
       },
       {
         id: 'customer-onboarding',
         name: 'Customer Onboarding',
-        description: 'Welcome and setup assistance',
-        examples: ['Welcome Emails', 'Setup Guides', 'Tutorials'],
-        skillLevel: 'Intermediate',
-        promptGroups: [
-          { id: 'welcome-sequences', name: 'Welcome Sequences' },
-          { id: 'setup-guides', name: 'Setup Guides' },
-          { id: 'product-tours', name: 'Product Tours' },
-          { id: 'onboarding-checklists', name: 'Onboarding Checklists' }
-        ]
+        description: 'Welcome sequences, basic onboarding, new customer setup',
+        examples: ['Welcome emails', 'Onboarding checklists', 'Setup guides'],
+        skillLevel: 'Basic'
+      },
+      // Intermediate Level
+      {
+        id: 'sales-process-pipeline-management',
+        name: 'Sales Process & Pipeline Management',
+        description: 'Sales methodologies, pipeline optimization, deal management',
+        examples: ['Sales processes', 'Pipeline reviews', 'Deal strategies'],
+        skillLevel: 'Intermediate'
       },
       {
-        id: 'feedback-management',
-        name: 'Feedback Management',
-        description: 'Handle customer feedback and reviews',
-        examples: ['Review Responses', 'Feedback Analysis', 'Survey Design'],
-        skillLevel: 'Advanced',
-        promptGroups: [
-          { id: 'review-responses', name: 'Review Responses' },
-          { id: 'feedback-analysis', name: 'Feedback Analysis' },
-          { id: 'survey-design', name: 'Survey Design' },
-          { id: 'customer-satisfaction', name: 'Customer Satisfaction' }
-        ]
+        id: 'customer-relationship-management',
+        name: 'Customer Relationship Management',
+        description: 'CRM strategies, relationship building, account management',
+        examples: ['Account plans', 'Relationship strategies', 'Customer touchpoints'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'customer-success-retention',
+        name: 'Customer Success & Retention',
+        description: 'Customer health scoring, retention strategies, success planning',
+        examples: ['Success plans', 'Health scores', 'Retention campaigns'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'sales-training-enablement',
+        name: 'Sales Training & Enablement',
+        description: 'Sales training materials, enablement content, skill development',
+        examples: ['Training materials', 'Sales playbooks', 'Skill assessments'],
+        skillLevel: 'Intermediate'
+      },
+      // Advanced Level
+      {
+        id: 'enterprise-sales-account-management',
+        name: 'Enterprise Sales & Account Management',
+        description: 'Complex sales cycles, enterprise accounts, strategic selling',
+        examples: ['Enterprise proposals', 'Strategic account plans', 'Complex negotiations'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'sales-operations-analytics',
+        name: 'Sales Operations & Analytics',
+        description: 'Sales analytics, performance optimization, operations management',
+        examples: ['Sales analytics', 'Performance dashboards', 'Operations optimization'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'customer-experience-strategy',
+        name: 'Customer Experience Strategy',
+        description: 'CX design, journey optimization, experience management',
+        examples: ['Journey maps', 'Experience strategies', 'CX optimization'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'revenue-operations-growth',
+        name: 'Revenue Operations & Growth',
+        description: 'Revenue optimization, growth strategies, operations alignment',
+        examples: ['Revenue models', 'Growth strategies', 'Operations alignment'],
+        skillLevel: 'Advanced'
       }
     ]
   },
   {
-    id: 'legal',
-    name: 'Legal Services',
-    icon: ScrollText,
-    description: 'Legal document creation and analysis',
-    promptCount: 32,
+    id: 'operations-process',
+    name: '🔧 Operations & Process',
+    icon: Settings,
+    description: 'Operational efficiency, process improvement, and workflow optimization',
+    promptCount: 0,
+    bgGradient: 'from-orange-600/20 to-yellow-600/20',
+    crossIndustry: true,
+    subcategories: [
+      // Basic Level
+      {
+        id: 'basic-project-management',
+        name: 'Basic Project Management',
+        description: 'Simple project planning, task management, basic coordination',
+        examples: ['Project plans', 'Task lists', 'Basic timelines'],
+        skillLevel: 'Basic'
+      },
+      {
+        id: 'standard-operating-procedures',
+        name: 'Standard Operating Procedures',
+        description: 'Basic SOPs, process documentation, workflow guides',
+        examples: ['SOPs', 'Process guides', 'Workflow documentation'],
+        skillLevel: 'Basic'
+      },
+      {
+        id: 'team-coordination-communication',
+        name: 'Team Coordination & Communication',
+        description: 'Team meetings, coordination, basic collaboration',
+        examples: ['Meeting agendas', 'Team updates', 'Coordination plans'],
+        skillLevel: 'Basic'
+      },
+      {
+        id: 'basic-quality-control',
+        name: 'Basic Quality Control',
+        description: 'Simple quality checks, basic standards, review processes',
+        examples: ['Quality checklists', 'Review processes', 'Basic standards'],
+        skillLevel: 'Basic'
+      },
+      // Intermediate Level
+      {
+        id: 'process-improvement-optimization',
+        name: 'Process Improvement & Optimization',
+        description: 'Process analysis, improvement initiatives, efficiency optimization',
+        examples: ['Process maps', 'Improvement plans', 'Efficiency analysis'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'project-management-planning',
+        name: 'Project Management & Planning',
+        description: 'Advanced project management, resource planning, risk management',
+        examples: ['Project charters', 'Resource plans', 'Risk assessments'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'workflow-automation-systems',
+        name: 'Workflow Automation & Systems',
+        description: 'Automation design, system optimization, workflow engineering',
+        examples: ['Automation workflows', 'System designs', 'Process automation'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'performance-management-metrics',
+        name: 'Performance Management & Metrics',
+        description: 'Performance frameworks, operational metrics, improvement tracking',
+        examples: ['Performance dashboards', 'Operational metrics', 'Improvement tracking'],
+        skillLevel: 'Intermediate'
+      },
+      // Advanced Level
+      {
+        id: 'lean-six-sigma-implementation',
+        name: 'Lean & Six Sigma Implementation',
+        description: 'Lean methodologies, Six Sigma projects, continuous improvement',
+        examples: ['Lean implementations', 'Six Sigma projects', 'Continuous improvement'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'supply-chain-logistics',
+        name: 'Supply Chain & Logistics',
+        description: 'Supply chain optimization, logistics management, vendor coordination',
+        examples: ['Supply chain strategies', 'Logistics optimization', 'Vendor management'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'change-management-transformation',
+        name: 'Change Management & Transformation',
+        description: 'Organizational change, transformation initiatives, change leadership',
+        examples: ['Change strategies', 'Transformation plans', 'Change communication'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'enterprise-operations-governance',
+        name: 'Enterprise Operations & Governance',
+        description: 'Enterprise operations, governance frameworks, strategic operations',
+        examples: ['Governance frameworks', 'Enterprise operations', 'Strategic oversight'],
+        skillLevel: 'Advanced'
+      }
+    ]
+  },
+  {
+    id: 'learning-development',
+    name: '📚 Learning & Development',
+    icon: GraduationCap,
+    description: 'Training programs, skill development, and knowledge management',
+    promptCount: 0,
+    bgGradient: 'from-indigo-600/20 to-purple-600/20',
+    crossIndustry: true,
+    subcategories: [
+      // Basic Level
+      {
+        id: 'basic-training-materials',
+        name: 'Basic Training Materials',
+        description: 'Simple training content, basic guides, introductory materials',
+        examples: ['Training guides', 'Basic presentations', 'Introductory materials'],
+        skillLevel: 'Basic'
+      },
+      {
+        id: 'employee-onboarding',
+        name: 'Employee Onboarding',
+        description: 'New hire orientation, basic onboarding, welcome programs',
+        examples: ['Onboarding checklists', 'Welcome materials', 'Orientation guides'],
+        skillLevel: 'Basic'
+      },
+      {
+        id: 'skill-assessment-planning',
+        name: 'Skill Assessment & Planning',
+        description: 'Basic skill assessments, development planning, learning paths',
+        examples: ['Skill assessments', 'Development plans', 'Learning objectives'],
+        skillLevel: 'Basic'
+      },
+      {
+        id: 'knowledge-sharing-documentation',
+        name: 'Knowledge Sharing & Documentation',
+        description: 'Knowledge bases, documentation, information sharing',
+        examples: ['Knowledge articles', 'Documentation', 'Information repositories'],
+        skillLevel: 'Basic'
+      },
+      // Intermediate Level
+      {
+        id: 'training-program-development',
+        name: 'Training Program Development',
+        description: 'Curriculum design, program development, learning strategies',
+        examples: ['Training curricula', 'Program designs', 'Learning strategies'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'performance-coaching-development',
+        name: 'Performance Coaching & Development',
+        description: 'Coaching frameworks, performance development, skill building',
+        examples: ['Coaching plans', 'Development frameworks', 'Skill building programs'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'leadership-development',
+        name: 'Leadership Development',
+        description: 'Leadership training, management development, executive coaching',
+        examples: ['Leadership programs', 'Management training', 'Executive development'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'learning-technology-platforms',
+        name: 'Learning Technology & Platforms',
+        description: 'LMS management, e-learning development, technology integration',
+        examples: ['LMS strategies', 'E-learning content', 'Technology integration'],
+        skillLevel: 'Intermediate'
+      },
+      // Advanced Level
+      {
+        id: 'organizational-learning-strategy',
+        name: 'Organizational Learning Strategy',
+        description: 'Learning strategy, organizational development, culture transformation',
+        examples: ['Learning strategies', 'Organizational development', 'Culture initiatives'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'competency-frameworks-models',
+        name: 'Competency Frameworks & Models',
+        description: 'Competency modeling, skill frameworks, capability development',
+        examples: ['Competency models', 'Skill frameworks', 'Capability assessments'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'learning-analytics-measurement',
+        name: 'Learning Analytics & Measurement',
+        description: 'Learning analytics, ROI measurement, impact assessment',
+        examples: ['Learning analytics', 'ROI studies', 'Impact measurements'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'innovation-learning-development',
+        name: 'Innovation in Learning & Development',
+        description: 'Learning innovation, emerging technologies, future of work preparation',
+        examples: ['Learning innovation', 'Emerging tech integration', 'Future skills development'],
+        skillLevel: 'Advanced'
+      }
+    ]
+  },
+  {
+    id: 'legal-compliance',
+    name: '⚖️ Legal & Compliance',
+    icon: Scale,
+    description: 'Legal documentation, regulatory compliance, and risk management',
+    promptCount: 0,
     bgGradient: 'from-slate-600/20 to-zinc-600/20',
     subcategories: [
+      // Basic Level
       {
-        id: 'document-drafting',
-        name: 'Document Drafting',
-        description: 'Legal document preparation',
-        examples: ['Contracts', 'Agreements', 'Legal Notices'],
-        skillLevel: 'Advanced',
-        promptGroups: [
-          { id: 'contracts', name: 'Contracts' },
-          { id: 'agreements', name: 'Agreements' },
-          { id: 'legal-notices', name: 'Legal Notices' },
-          { id: 'legal-pleadings', name: 'Legal Pleadings' }
-        ]
+        id: 'basic-legal-documentation',
+        name: 'Basic Legal Documentation',
+        description: 'Simple contracts, basic legal forms, standard agreements',
+        examples: ['Service agreements', 'Basic contracts', 'Standard forms'],
+        skillLevel: 'Basic'
       },
       {
-        id: 'legal-research',
-        name: 'Legal Research',
-        description: 'Case law and precedent research',
-        examples: ['Case Summaries', 'Legal Analysis', 'Research Memos'],
-        skillLevel: 'Advanced',
-        promptGroups: [
-          { id: 'case-summaries', name: 'Case Summaries' },
-          { id: 'legal-memos', name: 'Legal Memos' },
-          { id: 'statutory-analysis', name: 'Statutory Analysis' },
-          { id: 'precedent-research', name: 'Precedent Research' }
-        ]
+        id: 'compliance-basics',
+        name: 'Compliance Basics',
+        description: 'Basic compliance requirements, simple policies, standard procedures',
+        examples: ['Basic policies', 'Compliance checklists', 'Standard procedures'],
+        skillLevel: 'Basic'
       },
       {
-        id: 'client-communication',
-        name: 'Client Communication',
-        description: 'Professional legal correspondence',
-        examples: ['Client Letters', 'Case Updates', 'Legal Advice'],
-        skillLevel: 'Intermediate',
-        promptGroups: [
-          { id: 'client-letters', name: 'Client Letters' },
-          { id: 'case-updates', name: 'Case Updates' },
-          { id: 'legal-opinions', name: 'Legal Opinions' },
-          { id: 'client-meeting-preparation', name: 'Client Meeting Preparation' }
-        ]
+        id: 'contract-management-fundamentals',
+        name: 'Contract Management Fundamentals',
+        description: 'Contract basics, simple negotiations, standard terms',
+        examples: ['Contract templates', 'Basic negotiations', 'Standard terms'],
+        skillLevel: 'Basic'
       },
       {
-        id: 'compliance',
-        name: 'Compliance & Regulation',
-        description: 'Regulatory compliance guidance',
-        examples: ['Policy Reviews', 'Compliance Checks', 'Risk Assessments'],
-        skillLevel: 'Advanced',
-        promptGroups: [
-          { id: 'policy-reviews', name: 'Policy Reviews' },
-          { id: 'compliance-audits', name: 'Compliance Audits' },
-          { id: 'risk-assessments', name: 'Risk Assessments' },
-          { id: 'regulatory-updates', name: 'Regulatory Updates' }
-        ]
+        id: 'risk-awareness-basic-mitigation',
+        name: 'Risk Awareness & Basic Mitigation',
+        description: 'Risk identification, basic mitigation, simple risk management',
+        examples: ['Risk checklists', 'Basic mitigation', 'Simple assessments'],
+        skillLevel: 'Basic'
+      },
+      // Intermediate Level
+      {
+        id: 'regulatory-compliance-management',
+        name: 'Regulatory Compliance Management',
+        description: 'Regulatory frameworks, compliance programs, audit preparation',
+        examples: ['Compliance programs', 'Regulatory frameworks', 'Audit preparations'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'contract-negotiation-management',
+        name: 'Contract Negotiation & Management',
+        description: 'Contract negotiations, vendor management, agreement optimization',
+        examples: ['Contract negotiations', 'Vendor agreements', 'Contract optimization'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'corporate-governance-policies',
+        name: 'Corporate Governance & Policies',
+        description: 'Governance frameworks, corporate policies, board management',
+        examples: ['Governance policies', 'Board materials', 'Corporate procedures'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'employment-law-hr-compliance',
+        name: 'Employment Law & HR Compliance',
+        description: 'Employment regulations, HR compliance, workplace policies',
+        examples: ['Employment policies', 'HR compliance', 'Workplace regulations'],
+        skillLevel: 'Intermediate'
+      },
+      // Advanced Level
+      {
+        id: 'complex-legal-strategy-litigation',
+        name: 'Complex Legal Strategy & Litigation',
+        description: 'Legal strategy, litigation management, complex legal matters',
+        examples: ['Legal strategies', 'Litigation plans', 'Complex legal analysis'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'advanced-regulatory-industry-compliance',
+        name: 'Advanced Regulatory & Industry Compliance',
+        description: 'Industry-specific regulations, advanced compliance, specialized requirements',
+        examples: ['Industry regulations', 'Specialized compliance', 'Regulatory strategy'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'intellectual-property-technology-law',
+        name: 'Intellectual Property & Technology Law',
+        description: 'IP protection, technology law, patent management',
+        examples: ['IP strategies', 'Patent applications', 'Technology agreements'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'international-law-cross-border-compliance',
+        name: 'International Law & Cross-Border Compliance',
+        description: 'International regulations, cross-border compliance, global legal matters',
+        examples: ['International agreements', 'Cross-border compliance', 'Global legal strategies'],
+        skillLevel: 'Advanced'
       }
     ]
   },
   {
-    id: 'hr',
-    name: 'HR & Recruitment',
-    icon: UserCircle,
-    description: 'Streamline hiring and HR processes',
-    promptCount: 30,
-    bgGradient: 'from-violet-600/20 to-indigo-600/20',
-    trending: true,
-    subcategories: [
-      {
-        id: 'job-descriptions',
-        name: 'Job Descriptions',
-        description: 'Compelling job postings',
-        examples: ['Role Descriptions', 'Requirements', 'Benefits'],
-        skillLevel: 'Beginner',
-        promptGroups: [
-          { id: 'role-descriptions', name: 'Role Descriptions' },
-          { id: 'job-postings', name: 'Job Postings' },
-          { id: 'job-requirements', name: 'Job Requirements' },
-          { id: 'compensation-benefits', name: 'Compensation & Benefits' }
-        ]
-      },
-      {
-        id: 'candidate-assessment',
-        name: 'Candidate Assessment',
-        description: 'Interview and evaluation tools',
-        examples: ['Interview Questions', 'Evaluation Forms', 'Skills Tests'],
-        skillLevel: 'Intermediate',
-        promptGroups: [
-          { id: 'interview-questions', name: 'Interview Questions' },
-          { id: 'evaluation-forms', name: 'Evaluation Forms' },
-          { id: 'skills-assessments', name: 'Skills Assessments' },
-          { id: 'candidate-evaluation', name: 'Candidate Evaluation' }
-        ]
-      },
-      {
-        id: 'employee-comms',
-        name: 'Employee Communications',
-        description: 'Internal communication templates',
-        examples: ['Policy Updates', 'Announcements', 'Feedback Forms'],
-        skillLevel: 'Intermediate',
-        promptGroups: [
-          { id: 'company-announcements', name: 'Company Announcements' },
-          { id: 'policy-updates', name: 'Policy Updates' },
-          { id: 'employee-feedback', name: 'Employee Feedback' },
-          { id: 'recognition-communications', name: 'Recognition Communications' }
-        ]
-      },
-      {
-        id: 'hr-policy',
-        name: 'HR Policies',
-        description: 'Policy development and documentation',
-        examples: ['Employee Handbook', 'Procedures', 'Guidelines'],
-        skillLevel: 'Advanced',
-        promptGroups: [
-          { id: 'employee-handbook', name: 'Employee Handbook' },
-          { id: 'hr-procedures', name: 'HR Procedures' },
-          { id: 'compliance-policies', name: 'Compliance Policies' },
-          { id: 'workplace-guidelines', name: 'Workplace Guidelines' }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'healthcare',
-    name: 'Healthcare',
+    id: 'healthcare-clinical',
+    name: '🏥 Healthcare & Clinical',
     icon: Stethoscope,
-    description: 'Clinical documentation and patient care',
-    promptCount: 28,
+    description: 'Clinical documentation, patient care, and healthcare administration',
+    promptCount: 0,
     bgGradient: 'from-red-600/20 to-rose-600/20',
     subcategories: [
+      // Basic Level
       {
-        id: 'clinical-notes',
-        name: 'Clinical Documentation',
-        description: 'Medical records and notes',
-        examples: ['Patient Notes', 'Treatment Plans', 'Progress Reports'],
-        skillLevel: 'Advanced',
-        promptGroups: [
-          { id: 'soap-notes', name: 'SOAP Notes' },
-          { id: 'treatment-plans', name: 'Treatment Plans' },
-          { id: 'progress-notes', name: 'Progress Notes' },
-          { id: 'discharge-summaries', name: 'Discharge Summaries' }
-        ]
+        id: 'basic-patient-communication',
+        name: 'Basic Patient Communication',
+        description: 'Patient interactions, basic communication, appointment scheduling',
+        examples: ['Patient communications', 'Appointment reminders', 'Basic instructions'],
+        skillLevel: 'Basic'
       },
       {
-        id: 'patient-education',
-        name: 'Patient Education',
-        description: 'Patient information materials',
-        examples: ['Care Instructions', 'Health Guides', 'Medication Info'],
-        skillLevel: 'Intermediate',
-        promptGroups: [
-          { id: 'condition-guides', name: 'Condition Guides' },
-          { id: 'medication-instructions', name: 'Medication Instructions' },
-          { id: 'post-procedure-care', name: 'Post-Procedure Care' },
-          { id: 'preventive-care', name: 'Preventive Care' }
-        ]
+        id: 'health-education-patient-information',
+        name: 'Health Education & Patient Information',
+        description: 'Patient education materials, health information, basic wellness content',
+        examples: ['Patient education', 'Health information', 'Wellness materials'],
+        skillLevel: 'Basic'
       },
       {
-        id: 'clinical-research',
-        name: 'Clinical Research',
-        description: 'Research documentation',
-        examples: ['Study Protocols', 'Data Analysis', 'Research Reports'],
-        skillLevel: 'Advanced',
-        promptGroups: [
-          { id: 'study-protocols', name: 'Study Protocols' },
-          { id: 'research-proposals', name: 'Research Proposals' },
-          { id: 'data-analysis', name: 'Data Analysis' },
-          { id: 'publication-preparation', name: 'Publication Preparation' }
-        ]
+        id: 'basic-medical-documentation',
+        name: 'Basic Medical Documentation',
+        description: 'Simple medical records, basic documentation, routine notes',
+        examples: ['Basic medical records', 'Routine documentation', 'Simple notes'],
+        skillLevel: 'Basic'
       },
       {
-        id: 'healthcare-comms',
-        name: 'Healthcare Communications',
-        description: 'Professional medical correspondence',
-        examples: ['Referral Letters', 'Case Summaries', 'Team Updates'],
-        skillLevel: 'Advanced',
-        promptGroups: [
-          { id: 'referral-letters', name: 'Referral Letters' },
-          { id: 'case-summaries', name: 'Case Summaries' },
-          { id: 'interdisciplinary-communications', name: 'Interdisciplinary Communications' },
-          { id: 'patient-communications', name: 'Patient Communications' }
-        ]
+        id: 'healthcare-administration-basics',
+        name: 'Healthcare Administration Basics',
+        description: 'Basic administrative tasks, scheduling, simple healthcare operations',
+        examples: ['Administrative procedures', 'Scheduling systems', 'Basic operations'],
+        skillLevel: 'Basic'
+      },
+      // Intermediate Level
+      {
+        id: 'clinical-documentation-records',
+        name: 'Clinical Documentation & Records',
+        description: 'Clinical notes, medical records, documentation standards',
+        examples: ['Clinical notes', 'Medical records', 'Documentation protocols'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'patient-care-planning-management',
+        name: 'Patient Care Planning & Management',
+        description: 'Care plans, patient management, treatment coordination',
+        examples: ['Care plans', 'Patient management', 'Treatment coordination'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'healthcare-quality-safety',
+        name: 'Healthcare Quality & Safety',
+        description: 'Quality improvement, safety protocols, clinical standards',
+        examples: ['Quality programs', 'Safety protocols', 'Clinical standards'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'medical-billing-coding',
+        name: 'Medical Billing & Coding',
+        description: 'Medical coding, billing procedures, insurance processing',
+        examples: ['Medical coding', 'Billing procedures', 'Insurance claims'],
+        skillLevel: 'Intermediate'
+      },
+      // Advanced Level
+      {
+        id: 'advanced-clinical-practice-specialization',
+        name: 'Advanced Clinical Practice & Specialization',
+        description: 'Specialized clinical practice, advanced procedures, expert care',
+        examples: ['Specialized protocols', 'Advanced procedures', 'Expert consultations'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'clinical-research-evidence-based-practice',
+        name: 'Clinical Research & Evidence-Based Practice',
+        description: 'Clinical research, evidence-based medicine, research protocols',
+        examples: ['Research protocols', 'Clinical studies', 'Evidence-based guidelines'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'healthcare-technology-informatics',
+        name: 'Healthcare Technology & Informatics',
+        description: 'Health informatics, medical technology, digital health solutions',
+        examples: ['Health informatics', 'Medical technology', 'Digital health strategies'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'healthcare-leadership-strategic-management',
+        name: 'Healthcare Leadership & Strategic Management',
+        description: 'Healthcare strategy, leadership, organizational management',
+        examples: ['Healthcare strategy', 'Leadership development', 'Organizational management'],
+        skillLevel: 'Advanced'
       }
     ]
   },
   {
-    id: 'data-science',
-    name: 'Data Science & Analysis',
-    icon: BarChart2,
-    description: 'Data analysis and insights generation',
-    promptCount: 34,
-    bgGradient: 'from-cyan-600/20 to-blue-600/20',
+    id: 'technology-development',
+    name: '💻 Technology & Development',
+    icon: Code,
+    description: 'Software development, system architecture, and technical implementation',
+    promptCount: 0,
+    bgGradient: 'from-emerald-600/20 to-teal-600/20',
     featured: true,
     subcategories: [
+      // Basic Level
       {
-        id: 'data-analysis',
-        name: 'Data Analysis',
-        description: 'Statistical analysis and insights',
-        examples: ['Data Cleaning', 'Statistical Tests', 'Trend Analysis'],
-        skillLevel: 'Advanced',
-        promptGroups: [
-          { id: 'data-cleaning', name: 'Data Cleaning' },
-          { id: 'exploratory-analysis', name: 'Exploratory Analysis' },
-          { id: 'statistical-testing', name: 'Statistical Testing' },
-          { id: 'trend-analysis', name: 'Trend Analysis' }
-        ]
+        id: 'basic-programming-scripting',
+        name: 'Basic Programming & Scripting',
+        description: 'Simple coding tasks, basic scripts, introductory programming',
+        examples: ['Basic scripts', 'Simple programs', 'Introductory coding'],
+        skillLevel: 'Basic'
       },
       {
-        id: 'visualization',
-        name: 'Data Visualization',
-        description: 'Create compelling data visuals',
-        examples: ['Chart Design', 'Dashboard Layout', 'Visual Stories'],
-        skillLevel: 'Intermediate',
-        promptGroups: [
-          { id: 'chart-design', name: 'Chart Design' },
-          { id: 'dashboard-creation', name: 'Dashboard Creation' },
-          { id: 'data-storytelling', name: 'Data Storytelling' },
-          { id: 'interactive-visuals', name: 'Interactive Visuals' }
-        ]
+        id: 'technical-documentation-basics',
+        name: 'Technical Documentation Basics',
+        description: 'Basic technical writing, simple documentation, user guides',
+        examples: ['User guides', 'Basic documentation', 'Simple technical writing'],
+        skillLevel: 'Basic'
       },
       {
-        id: 'reporting',
-        name: 'Reporting',
-        description: 'Data-driven report creation',
-        examples: ['Executive Reports', 'KPI Updates', 'Performance Analytics'],
-        skillLevel: 'Intermediate',
-        promptGroups: [
-          { id: 'executive-summaries', name: 'Executive Summaries' },
-          { id: 'kpi-dashboards', name: 'KPI Dashboards' },
-          { id: 'performance-reports', name: 'Performance Reports' },
-          { id: 'data-insights', name: 'Data Insights' }
-        ]
+        id: 'system-administration-fundamentals',
+        name: 'System Administration Fundamentals',
+        description: 'Basic system management, simple configurations, routine maintenance',
+        examples: ['System configurations', 'Basic administration', 'Routine maintenance'],
+        skillLevel: 'Basic'
       },
       {
-        id: 'ml-prompts',
-        name: 'Machine Learning',
-        description: 'ML model development and analysis',
-        examples: ['Model Training', 'Feature Engineering', 'Model Evaluation'],
-        skillLevel: 'Advanced',
-        promptGroups: [
-          { id: 'model-training', name: 'Model Training' },
-          { id: 'feature-engineering', name: 'Feature Engineering' },
-          { id: 'model-evaluation', name: 'Model Evaluation' },
-          { id: 'mlops', name: 'MLOps' }
-        ]
+        id: 'web-development-basics',
+        name: 'Web Development Basics',
+        description: 'Simple websites, basic web development, introductory web technologies',
+        examples: ['Simple websites', 'Basic web development', 'Introductory web projects'],
+        skillLevel: 'Basic'
+      },
+      // Intermediate Level
+      {
+        id: 'software-development-engineering',
+        name: 'Software Development & Engineering',
+        description: 'Application development, software engineering, development methodologies',
+        examples: ['Application development', 'Software engineering', 'Development projects'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'system-architecture-design',
+        name: 'System Architecture & Design',
+        description: 'System design, architecture planning, technical specifications',
+        examples: ['System architecture', 'Design patterns', 'Technical specifications'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'devops-automation',
+        name: 'DevOps & Automation',
+        description: 'DevOps practices, automation, CI/CD pipelines',
+        examples: ['DevOps pipelines', 'Automation scripts', 'Infrastructure management'],
+        skillLevel: 'Intermediate'
+      },
+      {
+        id: 'database-design-management',
+        name: 'Database Design & Management',
+        description: 'Database architecture, data modeling, database administration',
+        examples: ['Database design', 'Data modeling', 'Database optimization'],
+        skillLevel: 'Intermediate'
+      },
+      // Advanced Level
+      {
+        id: 'enterprise-architecture-strategy',
+        name: 'Enterprise Architecture & Strategy',
+        description: 'Enterprise systems, architectural strategy, technology leadership',
+        examples: ['Enterprise architecture', 'Technology strategy', 'Architectural governance'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'advanced-development-innovation',
+        name: 'Advanced Development & Innovation',
+        description: 'Advanced programming, innovative solutions, cutting-edge development',
+        examples: ['Advanced algorithms', 'Innovative solutions', 'Research development'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'cloud-architecture-infrastructure',
+        name: 'Cloud Architecture & Infrastructure',
+        description: 'Cloud solutions, infrastructure design, scalable architectures',
+        examples: ['Cloud architecture', 'Infrastructure design', 'Scalable solutions'],
+        skillLevel: 'Advanced'
+      },
+      {
+        id: 'ai-ml-development-implementation',
+        name: 'AI/ML Development & Implementation',
+        description: 'AI development, machine learning, intelligent systems',
+        examples: ['AI development', 'ML models', 'Intelligent system design'],
+        skillLevel: 'Advanced'
       }
     ]
-  },
-  {
-    id: 'finance',
-    name: 'Finance & Investing',
-    icon: DollarSign,
-    description: 'Empower analysts, advisors, and investors with AI-driven research, planning, and reporting tools.',
-    promptCount: 120,
-    bgGradient: 'from-amber-600/20 to-yellow-600/20',
-    subcategories: [
-      {
-        id: 'market-research-analysis',
-        name: 'Market Research & Analysis',
-        description: 'Equity, sector, and macro-economic analysis.',
-        examples: ['Summarize today’s market movers', 'Compare performance of tech vs energy sector', 'Outline macro trends impacting inflation'],
-        skillLevel: 'Advanced',
-        promptGroups: [
-          { id: 'equity-research', name: 'Equity Research' },
-          { id: 'sector-outlooks', name: 'Sector Outlooks' },
-          { id: 'macro-trends', name: 'Macro Trends' },
-        ],
-      },
-      {
-        id: 'portfolio-management',
-        name: 'Portfolio Management',
-        description: 'Asset allocation, risk analysis, and rebalancing strategies.',
-        examples: ['Design a balanced ETF portfolio', 'Estimate portfolio VaR', 'Rebalance a 60/40 allocation'],
-        skillLevel: 'Intermediate',
-        promptGroups: [
-          { id: 'asset-allocation', name: 'Asset Allocation' },
-          { id: 'risk-assessment', name: 'Risk Assessment' },
-          { id: 'rebalancing-plans', name: 'Rebalancing Plans' },
-        ],
-      },
-      {
-        id: 'financial-planning',
-        name: 'Financial Planning',
-        description: 'Goal-based planning, retirement, and budgeting frameworks.',
-        examples: ['Create a retirement plan for a 35-year-old', 'Draft a monthly budget worksheet', 'Estimate savings needed for college fund'],
-        skillLevel: 'Beginner',
-        promptGroups: [
-          { id: 'goal-planning', name: 'Goal Planning' },
-          { id: 'retirement-models', name: 'Retirement Models' },
-          { id: 'budget-worksheets', name: 'Budget Worksheets' },
-        ],
-      },
-      {
-        id: 'reporting-compliance',
-        name: 'Reporting & Compliance',
-        description: 'Performance reports, regulatory filings, and summaries.',
-        examples: ['Draft a quarterly performance report', 'Generate an SEC filing summary', 'Create KPI dashboard outline'],
-        skillLevel: 'Advanced',
-        promptGroups: [
-          { id: 'client-reports', name: 'Client Reports' },
-          { id: 'reg-filings', name: 'Reg Filings' },
-          { id: 'kpi-dashboards', name: 'KPI Dashboards' },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'ecommerce',
-    name: 'E-commerce & Retail',
-    icon: ShoppingCart,
-    description: 'Optimize online stores and retail operations with conversion-focused AI prompts.',
-    promptCount: 90,
-    bgGradient: 'from-fuchsia-600/20 to-rose-600/20',
-    subcategories: [
-      {
-        id: 'product-listing-seo',
-        name: 'Product Listing & SEO',
-        description: 'Titles, descriptions, and keyword research.',
-        examples: ['Write an SEO-friendly product description', 'Generate keyword list for handmade candles', 'Optimize title length for Amazon'],
-        skillLevel: 'Beginner',
-        promptGroups: [
-          { id: 'title-generation', name: 'Title Generation' },
-          { id: 'keyword-research', name: 'Keyword Research' },
-          { id: 'description-builder', name: 'Description Builder' },
-        ],
-      },
-      {
-        id: 'cro-ux',
-        name: 'CRO & UX',
-        description: 'A/B ideas, layout suggestions, and checkout optimization.',
-        examples: ['Suggest A/B tests to reduce cart abandonment', 'Rewrite checkout headline', 'Propose UX improvements for mobile'],
-        skillLevel: 'Intermediate',
-        promptGroups: [
-          { id: 'ab-hypotheses', name: 'A/B Hypotheses' },
-          { id: 'ux-copy', name: 'UX Copy' },
-          { id: 'checkout-flow', name: 'Checkout Flow' },
-        ],
-      },
-      {
-        id: 'customer-retention',
-        name: 'Customer Retention',
-        description: 'Loyalty programs, email flows, and win-back campaigns.',
-        examples: ['Draft a post-purchase email sequence', 'Design loyalty program tiers', 'Create win-back campaign copy'],
-        skillLevel: 'Intermediate',
-        promptGroups: [
-          { id: 'email-sequences', name: 'Email Sequences' },
-          { id: 'loyalty-ideas', name: 'Loyalty Ideas' },
-          { id: 'reengagement', name: 'Re-engagement' },
-        ],
-      },
-      {
-        id: 'operations-supply',
-        name: 'Operations & Supply',
-        description: 'Inventory forecasts and supplier communication.',
-        examples: ['Forecast Q4 inventory', 'Write supplier restock email', 'Generate demand planning report'],
-        skillLevel: 'Advanced',
-        promptGroups: [
-          { id: 'demand-forecasting', name: 'Demand Forecasting' },
-          { id: 'supplier-emails', name: 'Supplier Emails' },
-          { id: 'restock-alerts', name: 'Restock Alerts' },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'technology',
-    name: 'Technology & SaaS',
-    icon: Server,
-    description: 'Accelerate product-led growth with prompts for roadmap planning, onboarding, and customer success.',
-    promptCount: 110,
-    bgGradient: 'from-sky-600/20 to-indigo-600/20',
-    subcategories: [
-      {
-        id: 'product-strategy',
-        name: 'Product Strategy',
-        description: 'Vision docs, PRDs, and feature prioritization.',
-        examples: ['Draft a PRD for real-time collaboration', 'Prioritize features for Q3 roadmap', 'Write product vision statement'],
-        skillLevel: 'Advanced',
-        promptGroups: [
-          { id: 'prds', name: 'PRDs' },
-          { id: 'feature-prioritization', name: 'Feature Prioritization' },
-          { id: 'roadmap-themes', name: 'Roadmap Themes' },
-        ],
-      },
-      {
-        id: 'onboarding-adoption',
-        name: 'Onboarding & Adoption',
-        description: 'Tutorials, in-app messaging, and walkthrough scripts.',
-        examples: ['Write onboarding checklist', 'Create in-app tooltip copy', 'Design walkthrough script'],
-        skillLevel: 'Intermediate',
-        promptGroups: [
-          { id: 'user-guides', name: 'User Guides' },
-          { id: 'inapp-messages', name: 'In-App Messages' },
-          { id: 'walkthrough-scripts', name: 'Walkthrough Scripts' },
-        ],
-      },
-      {
-        id: 'customer-success',
-        name: 'Customer Success',
-        description: 'QBRs, health scoring, and churn analysis.',
-        examples: ['Generate QBR outline', 'Create customer health score rubric', 'List churn risk indicators'],
-        skillLevel: 'Intermediate',
-        promptGroups: [
-          { id: 'health-scoring', name: 'Health Scoring' },
-          { id: 'qbr-outlines', name: 'QBR Outlines' },
-          { id: 'churn-insights', name: 'Churn Insights' },
-        ],
-      },
-      {
-        id: 'developer-relations',
-        name: 'Developer Relations',
-        description: 'API docs, sample apps, and community engagement.',
-        examples: ['Create quick-start guide for REST API', 'Draft sample app tutorial', 'Write community forum post'],
-        skillLevel: 'Advanced',
-        promptGroups: [
-          { id: 'quick-starts', name: 'Quick-Starts' },
-          { id: 'sample-code', name: 'Sample Code' },
-          { id: 'community-posts', name: 'Community Posts' },
-        ],
-      },
-    ],
   }
 ];

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ShoppingCart, User, Menu, X, Bell } from 'lucide-react';
+import { ShoppingCart, User, Menu, X, Bell, LogIn, UserPlus, Crown } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import MobileMenu from './mobile/MobileMenu';
 
 const Header: React.FC = () => {
@@ -10,6 +11,7 @@ const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const profileRef = useRef<HTMLDivElement>(null);
+  const { user, userProfile, signOut, hasLifetimeAccess } = useAuth();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -89,33 +91,84 @@ const Header: React.FC = () => {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-6">
-            {/* Action Buttons */}
-            <div className="flex items-center gap-4">
-              <button className="relative p-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800 transition-colors">
-                <Bell size={22} />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-purple-500 rounded-full" />
-              </button>
-              <button className="p-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800 transition-colors">
-                <ShoppingCart size={22} />
-              </button>
-              <div className="relative" ref={profileRef}>
-                <button 
-                  onClick={() => setIsProfileOpen(!isProfileOpen)}
-                  className={`flex items-center justify-center h-10 w-10 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors ${isProfileOpen ? 'ring-2 ring-purple-500/50' : ''}`}
-                >
-                  <User size={20} className="text-gray-300" />
+            {user ? (
+              /* Authenticated User Actions */
+              <div className="flex items-center gap-4">
+                <button className="relative p-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800 transition-colors">
+                  <Bell size={22} />
+                  <span className="absolute top-1 right-1 w-2 h-2 bg-purple-500 rounded-full" />
                 </button>
-                <div className={`absolute right-0 mt-2 w-48 py-2 bg-gray-800 rounded-xl shadow-xl transition-all border border-gray-700 ${isProfileOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
-                  <div className="px-4 py-2 border-b border-gray-700">
-                    <p className="text-sm text-gray-300">Signed in as</p>
-                    <p className="text-sm font-medium text-white">user@example.com</p>
+                <button className="p-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800 transition-colors">
+                  <ShoppingCart size={22} />
+                </button>
+                <div className="relative" ref={profileRef}>
+                  <button
+                    onClick={() => setIsProfileOpen(!isProfileOpen)}
+                    className={`flex items-center justify-center h-10 w-10 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors ${isProfileOpen ? 'ring-2 ring-purple-500/50' : ''}`}
+                  >
+                    <User size={20} className="text-gray-300" />
+                  </button>
+                  <div className={`absolute right-0 mt-2 w-56 py-2 bg-gray-800 rounded-xl shadow-xl transition-all border border-gray-700 ${isProfileOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+                    <div className="px-4 py-3 border-b border-gray-700">
+                      <div className="flex items-center gap-2">
+                        <p className="text-sm text-gray-300">Signed in as</p>
+                        {hasLifetimeAccess && (
+                          <Crown className="w-4 h-4 text-yellow-500" />
+                        )}
+                      </div>
+                      <p className="text-sm font-medium text-white">{user.email}</p>
+                      {hasLifetimeAccess && (
+                        <p className="text-xs text-yellow-400">Lifetime Access</p>
+                      )}
+                    </div>
+                    <Link
+                      to="/profile"
+                      className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-700"
+                      onClick={() => setIsProfileOpen(false)}
+                    >
+                      Profile
+                    </Link>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-700">Settings</a>
+                    {!hasLifetimeAccess && (
+                      <Link
+                        to="/upgrade"
+                        className="block px-4 py-2 text-sm text-yellow-400 hover:text-yellow-300 hover:bg-gray-700"
+                        onClick={() => setIsProfileOpen(false)}
+                      >
+                        Upgrade to Lifetime
+                      </Link>
+                    )}
+                    <button
+                      onClick={() => {
+                        signOut();
+                        setIsProfileOpen(false);
+                      }}
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-700"
+                    >
+                      Sign out
+                    </button>
                   </div>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-700">Profile</a>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-700">Settings</a>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-700">Sign out</a>
                 </div>
               </div>
-            </div>
+            ) : (
+              /* Guest User Actions */
+              <div className="flex items-center gap-3">
+                <Link
+                  to="/login"
+                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-all duration-200"
+                >
+                  <LogIn size={18} />
+                  Sign In
+                </Link>
+                <Link
+                  to="/register"
+                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-lg transition-all duration-200 shadow-sm"
+                >
+                  <UserPlus size={18} />
+                  Sign Up
+                </Link>
+              </div>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -169,40 +222,95 @@ const Header: React.FC = () => {
             </nav>
 
             <div className="mt-4 pt-4 border-t border-gray-800 px-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <button 
-                    className="relative p-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 transition-colors active:bg-gray-800/30"
-                    aria-label="Notifications"
-                  >
-                    <Bell size={22} />
-                    <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-purple-500 rounded-full" />
-                  </button>
-                  <button 
-                    className="p-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 transition-colors active:bg-gray-800/30"
-                    aria-label="Shopping Cart"
-                  >
-                    <ShoppingCart size={22} />
-                  </button>
-                </div>
-              </div>
-              
-              <div className="mt-4 pt-4 border-t border-gray-700">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="flex items-center justify-center h-10 w-10 rounded-full bg-gray-800">
-                    <User size={20} className="text-gray-300" />
+              {user ? (
+                /* Authenticated Mobile Menu */
+                <>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <button
+                        className="relative p-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 transition-colors active:bg-gray-800/30"
+                        aria-label="Notifications"
+                      >
+                        <Bell size={22} />
+                        <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-purple-500 rounded-full" />
+                      </button>
+                      <button
+                        className="p-2 text-gray-300 hover:text-white rounded-lg hover:bg-gray-800/50 transition-colors active:bg-gray-800/30"
+                        aria-label="Shopping Cart"
+                      >
+                        <ShoppingCart size={22} />
+                      </button>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-sm font-medium text-white">user@example.com</p>
-                    <p className="text-xs text-gray-400">Personal Account</p>
+
+                  <div className="mt-4 pt-4 border-t border-gray-700">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="flex items-center justify-center h-10 w-10 rounded-full bg-gray-800">
+                        <User size={20} className="text-gray-300" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2">
+                          <p className="text-sm font-medium text-white">{user.email}</p>
+                          {hasLifetimeAccess && (
+                            <Crown className="w-4 h-4 text-yellow-500" />
+                          )}
+                        </div>
+                        <p className="text-xs text-gray-400">
+                          {hasLifetimeAccess ? 'Lifetime Access' : 'Free Account'}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Link
+                        to="/profile"
+                        className="block px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-colors active:bg-gray-800/30"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Profile
+                      </Link>
+                      <a href="#" className="block px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-colors active:bg-gray-800/30">Settings</a>
+                      {!hasLifetimeAccess && (
+                        <Link
+                          to="/upgrade"
+                          className="block px-3 py-2.5 text-sm text-yellow-400 hover:text-yellow-300 hover:bg-gray-800/50 rounded-lg transition-colors active:bg-gray-800/30"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          Upgrade to Lifetime
+                        </Link>
+                      )}
+                      <button
+                        onClick={() => {
+                          signOut();
+                          setIsMenuOpen(false);
+                        }}
+                        className="block w-full text-left px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-colors active:bg-gray-800/30"
+                      >
+                        Sign out
+                      </button>
+                    </div>
                   </div>
+                </>
+              ) : (
+                /* Guest Mobile Menu */
+                <div className="space-y-3">
+                  <Link
+                    to="/login"
+                    className="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-all duration-200 active:bg-gray-800/30"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <LogIn size={18} />
+                    Sign In
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="flex items-center gap-3 px-3 py-2.5 text-sm bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-lg transition-all duration-200 shadow-sm active:scale-95"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <UserPlus size={18} />
+                    Sign Up
+                  </Link>
                 </div>
-                <div className="space-y-2">
-                  <a href="#" className="block px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-colors active:bg-gray-800/30">Profile</a>
-                  <a href="#" className="block px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-colors active:bg-gray-800/30">Settings</a>
-                  <a href="#" className="block px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-colors active:bg-gray-800/30">Sign out</a>
-                </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

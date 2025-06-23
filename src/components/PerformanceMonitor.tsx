@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Activity, Clock, Database, Zap, AlertTriangle, CheckCircle } from 'lucide-react';
 import { usePerformanceMonitor, useCoreWebVitals, usePerformanceBudget } from '../utils/performanceUtils';
-import { useCacheManager } from '../hooks/useDataLoader';
 
 interface PerformanceMonitorProps {
   enabled?: boolean;
@@ -17,7 +16,6 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
   const [isExpanded, setIsExpanded] = useState(false);
   const { metrics, measureMemory } = usePerformanceMonitor();
   const vitals = useCoreWebVitals();
-  const { stats } = useCacheManager();
   
   const { violations, checkBudget } = usePerformanceBudget({
     renderTime: 16, // 60fps = 16ms per frame
@@ -161,33 +159,7 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
               </div>
             </div>
 
-            {/* Cache Performance */}
-            <div className="mb-4">
-              <h3 className="text-sm font-semibold text-white mb-2 flex items-center gap-2">
-                <Database className="w-4 h-4 text-green-400" />
-                Cache Performance
-              </h3>
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="text-gray-300">Prompts Cache</span>
-                  <span className="text-white font-mono">
-                    {stats.prompts.size} items
-                  </span>
-                </div>
-                <div className="flex items-center justify-between text-xs">
-                  <span className="text-gray-300">Search Cache</span>
-                  <span className="text-white font-mono">
-                    {stats.search.size} items
-                  </span>
-                </div>
-                <div className="flex items-center justify-between text-xs">
-                  <span className="text-gray-300">Total Accesses</span>
-                  <span className="text-white font-mono">
-                    {stats.prompts.totalAccesses + stats.search.totalAccesses}
-                  </span>
-                </div>
-              </div>
-            </div>
+
 
             {/* Performance Violations */}
             {violations.length > 0 && (
@@ -219,7 +191,7 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                   if ('memory' in performance) {
                     (performance as any).memory && console.log('Memory:', (performance as any).memory);
                   }
-                  console.log('Performance Metrics:', { metrics, vitals, stats });
+                  console.log('Performance Metrics:', { metrics, vitals });
                 }}
                 className="flex-1 px-3 py-1.5 text-xs bg-gray-700 hover:bg-gray-600 text-white rounded transition-colors"
               >

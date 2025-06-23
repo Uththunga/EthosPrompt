@@ -1,15 +1,34 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import type { Category, Subcategory, PromptGroup } from '../data/categories-data';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
+import type { Category, Subcategory, PromptGroup, SkillLevel } from '../data/categories-data';
 import type { Prompt } from '../data/prompts-data';
-import PromptCard from '../components/PromptCard';
+import type { UICategory, UISubcategory, UIPromptGroup, UIPrompt } from '../services/DatabaseService';
+import PromptCardAdapter from '../components/prompts/PromptCardAdapter';
 import { PromptErrorBoundary } from '../components/PromptErrorBoundary';
 import { useError } from '../contexts/ErrorContext';
-import { useCategories, usePrompts, useDataPreloader } from '../hooks/useDataLoader';
+import { useCategories, usePrompts, useDataPreloader } from '../hooks/useDatabaseLoader';
 import { ComponentLoadingSpinner } from '../components/LoadingSpinner';
 import { useOptimizedCallback, useOptimizedMemo, useDebounce } from '../utils/performanceUtils';
-import { SearchX, ArrowLeft, Frown } from 'lucide-react';
+import { SearchX, ArrowLeft, Frown, Grid3X3, LayoutGrid } from 'lucide-react';
 import { getDifficultyLevel } from '../utils/difficultyUtils';
+import { cn } from '../lib/utils';
+import SkillLevelFilter from '../components/filters/SkillLevelFilter';
+
+
+import FilterPresets, { type FilterPreset } from '../components/filters/FilterPresets';
+import FilterPills from '../components/filters/FilterPills';
+import EnhancedSearch from '../components/filters/EnhancedSearch';
+import MobileCategorySidebar from '../components/mobile/MobileCategorySidebar';
+import SwipeSubcategoryNav from '../components/mobile/SwipeSubcategoryNav';
+import MobileFilterFAB from '../components/mobile/MobileFilterFAB';
+import SkillProgressIndicator from '../components/ui/SkillProgressIndicator';
+import CategoryStats from '../components/ui/CategoryStats';
+import { Heading, Text, Section, Card as VisualCard, Badge, Divider } from '../components/ui/VisualHierarchy';
+import RecommendedPrompts from '../components/discovery/RecommendedPrompts';
+import RecentlyViewed, { addToRecentlyViewed } from '../components/discovery/RecentlyViewed';
+import TrendingContent from '../components/discovery/TrendingContent';
+import OnboardingTour, { useOnboarding } from '../components/onboarding/OnboardingTour';
+import SkillAssessment from '../components/onboarding/SkillAssessment';
 
 // Skeleton loader component for prompts
 const PromptCardSkeleton = () => (
@@ -24,16 +43,14 @@ const PromptCardSkeleton = () => (
   </div>
 );
 
-// Extend Subcategory type to include optional icon
-interface ExtendedSubcategory extends Subcategory {
+// Use database types directly
+type ExtendedSubcategory = UISubcategory & {
   icon?: string;
-  promptGroups?: PromptGroup[];
-}
+};
 
-// Extend the Category type to include extended subcategories
-interface ExtendedCategory extends Omit<Category, 'subcategories'> {
+type ExtendedCategory = (UICategory | Category) & {
   subcategories: ExtendedSubcategory[];
-}
+};
 
 // Extended prompt type with additional properties (not currently used)
 // type ExtendedPrompt = Prompt & {
@@ -43,32 +60,135 @@ interface ExtendedCategory extends Omit<Category, 'subcategories'> {
 const CategoryPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { addError } = useError();
 
   // State for UI
   const [searchQuery, setSearchQuery] = useState('');
   const [activePromptGroup, setActivePromptGroup] = useState<string | null>(null);
-  const [difficultyFilter, setDifficultyFilter] = useState<string | null>(null);
+  const [skillLevelFilter, setSkillLevelFilter] = useState<SkillLevel | null>(null);
   const [selectedSubcategory, setSelectedSubcategory] = useState<ExtendedSubcategory | null>(null);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [activePreset, setActivePreset] = useState<string | null>(null);
+  const [activeTags, setActiveTags] = useState<string[]>([]);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [showSkillAssessment, setShowSkillAssessment] = useState(false);
+
+  // Onboarding state
+  const {
+    hasSeenOnboarding,
+    isOnboardingOpen,
+    completeOnboarding,
+    startOnboarding,
+    closeOnboarding
+  } = useOnboarding();
 
   // Debounce search query for better performance
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
-  // Load categories dynamically
-  const { data: categories, loading: categoriesLoading, error: categoriesError } = useCategories();
+  // Load categories from database
+  const { data: dbCategories, loading: dbLoading, error: dbError } = useCategories();
+
+  // Normalize categories to handle both database and static types
+  const normalizeCategory = useCallback((cat: UICategory | Category): ExtendedCategory => {
+    // Handle icon - if it's a LucideIcon (function), convert to string
+    const iconString = typeof cat.icon === 'function' ? cat.icon.name || '📁' : cat.icon;
+
+    return {
+      ...cat,
+      icon: iconString,
+      subcategories: cat.subcategories.map(sub => ({
+        ...sub,
+        icon: sub.icon || undefined
+      }))
+    } as ExtendedCategory;
+  }, []);
+
+  // Use database categories
+  const rawCategories = dbCategories;
+  const categories = rawCategories?.map(normalizeCategory);
+  const categoriesLoading = dbLoading;
+  const categoriesError = dbError;
+
+  // Debug logging (development only)
+  React.useEffect(() => {
+    if (process.env.NODE_ENV === 'development' && process.env.VITE_DEBUG === 'true') {
+      console.log('CategoryPage Debug:', {
+        id,
+        categoriesCount: categories?.length,
+        selectedSubcategory: selectedSubcategory?.name,
+        usingDatabase: !!dbCategories?.length
+      });
+    }
+  }, [id, categories, selectedSubcategory, dbCategories]);
 
   // Memoize the category to prevent unnecessary re-renders
   const category = useOptimizedMemo<ExtendedCategory | undefined>(
-    () => categories?.find((c) => c.id === id) as ExtendedCategory | undefined,
+    () => {
+      const found = categories?.find((c) => c.id === id);
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Category lookup:', {
+          id,
+          found: found ? {
+            id: found.id,
+            name: found.name,
+            subcategoriesCount: found.subcategories?.length,
+            icon: found.icon
+          } : null
+        });
+      }
+      return found;
+    },
     [categories, id]
   );
 
-  // Set the first subcategory as selected by default when the category loads
+  // Handle subcategory selection from URL params or default to first
   useEffect(() => {
-    if (category?.subcategories?.length && !selectedSubcategory) {
-      setSelectedSubcategory(category.subcategories[0]);
+    if (category?.subcategories?.length) {
+      const subcategoryParam = searchParams.get('subcategory');
+      if (subcategoryParam) {
+        const foundSubcategory = category.subcategories.find(sub => sub.id === subcategoryParam);
+        if (foundSubcategory) {
+          setSelectedSubcategory(foundSubcategory);
+          return;
+        }
+      }
+      // Default to first subcategory if none selected
+      if (!selectedSubcategory) {
+        setSelectedSubcategory(category.subcategories[0]);
+      }
     }
-  }, [category, selectedSubcategory]);
+  }, [category?.subcategories, searchParams]);
+
+  // Track category visit in recently viewed
+  useEffect(() => {
+    if (category) {
+      addToRecentlyViewed({
+        id: category.id,
+        type: 'category',
+        title: category.name,
+        description: category.description,
+        href: `/categories/${category.id}`
+      });
+    }
+  }, [category]);
+
+  // Track subcategory visit in recently viewed
+  useEffect(() => {
+    if (selectedSubcategory && category) {
+      addToRecentlyViewed({
+        id: selectedSubcategory.id,
+        type: 'subcategory',
+        title: selectedSubcategory.name,
+        description: selectedSubcategory.description,
+        categoryName: category.name,
+        skillLevel: selectedSubcategory.skillLevel,
+        href: `/categories/${category.id}?subcategory=${selectedSubcategory.id}`
+      });
+    }
+  }, [selectedSubcategory, category]);
+
+
 
   // Get all prompt groups for the selected subcategory
   const availablePromptGroups = useMemo(() => {
@@ -84,12 +204,24 @@ const CategoryPage: React.FC = () => {
   } = usePrompts({
     subcategoryId: selectedSubcategory?.id,
     filters: {
-      difficulty: difficultyFilter || undefined,
+      difficulty: skillLevelFilter || undefined,
       promptGroupId: activePromptGroup || undefined,
       searchQuery: debouncedSearchQuery.trim() || undefined
     },
     enabled: !!selectedSubcategory
   });
+
+  // Debug prompts loading (development only)
+  React.useEffect(() => {
+    if (process.env.NODE_ENV === 'development' && process.env.VITE_DEBUG === 'true') {
+      console.log('Prompts Debug:', {
+        subcategoryId: selectedSubcategory?.id,
+        promptsCount: filteredPrompts?.length || 0,
+        promptsLoading,
+        promptsError: !!promptsError
+      });
+    }
+  }, [selectedSubcategory?.id, filteredPrompts, promptsLoading, promptsError]);
 
   // Preloader for performance optimization
   const { preloadCategory } = useDataPreloader();
@@ -115,7 +247,7 @@ const CategoryPage: React.FC = () => {
   }, [addError]);
 
   // Handle opening prompt in new tab
-  const handleOpenInNewTab = useCallback((prompt: Prompt) => {
+  const handleOpenInNewTab = useCallback((prompt: UIPrompt) => {
     // Map difficulty levels to simpler values for comparison
     const getDifficultyClass = (difficulty: string) => {
       const lowerDifficulty = difficulty.toLowerCase();
@@ -167,20 +299,142 @@ const CategoryPage: React.FC = () => {
   }, []);
 
   // Handle search input change
-  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
+  const handleSearchChange = useCallback((value: string) => {
+    setSearchQuery(value);
+    setActivePreset(null); // Clear preset when manually searching
   }, []);
 
-  // Handle difficulty filter change
-  const handleDifficultyFilter = useCallback((difficulty: string | null) => {
-    setDifficultyFilter(difficulty === difficultyFilter ? null : difficulty);
-  }, [difficultyFilter]);
+  // Handle preset selection
+  const handlePresetSelect = useCallback((preset: FilterPreset) => {
+    if (preset.id === 'clear') {
+      setActivePreset(null);
+      setSearchQuery('');
+      setSkillLevelFilter(null);
+      setActivePromptGroup(null);
+      setActiveTags([]);
+      return;
+    }
 
-  // Handle prompt group filter change
-  const handlePromptGroupFilter = useCallback((groupId: string | null) => {
-    setActivePromptGroup(groupId === activePromptGroup ? null : groupId);
-  }, [activePromptGroup]);
-  
+    setActivePreset(preset.id);
+
+    // Apply preset filters
+    if (preset.filters.skillLevel) {
+      setSkillLevelFilter(preset.filters.skillLevel);
+    }
+    if (preset.filters.searchQuery) {
+      setSearchQuery(preset.filters.searchQuery);
+    }
+    if (preset.filters.promptGroup) {
+      setActivePromptGroup(preset.filters.promptGroup);
+    }
+    if (preset.filters.tags) {
+      setActiveTags(preset.filters.tags);
+    }
+  }, []);
+
+  // Get unique prompt groups for the selected subcategory
+  const promptGroups = useOptimizedMemo<UIPromptGroup[]>(() => {
+    if (!selectedSubcategory) return [];
+    const groups = new Map<string, UIPromptGroup>();
+
+    // First, check if there are prompt groups in the subcategory
+    if (selectedSubcategory.promptGroups) {
+      selectedSubcategory.promptGroups.forEach(group => {
+        groups.set(group.id, group);
+      });
+    }
+
+    // Also check prompts for any additional groups (if needed)
+    if (filteredPrompts) {
+      filteredPrompts
+        .filter((p: UIPrompt) => p.promptGroupId)
+        .forEach((p: UIPrompt) => {
+          if (p.promptGroupId && !groups.has(p.promptGroupId)) {
+            // Create a basic prompt group if not found in subcategory
+            groups.set(p.promptGroupId, {
+              id: p.promptGroupId,
+              name: p.promptGroupId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+            });
+          }
+        });
+    }
+
+    return Array.from(groups.values());
+  }, [selectedSubcategory, filteredPrompts]);
+
+  // Get active filters for pills
+  const activeFilters = useMemo(() => {
+    const filters: Array<{
+      id: string;
+      type: 'search' | 'skillLevel' | 'promptGroup' | 'preset' | 'tag';
+      label: string;
+      value: string;
+    }> = [];
+
+    if (searchQuery) {
+      filters.push({
+        id: 'search',
+        type: 'search',
+        label: `Search: "${searchQuery}"`,
+        value: searchQuery
+      });
+    }
+
+    if (skillLevelFilter) {
+      filters.push({
+        id: 'skillLevel',
+        type: 'skillLevel',
+        label: `Level: ${skillLevelFilter}`,
+        value: skillLevelFilter
+      });
+    }
+
+    if (activePromptGroup) {
+      const groupName = promptGroups.find(g => g.id === activePromptGroup)?.name || activePromptGroup;
+      filters.push({
+        id: 'promptGroup',
+        type: 'promptGroup',
+        label: `Group: ${groupName}`,
+        value: activePromptGroup
+      });
+    }
+
+    activeTags.forEach(tag => {
+      filters.push({
+        id: `tag-${tag}`,
+        type: 'tag',
+        label: `Tag: ${tag}`,
+        value: tag
+      });
+    });
+
+    return filters;
+  }, [searchQuery, skillLevelFilter, activePromptGroup, activeTags, promptGroups]);
+
+  // Handle filter removal
+  const handleRemoveFilter = useCallback((filterId: string) => {
+    if (filterId === 'search') {
+      setSearchQuery('');
+    } else if (filterId === 'skillLevel') {
+      setSkillLevelFilter(null);
+    } else if (filterId === 'promptGroup') {
+      setActivePromptGroup(null);
+    } else if (filterId.startsWith('tag-')) {
+      const tag = filterId.replace('tag-', '');
+      setActiveTags(prev => prev.filter(t => t !== tag));
+    }
+    setActivePreset(null);
+  }, []);
+
+  // Handle clear all filters
+  const handleClearAllFilters = useCallback(() => {
+    setSearchQuery('');
+    setSkillLevelFilter(null);
+    setActivePromptGroup(null);
+    setActiveTags([]);
+    setActivePreset(null);
+  }, []);
+
   // This effect ensures the linter doesn't complain about unused variables
   // while also not affecting production bundle size
   React.useEffect(() => {
@@ -190,56 +444,27 @@ const CategoryPage: React.FC = () => {
       /* eslint-disable @typescript-eslint/no-unused-expressions */
       availablePromptGroups;
       handleSearchChange;
-      handleDifficultyFilter;
-      handlePromptGroupFilter;
       /* eslint-enable @typescript-eslint/no-unused-expressions */
     }
-  }, [availablePromptGroups, handleSearchChange, handleDifficultyFilter, handlePromptGroupFilter]);
-  
-  // Get unique prompt groups for the selected subcategory
-  const promptGroups = useOptimizedMemo<PromptGroup[]>(() => {
-    if (!selectedSubcategory) return [];
-    const groups = new Map<string, PromptGroup>();
-
-    // First, check if there are prompt groups in the subcategory
-    if (selectedSubcategory.promptGroups) {
-      selectedSubcategory.promptGroups.forEach(group => {
-        groups.set(group.id, group);
-      });
-    }
-
-    // Also check prompts for any additional groups
-    if (filteredPrompts) {
-      filteredPrompts
-        .filter((p: Prompt) => p.promptGroupId)
-        .forEach((p: Prompt) => {
-          if (p.promptGroupId && 'promptGroup' in p && p.promptGroup) {
-            groups.set(p.promptGroupId, p.promptGroup as PromptGroup);
-          }
-        });
-    }
-
-    return Array.from(groups.values());
-  }, [selectedSubcategory, filteredPrompts]);
+  }, [availablePromptGroups, handleSearchChange]);
 
   // Handle loading states
   if (categoriesLoading) {
     return (
-      <div className="min-h-screen bg-gray-900 text-white p-6">
+      <div className="p-6">
         <div className="max-w-7xl mx-auto">
           <ComponentLoadingSpinner text="Loading category..." />
         </div>
       </div>
     );
   }
-  
+
   // Handle case when category is not found
   if (!category) {
     return (
-      <div className="min-h-screen bg-gray-900 text-white p-6">
+      <div className="p-6">
         <div className="max-w-7xl mx-auto text-center py-12">
-          <h1 className="text-2xl font-bold text-red-400 mb-4">Category not found</h1>
-          <p className="text-gray-400">The requested category could not be found.</p>
+          <Frown className="w-16 h-16 mx-auto mb-4 text-purple-400" />
           <h1 className="text-3xl font-bold mb-2">Category Not Found</h1>
           <p className="text-gray-300 mb-6">The category you're looking for doesn't exist or has been moved.</p>
           <button
@@ -254,10 +479,10 @@ const CategoryPage: React.FC = () => {
     );
   }
 
-  // Handle empty state when no subcategory is selected
-  if (!selectedSubcategory || !category.subcategories?.length) {
+  // Handle empty state when no subcategories exist
+  if (!category.subcategories?.length) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-10">
+      <div className="flex flex-col items-center justify-center p-10">
         <div className="text-center">
           <Frown className="w-16 h-16 mx-auto mb-4 text-purple-400" />
           <h1 className="text-3xl font-bold mb-2">No Subcategories Found</h1>
@@ -274,53 +499,98 @@ const CategoryPage: React.FC = () => {
     );
   }
 
-  // Render the main content
-  if (!category) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-10">
-        <div className="text-center">
-          <Frown className="w-16 h-16 mx-auto mb-4 text-purple-400" />
-          <h1 className="text-3xl font-bold mb-2">Category Not Found</h1>
-          <p className="text-gray-300 mb-6">The category you're looking for doesn't exist or has been moved.</p>
-          <button
-            onClick={() => navigate('/')}
-            className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2 inline" />
-            Back to Home
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="bg-gradient-to-br from-gray-900 to-gray-950 min-h-screen text-white">
+    <>
+      {/* Mobile Sidebar */}
+      <MobileCategorySidebar
+        isOpen={isMobileSidebarOpen}
+        onClose={() => setIsMobileSidebarOpen(false)}
+        subcategories={category?.subcategories || []}
+        selectedSubcategory={selectedSubcategory}
+        onSubcategorySelect={setSelectedSubcategory}
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
+        skillLevelFilter={skillLevelFilter}
+        onSkillLevelChange={setSkillLevelFilter}
+        activePreset={activePreset}
+        onPresetSelect={handlePresetSelect}
+        activeFilters={activeFilters}
+        onRemoveFilter={handleRemoveFilter}
+        onClearAllFilters={handleClearAllFilters}
+      />
+
+      {/* Mobile Filter FAB */}
+      <MobileFilterFAB
+        onClick={() => setIsMobileSidebarOpen(true)}
+        activeFiltersCount={activeFilters.length}
+      />
+
+      {/* Onboarding Components */}
+      <OnboardingTour
+        isOpen={isOnboardingOpen}
+        onClose={closeOnboarding}
+        onComplete={() => {
+          completeOnboarding();
+          setShowSkillAssessment(true);
+        }}
+        variant="category"
+      />
+
+      <SkillAssessment
+        isOpen={showSkillAssessment}
+        onClose={() => setShowSkillAssessment(false)}
+        onComplete={(results) => {
+          console.log('Skill assessment results:', results);
+          setShowSkillAssessment(false);
+          // You could use these results to personalize the experience
+        }}
+      />
+
       {/* Header */}
-      <header className="bg-gray-900/80 backdrop-blur-sm border-b border-gray-800/50 shadow-lg">
+      <header className="bg-gray-900/80 backdrop-blur-sm border-b border-gray-800/50 shadow-lg -mx-4 mb-8">
         <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center gap-4 mb-2">
-            <button 
-              onClick={() => navigate(-1)}
-              className="p-2 rounded-lg hover:bg-gray-800/50 transition-colors"
-              aria-label="Go back"
-            >
-              <ArrowLeft className="w-5 h-5 text-gray-400" />
-            </button>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
-              {category.name}
-            </h1>
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => navigate(-1)}
+                className="p-2 rounded-lg hover:bg-gray-800/50 transition-colors"
+                aria-label="Go back"
+              >
+                <ArrowLeft className="w-5 h-5 text-gray-400" />
+              </button>
+
+              <div className="space-y-3">
+                <Heading level={1} variant="gradient" className="flex items-center gap-3">
+                  <span className="text-purple-400">{category.icon}</span>
+                  {category.name}
+                </Heading>
+                {category.description && (
+                  <Text variant="large" color="muted" className="max-w-2xl">
+                    {category.description}
+                  </Text>
+                )}
+                <CategoryStats category={category} variant="compact" />
+              </div>
+            </div>
+
+
           </div>
-          {category.description && (
-            <p className="text-gray-400 ml-12 max-w-3xl">{category.description}</p>
-          )}
         </div>
       </header>
+
+      {/* Mobile Swipe Navigation */}
+      <div className="lg:hidden bg-gray-900/60 backdrop-blur-sm border-b border-gray-800/50">
+        <SwipeSubcategoryNav
+          subcategories={category?.subcategories || []}
+          selectedSubcategory={selectedSubcategory}
+          onSubcategorySelect={setSelectedSubcategory}
+        />
+      </div>
 
       <div className="container mx-auto px-4 py-8 animate-fade-in">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Sidebar */}
-          <div className="lg:col-span-3 space-y-6">
+          <div className="lg:col-span-3 space-y-6" data-onboarding="sidebar">
             <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-700/40 rounded-xl p-5 shadow-lg">
               <h2 className="text-lg font-semibold text-white mb-5 flex items-center gap-2">
                 <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -329,43 +599,81 @@ const CategoryPage: React.FC = () => {
                 Navigation
               </h2>
               
-              <nav className="space-y-1.5 mb-6">
+              <nav className="space-y-2 mb-6">
                 {category.subcategories.map((sub) => (
                   <button
                     key={sub.id}
                     onClick={() => setSelectedSubcategory(sub)}
-                    className={`w-full text-left px-4 py-3 rounded-lg transition-all flex items-center gap-2 ${
+                    className={cn(
+                      'w-full text-left p-4 rounded-xl transition-all duration-200 flex items-center gap-3 group',
                       selectedSubcategory?.id === sub.id
-                        ? 'bg-gradient-to-r from-purple-600/80 to-pink-600/80 text-white shadow-md shadow-purple-500/20'
-                        : 'text-gray-300 hover:bg-gray-700/40 hover:text-white'
-                    }`}
+                        ? 'bg-gradient-to-r from-purple-600/80 to-pink-600/80 text-white shadow-lg shadow-purple-500/20 border border-purple-400/30'
+                        : 'text-gray-300 hover:bg-gray-700/50 hover:text-white border border-transparent hover:border-gray-600/30'
+                    )}
                   >
-                    {sub.icon && <span className="text-lg">{sub.icon}</span>}
-                    <span className="font-medium">{sub.name}</span>
+                    {sub.icon && (
+                      <span className={cn(
+                        'text-xl transition-transform duration-200',
+                        selectedSubcategory?.id === sub.id ? '' : 'group-hover:scale-110'
+                      )}>
+                        {sub.icon}
+                      </span>
+                    )}
+                    <div className="flex-1 min-w-0 space-y-1">
+                      <span className="font-semibold block truncate text-sm">
+                        {sub.name}
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <SkillProgressIndicator
+                          currentLevel={sub.skillLevel}
+                          variant="compact"
+                          showLabel={false}
+                        />
+                        <Text
+                          variant="caption"
+                          color={selectedSubcategory?.id === sub.id ? 'default' : 'muted'}
+                          className="truncate"
+                        >
+                          {sub.skillLevel} Level
+                        </Text>
+                      </div>
+                    </div>
                     {selectedSubcategory?.id === sub.id && (
-                      <span className="ml-auto w-2 h-2 bg-white rounded-full"></span>
+                      <div className="flex-shrink-0">
+                        <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                      </div>
                     )}
                   </button>
                 ))}
               </nav>
 
-              {/* Filters Section */}
+              {/* Enhanced Search */}
+              <div data-onboarding="filters">
+                <EnhancedSearch
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  placeholder="Search prompts..."
+                  className="mb-5"
+                />
+
+                {/* Filter Presets */}
+                <FilterPresets
+                  onPresetSelect={handlePresetSelect}
+                  activePreset={activePreset}
+                  className="mb-5"
+                />
+
+                {/* Active Filters Pills */}
+                <FilterPills
+                  filters={activeFilters}
+                  onRemoveFilter={handleRemoveFilter}
+                  onClearAll={handleClearAllFilters}
+                  className="mb-5"
+                />
+              </div>
+
+              {/* Advanced Filters Section */}
               <div className="space-y-5">
-                {/* Search Filter */}
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Search prompts..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 text-sm bg-gray-700/50 border border-gray-600/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent transition-all duration-200 text-white placeholder-gray-400"
-                  />
-                </div>
 
                 {/* Prompt Group Filter */}
                 {promptGroups.length > 0 && (
@@ -404,113 +712,121 @@ const CategoryPage: React.FC = () => {
                   </div>
                 )}
 
-                {/* Difficulty Filter */}
-                <div>
-                  <h3 className="text-sm font-medium text-gray-400 mb-2.5 flex items-center gap-1.5">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                    </svg>
-                    Filter by Difficulty
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {[
-                      { level: 'Beginner', color: 'green' },
-                      { level: 'Intermediate', color: 'blue' },
-                      { level: 'Advanced', color: 'purple' }
-                    ].map(({ level, color }) => (
-                      <button
-                        key={level}
-                        onClick={() => setDifficultyFilter(difficultyFilter === level ? null : level as any)}
-                        className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all flex items-center gap-1 ${
-                          difficultyFilter === level
-                            ? `bg-${color}-600/80 text-white shadow-md shadow-${color}-500/20`
-                            : `bg-gray-700/40 text-${color}-300 hover:bg-${color}-900/20 hover:text-${color}-200`
-                        }`}
-                      >
-                        {level}
-                        {difficultyFilter === level && (
-                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
-                          </svg>
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                {/* Skill Level Filter */}
+                <SkillLevelFilter
+                  selectedLevel={skillLevelFilter}
+                  onLevelChange={setSkillLevelFilter}
+                  variant="buttons"
+                  size="sm"
+                  showIcons={true}
+                  showClearAll={true}
+                />
 
-                {/* Active Filters */}
-                {(activePromptGroup || difficultyFilter) && (
-                  <div className="pt-2 border-t border-gray-700/40">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-medium text-gray-400">Active Filters</span>
-                      <button 
-                        onClick={() => {
-                          setActivePromptGroup(null);
-                          setDifficultyFilter(null);
-                        }}
-                        className="text-xs text-purple-400 hover:text-purple-300 transition-colors"
-                      >
-                        Clear all
-                      </button>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {activePromptGroup && (
-                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-purple-900/40 text-purple-300 border border-purple-800/50">
-                          {promptGroups.find(g => g.id === activePromptGroup)?.name}
-                          <button 
-                            onClick={() => setActivePromptGroup(null)}
-                            className="ml-1.5 -mr-1 p-0.5 hover:bg-purple-800/50 rounded-full"
-                          >
-                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                          </button>
-                        </span>
-                      )}
-                      {difficultyFilter && (
-                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-purple-900/40 text-purple-300 border border-purple-800/50">
-                          {difficultyFilter}
-                          <button 
-                            onClick={() => setDifficultyFilter(null)}
-                            className="ml-1.5 -mr-1 p-0.5 hover:bg-purple-800/50 rounded-full"
-                          >
-                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                          </button>
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                )}
+
               </div>
+            </div>
+
+
+
+            {/* Recently Viewed */}
+            <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-700/40 rounded-xl p-5 shadow-lg">
+              <RecentlyViewed variant="sidebar" maxItems={5} />
+            </div>
+
+            {/* Trending Content */}
+            <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-700/40 rounded-xl p-5 shadow-lg">
+              <TrendingContent variant="sidebar" maxItems={3} showCategories={false} />
+            </div>
+
+            {/* Recommended Prompts */}
+            <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-700/40 rounded-xl p-5 shadow-lg" data-onboarding="discovery">
+              <RecommendedPrompts
+                variant="sidebar"
+                currentCategoryId={id}
+                currentSubcategoryId={selectedSubcategory?.id}
+                maxItems={4}
+              />
             </div>
           </div>
           {/* Main Content */}
           <div className="lg:col-span-9">
             <div className="space-y-6">
               {/* Subcategory Header */}
-              <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-700/40 rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/5">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                  <div>
-                    <h2 className="text-2xl font-bold text-white mb-1.5 flex items-center gap-2">
+              <VisualCard variant="glass" padding="large" hover className="transition-all duration-300">
+                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+                  <div className="flex-1 space-y-4">
+                    <div className="flex items-center gap-3">
                       {selectedSubcategory?.icon && (
-                        <span className="text-purple-400">{selectedSubcategory.icon}</span>
+                        <span className="text-2xl">{selectedSubcategory.icon}</span>
                       )}
-                      {selectedSubcategory?.name || 'Loading...'}
-                    </h2>
+                      <Heading level={2} className="flex-1">
+                        {selectedSubcategory?.name || 'Loading...'}
+                      </Heading>
+                    </div>
+
                     {selectedSubcategory?.description && (
-                      <p className="text-gray-400">{selectedSubcategory.description}</p>
+                      <Text color="muted" className="max-w-2xl">
+                        {selectedSubcategory.description}
+                      </Text>
+                    )}
+
+                    {selectedSubcategory && (
+                      <div className="flex flex-wrap items-center gap-4">
+                        <SkillProgressIndicator
+                          currentLevel={selectedSubcategory.skillLevel}
+                          variant="compact"
+                        />
+                        {selectedSubcategory.examples && selectedSubcategory.examples.length > 0 && (
+                          <div className="flex flex-wrap gap-2">
+                            {selectedSubcategory.examples.slice(0, 3).map((example, index) => (
+                              <Badge key={index} variant="default" size="small">
+                                {example}
+                              </Badge>
+                            ))}
+                            {selectedSubcategory.examples.length > 3 && (
+                              <Badge variant="purple" size="small">
+                                +{selectedSubcategory.examples.length - 3} more
+                              </Badge>
+                            )}
+                          </div>
+                        )}
+                      </div>
                     )}
                   </div>
-                  
-                  <div className="flex items-center">
+
+                  <div className="flex items-center gap-4">
                     <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-700/50 text-gray-300 border border-gray-600/30">
                       {promptsLoading ? 'Loading...' : `${filteredPrompts?.length || 0} ${(filteredPrompts?.length || 0) === 1 ? 'Prompt' : 'Prompts'}`}
                     </span>
+
+                    {/* View Mode Toggle */}
+                    <div className="flex items-center gap-2" data-onboarding="view-toggle">
+                      <button
+                        onClick={() => setViewMode('grid')}
+                        className={`p-2 rounded-lg transition-colors ${
+                          viewMode === 'grid'
+                            ? 'bg-purple-600/20 text-purple-400'
+                            : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
+                        }`}
+                        title="Grid view"
+                      >
+                        <Grid3X3 className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => setViewMode('list')}
+                        className={`p-2 rounded-lg transition-colors ${
+                          viewMode === 'list'
+                            ? 'bg-purple-600/20 text-purple-400'
+                            : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
+                        }`}
+                        title="List view"
+                      >
+                        <LayoutGrid className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </VisualCard>
 
               {/* Prompts Grid */}
               <PromptErrorBoundary categoryId={id} promptId={selectedSubcategory?.id}>
@@ -535,45 +851,47 @@ const CategoryPage: React.FC = () => {
                     </p>
                   </div>
                 ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                  <div className={`${
+                    viewMode === 'grid'
+                      ? 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5'
+                      : 'space-y-4'
+                  }`}>
                     {filteredPrompts && filteredPrompts.length > 0 ? (
                       filteredPrompts.map((prompt) => (
-                        <div key={prompt.id} className="transform transition-transform duration-300 hover:-translate-y-1">
-                          <PromptCard
+                        <div key={prompt.id} className={`transform transition-transform duration-300 ${
+                          viewMode === 'grid' ? 'hover:-translate-y-1' : 'hover:scale-[1.02]'
+                        }`}>
+                          <PromptCardAdapter
                             prompt={prompt}
-                            onCopy={() => handleCopyPrompt(prompt.prompt)}
-                            onOpenInNewTab={() => handleOpenInNewTab(prompt)}
+                            showPreview={viewMode === 'list'}
+                            className={viewMode === 'list' ? 'w-full' : ''}
                           />
                         </div>
                       ))
                     ) : (
-                  <div className="col-span-full text-center py-12">
-                    <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-purple-500/10 mb-4">
+                  <Section spacing="loose" className="col-span-full text-center py-12">
+                    <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-purple-500/10 mb-6">
                       <SearchX className="w-10 h-10 text-purple-400" />
                     </div>
-                    <h3 className="text-xl font-semibold text-white mb-2">
-                      {searchQuery || difficultyFilter || activePromptGroup
+                    <Heading level={3} className="mb-4">
+                      {activeFilters.length > 0
                         ? 'No matching prompts found'
                         : 'No prompts available'}
-                    </h3>
-                    <p className="text-gray-400 max-w-md mx-auto mb-4">
-                      {searchQuery || difficultyFilter || activePromptGroup
+                    </Heading>
+                    <Text color="muted" className="max-w-md mx-auto mb-6">
+                      {activeFilters.length > 0
                         ? 'Try adjusting your search or filter criteria.'
                         : 'This subcategory does not have any prompts yet.'}
-                    </p>
-                    {(searchQuery || difficultyFilter || activePromptGroup) && (
+                    </Text>
+                    {activeFilters.length > 0 && (
                       <button
-                        onClick={() => {
-                          setSearchQuery('');
-                          setDifficultyFilter(null);
-                          setActivePromptGroup(null);
-                        }}
-                        className="px-4 py-2 text-sm font-medium text-purple-400 hover:text-purple-300 transition-colors border border-purple-500/30 rounded-lg hover:bg-purple-500/10"
+                        onClick={handleClearAllFilters}
+                        className="px-6 py-3 text-sm font-medium text-purple-400 hover:text-purple-300 transition-all duration-200 border border-purple-500/30 rounded-xl hover:bg-purple-500/10 hover:border-purple-400/50"
                       >
                         Clear all filters
                       </button>
                     )}
-                  </div>
+                  </Section>
                     )}
                   </div>
                 )}
@@ -582,7 +900,7 @@ const CategoryPage: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

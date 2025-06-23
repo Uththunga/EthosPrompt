@@ -1,21 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { prompts } from '../data/prompts-data';
+import { supabase } from '../lib/supabase';
 import { PromptErrorBoundary } from '../components/PromptErrorBoundary';
 import { useError } from '../contexts/ErrorContext';
 import { Copy, Check, ArrowLeft, AlertTriangle } from 'lucide-react';
+
+interface Prompt {
+  id: string;
+  title: string;
+  description: string;
+  content: string;
+  tags?: string[];
+  skill_level: string;
+}
 
 const PromptDetailPage: React.FC = () => {
   const { promptId } = useParams<{ promptId: string }>();
   const navigate = useNavigate();
   const { addError } = useError();
-  const prompt = prompts.find(p => p.id === promptId);
+  const [prompt, setPrompt] = useState<Prompt | null>(null);
+  const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    const loadPrompt = async () => {
+      if (!promptId) return;
+
+      try {
+        setLoading(true);
+        const { data, error } = await supabase
+          .from('prompts')
+          .select('*')
+          .eq('id', promptId)
+          .single();
+
+        if (error) {
+          console.error('Error loading prompt:', error);
+          addError('Failed to load prompt', 'error', 'PromptDetailPage');
+          return;
+        }
+
+        setPrompt(data);
+      } catch (error) {
+        console.error('Error loading prompt:', error);
+        addError('Failed to load prompt', 'error', 'PromptDetailPage');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadPrompt();
+  }, [promptId, addError]);
 
   const handleCopy = async () => {
     if (prompt) {
       try {
-        await navigator.clipboard.writeText(prompt.prompt);
+        await navigator.clipboard.writeText(prompt.content);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
       } catch (error) {
@@ -24,6 +64,17 @@ const PromptDetailPage: React.FC = () => {
       }
     }
   };
+
+  if (loading) {
+    return (
+      <div className="bg-gray-900 min-h-screen text-white p-4 sm:p-6 md:p-8">
+        <div className="max-w-4xl mx-auto text-center py-12">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500 mx-auto mb-4"></div>
+          <p className="text-gray-400">Loading prompt...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!prompt) {
     return (
@@ -67,9 +118,9 @@ const PromptDetailPage: React.FC = () => {
         )}
 
         <div className="flex flex-wrap gap-2 mb-6">
-          {prompt.difficulty && (
+          {prompt.skill_level && (
             <span className="text-xs px-3 py-1 rounded-full bg-purple-900/50 text-purple-300 font-medium">
-              {prompt.difficulty}
+              {prompt.skill_level}
             </span>
           )}
           {prompt.tags?.map(tag => (
@@ -89,7 +140,7 @@ const PromptDetailPage: React.FC = () => {
               {copied ? <Check size={18} className="text-green-400" /> : <Copy size={18} />}
             </button>
             <pre className="text-gray-300 whitespace-pre-wrap font-sans text-base leading-relaxed pr-12">
-              {prompt.prompt}
+              {prompt.content}
             </pre>
           </div>
         </PromptErrorBoundary>
