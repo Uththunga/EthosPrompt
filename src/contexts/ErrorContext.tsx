@@ -162,10 +162,10 @@ export const ErrorProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     addError(message, 'info', source, details), [addError])
 
   // Async error handling helper
-  const handleAsyncError = useCallback(async <T>(
-    promise: Promise<T>, 
+  const handleAsyncError = useCallback(async function<T>(
+    promise: Promise<T>,
     source?: string
-  ): Promise<T> => {
+  ): Promise<T> {
     try {
       return await promise
     } catch (error) {
@@ -176,10 +176,10 @@ export const ErrorProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   }, [addError])
 
   // Function wrapper with error handling
-  const withErrorHandling = useCallback(<T extends any[], R>(
+  const withErrorHandling = useCallback(function<T extends any[], R>(
     fn: (...args: T) => R | Promise<R>,
     source?: string
-  ) => {
+  ) {
     return async (...args: T): Promise<R> => {
       try {
         const result = fn(...args)
@@ -228,14 +228,14 @@ export const useError = (): ErrorContextValue => {
 export const useAsyncError = () => {
   const { handleAsyncError, addError, setLoading } = useError()
   
-  return useCallback(async <T>(
+  return useCallback(async function<T>(
     asyncFn: () => Promise<T>,
     options?: {
       source?: string
       loadingState?: boolean
       onError?: (error: Error) => void
     }
-  ): Promise<T | null> => {
+  ): Promise<T | null> {
     try {
       if (options?.loadingState) {
         setLoading(true)

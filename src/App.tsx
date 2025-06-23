@@ -8,7 +8,7 @@ import { ToastProvider } from './components/ui/Toast';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import BottomNavigation from './components/mobile/BottomNavigation';
-import PWAInstallPrompt from './components/mobile/PWAInstallPrompt';
+
 import AppLoadingScreen from './components/mobile/AppLoadingScreen';
 import MobilePerformanceMonitor from './components/mobile/MobilePerformanceMonitor';
 import Hero from './components/Hero';
@@ -133,8 +133,6 @@ function App() {
             </Router>
             <ErrorNotifications />
 
-            {/* PWA Components */}
-            <PWAInstallPrompt />
             <AppLoadingScreen
               isVisible={isAppLoading}
               onComplete={() => setIsAppLoading(false)}
